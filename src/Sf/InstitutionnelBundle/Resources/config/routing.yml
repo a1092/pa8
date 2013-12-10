@@ -1,0 +1,7 @@
+sf_institutionnel_homepage:
+    pattern:  /
+    defaults: { _controller: SfInstitutionnelBundle:Default:index }
+
+sf_institutionnel_team:
+    pattern:  /team
+    defaults: { _controller: SfInstitutionnelBundle:Default:team }

@@ -1,0 +1,7 @@
+parameters:
+#    sf_institutionnel.example.class: Sf\InstitutionnelBundle\Example
+
+services:
+#    sf_institutionnel.example:
+#        class: %sf_institutionnel.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
