@@ -629,12 +629,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
+<<<<<<< HEAD
                 "reference": "7f5134b4bf868ecbff9580d15d1fce6943240653"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/7f5134b4bf868ecbff9580d15d1fce6943240653",
                 "reference": "7f5134b4bf868ecbff9580d15d1fce6943240653",
+=======
+                "reference": "e45dcbaecd50babfbaef68cee3626e2fedff9cb1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/e45dcbaecd50babfbaef68cee3626e2fedff9cb1",
+                "reference": "e45dcbaecd50babfbaef68cee3626e2fedff9cb1",
+>>>>>>> f1cc121f36b4cd9a9b61f3e5da138bf1d1c39e16
                 "shasum": ""
             },
             "require": {
@@ -697,7 +706,11 @@
             "keywords": [
                 "rest"
             ],
+<<<<<<< HEAD
             "time": "2013-12-21 11:56:54"
+=======
+            "time": "2013-12-30 12:30:30"
+>>>>>>> f1cc121f36b4cd9a9b61f3e5da138bf1d1c39e16
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -706,12 +719,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
+<<<<<<< HEAD
                 "reference": "6596b9d754b6cb094e10470967ed7b51e2aa9e12"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/6596b9d754b6cb094e10470967ed7b51e2aa9e12",
                 "reference": "6596b9d754b6cb094e10470967ed7b51e2aa9e12",
+=======
+                "reference": "c66cb666ea98d101c3650279c545081a94e47d3e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/c66cb666ea98d101c3650279c545081a94e47d3e",
+                "reference": "c66cb666ea98d101c3650279c545081a94e47d3e",
+>>>>>>> f1cc121f36b4cd9a9b61f3e5da138bf1d1c39e16
                 "shasum": ""
             },
             "require": {
@@ -766,7 +788,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-12-16 16:36:36"
+            "time": "2013-12-30 08:57:49"
         },
         {
             "name": "incenteev/composer-parameter-handler",
