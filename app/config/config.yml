@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -72,6 +72,14 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class:    Sf\UserBundle\Entity\User
+    registration:
+        form:
+            type: sf_user_registration
+        # confirmation:
+            # enabled: true
+    # from_email:
+        # address: noreply@sofa.com
+        # sender_name: Sofa App
 
 fos_rest:
     param_fetcher_listener: true
@@ -92,5 +100,5 @@ fos_rest:
         default_format: json
 
 sensio_framework_extra:
-    view:    { annotations: false }
-    router:  { annotations: true }
+    view:
+        annotations: false

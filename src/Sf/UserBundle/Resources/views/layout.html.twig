@@ -1,0 +1,51 @@
+{# src/Sf/UserBundle/Resources/views/layout.html.twig #}
+
+{# On étend notre layout #}
+{% extends "::layout.html.twig" %}
+
+{# Dans notre layout, il faut définir le block body #}
+{% block body %}
+
+  {# On affiche les messages flash que définissent les contrôleurs du bundle #}
+  {% for key, message in app.session.flashbag.all() %}
+    <div class="alert alert-{{ key }}">
+      {{ message|trans({}, 'FOSUserBundle') }}
+    </div>
+  {% endfor %}
+
+  {# On charge la bibliothèque jQuery. Ici, je la prends depuis le site jquery.com,
+   mais si vous l'avez en local, changez simplement l'adresse. #}
+<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+
+{# Voici le script en question : #}
+<script type="text/javascript">
+$(document).ready(function() {
+  // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+  $container = $('div#fos_user_registration_form_foyers');
+
+var index = $container.find(':input').length;
+if (index == 0) {
+  ajouterFoyer($container);
+}
+
+  
+
+  // La fonction qui ajoute un formulaire Categorie
+  function ajouterFoyer($container) {
+    // Dans le contenu de l'attribut « data-prototype », on remplace :
+    // - le texte "__name__label__" qu'il contient par le label du champ
+    // - le texte "__name__" qu'il contient par le numéro du champ
+    $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, ' ')
+                                                        .replace(/__name__/g, 'Foyer'));
+
+    $container.append($prototype);
+    index++;
+  }
+});
+</script>
+
+  {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
+  {% block fos_user_content %}
+  {% endblock fos_user_content %}
+
+{% endblock %}

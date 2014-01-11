@@ -1,0 +1,4 @@
+user:
+    type: rest
+    resource: Sf\UserBundle\Controller\UserRestController
+    name_prefix:  api_

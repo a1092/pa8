@@ -2,10 +2,6 @@ sf_user:
     resource: "@SfUserBundle/Resources/config/routing.yml"
     prefix:   /
 
-sf_institutionnel:
-    resource: "@SfInstitutionnelBundle/Resources/config/routing.yml"
-    prefix:   /
-
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

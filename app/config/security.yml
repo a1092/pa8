@@ -1,53 +1,35 @@
+# app/config/security.yml
+
 security:
     encoders:
-        Sf\UserBundle\Entity\User: sha512
+        Symfony\Component\Security\Core\User\User: plaintext
+        sf\UserBundle\Entity\User: plaintext
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_USER:        [ROLE_ENFANT, ROLE_PARENT]
+        ROLE_ADMIN:       [ROLE_USER, ROLE_MOBILE]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
         main:
-            id: fos_user.user_provider.username
+            id: fos_user.user_provider.username_email
 
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-#        login:
-#            pattern:  ^/demo/secured/login$
-#            security: false
-
-#        secured_area:
-#            pattern:    ^/demo/secured/
-#            form_login:
-#                check_path: _security_check
-#                login_path: _demo_login
-#            logout:
-#                path:   _demo_logout
-#                target: _demo
-            #anonymous: ~
-            #http_basic:
-            #    realm: "Secured Demo Area"
-
         main:
-            pattern:        ^/
-            anonymous:      true
-            provider:       main
+            pattern:   ^/
+            anonymous: true
+            provider:  main
             form_login:
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
             logout:
-                path:       fos_user_security_logout
-                target:     /
+                path:   fos_user_security_logout
+                target: /
             remember_me:
-                key:        %secret%
+                key: %secret%
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
