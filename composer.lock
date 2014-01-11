@@ -62,7 +62,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -137,7 +137,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -204,7 +204,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -277,7 +277,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -592,7 +592,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -743,30 +743,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-<<<<<<< HEAD
-                "reference": "5218769bda3de4c3ee35acf53518e2285b953ab4"
+                "reference": "9eaffdd50e13fdc12ae0a2f6456bc3eb825467e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/5218769bda3de4c3ee35acf53518e2285b953ab4",
-                "reference": "5218769bda3de4c3ee35acf53518e2285b953ab4",
-=======
-<<<<<<< HEAD
-                "reference": "7f5134b4bf868ecbff9580d15d1fce6943240653"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/7f5134b4bf868ecbff9580d15d1fce6943240653",
-                "reference": "7f5134b4bf868ecbff9580d15d1fce6943240653",
-=======
-                "reference": "e45dcbaecd50babfbaef68cee3626e2fedff9cb1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/e45dcbaecd50babfbaef68cee3626e2fedff9cb1",
-                "reference": "e45dcbaecd50babfbaef68cee3626e2fedff9cb1",
->>>>>>> f1cc121f36b4cd9a9b61f3e5da138bf1d1c39e16
->>>>>>> 4830a75ad5758021e9c20232240d1a0ffc774f86
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/9eaffdd50e13fdc12ae0a2f6456bc3eb825467e1",
+                "reference": "9eaffdd50e13fdc12ae0a2f6456bc3eb825467e1",
                 "shasum": ""
             },
             "require": {
@@ -829,15 +811,7 @@
             "keywords": [
                 "rest"
             ],
-<<<<<<< HEAD
-            "time": "2014-01-06 08:07:25"
-=======
-<<<<<<< HEAD
-            "time": "2013-12-21 11:56:54"
-=======
-            "time": "2013-12-30 12:30:30"
->>>>>>> f1cc121f36b4cd9a9b61f3e5da138bf1d1c39e16
->>>>>>> 4830a75ad5758021e9c20232240d1a0ffc774f86
+            "time": "2014-01-11 13:02:54"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -846,30 +820,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-<<<<<<< HEAD
                 "reference": "0828095234a23ccf678c24ec2947743060025429"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/0828095234a23ccf678c24ec2947743060025429",
                 "reference": "0828095234a23ccf678c24ec2947743060025429",
-=======
-<<<<<<< HEAD
-                "reference": "6596b9d754b6cb094e10470967ed7b51e2aa9e12"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/6596b9d754b6cb094e10470967ed7b51e2aa9e12",
-                "reference": "6596b9d754b6cb094e10470967ed7b51e2aa9e12",
-=======
-                "reference": "c66cb666ea98d101c3650279c545081a94e47d3e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/c66cb666ea98d101c3650279c545081a94e47d3e",
-                "reference": "c66cb666ea98d101c3650279c545081a94e47d3e",
->>>>>>> f1cc121f36b4cd9a9b61f3e5da138bf1d1c39e16
->>>>>>> 4830a75ad5758021e9c20232240d1a0ffc774f86
                 "shasum": ""
             },
             "require": {
@@ -2194,7 +2150,7 @@
             ],
             "authors": [
                 {
-                    "name": "William DURAND",
+                    "name": "William Durand",
                     "email": "william.durand1@gmail.com",
                     "homepage": "http://www.willdurand.fr"
                 }
