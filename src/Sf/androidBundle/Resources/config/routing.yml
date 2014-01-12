@@ -1,0 +1,7 @@
+sfandroid_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: sfandroidBundle:Default:index }
+
+sfandroid_connexion:
+    pattern:  /connexion
+    defaults: { _controller: sfandroidBundle:Default:connexion }

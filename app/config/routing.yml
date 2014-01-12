@@ -1,3 +1,7 @@
+sfandroid:
+    resource: "@SfandroidBundle/Resources/config/routing.yml"
+    prefix:   /android
+
 rest : 
     type : rest 
     resource : "routing_rest.yml"
