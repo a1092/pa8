@@ -2,16 +2,15 @@
 
 namespace Sf\UserBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class FoyerType extends AbstractType
+class FoyerEditType extends FoyerType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text', array('required' => false, 'label' => 'Nom'));
+        parent::buildForm($builder, $options);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -21,6 +20,6 @@ class FoyerType extends AbstractType
 
     public function getName()
     {
-        return 'foyer';
+        return 'foyer_edit';
     }
 }

@@ -1,3 +1,15 @@
 sf_user_homepage:
     pattern:  /
     defaults: { _controller: SfUserBundle:Default:index }
+
+foyer_edit:
+    pattern: /foyer_edit/{id}
+    defaults: { _controller: SfUserBundle:Default:modifierFoyer }
+    requirements:
+        id:  \d+
+
+ajout_membre:
+    pattern: /ajout_membre/{id}
+    defaults: { _controller: SfUserBundle:Default:ajouterMembre }
+    requirements:
+        id:  \d+

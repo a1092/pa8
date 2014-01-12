@@ -22,11 +22,9 @@ class Foyer
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
-    private $nom;
+    private $name;
 
 
     /**
@@ -40,25 +38,24 @@ class Foyer
     }
 
     /**
-     * Set nom
+     * Set name
      *
-     * @param string $nom
-     * @return Foyer
+     * @param string $name
+     * @return User
      */
-    public function setNom($nom)
+    public function setName($name)
     {
-        $this->nom = $nom;
-
+        $this->name = $name;
         return $this;
     }
-
+    
     /**
-     * Get nom
+     * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getNom()
+    public function getName()
     {
-        return $this->nom;
+        return $this->name;
     }
 }

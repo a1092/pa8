@@ -16,6 +16,10 @@
     <div class="container">
       <div id="header" class="hero-unit">
         <a href="{{ path('sf_user_homepage') }}"><h1>Home Sweet Home</h1></a>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <h2>Bienvenue chez
+          {% if app.user.getFoyers[0].name != NULL %} {{ app.user.getFoyers[0].name }} {% else %} toi {% endif %}
+        {% endif %}
       </div>
 
       <div class="row">
@@ -24,10 +28,13 @@
           {% if app.user.image is not null %}
             <img src="{{ asset(app.user.image.webPath) }}" alt="{{ app.user.image.alt }}" /><br />
           {% endif %}
-          Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+          <ul class="nav nav-pills nav-stacked">
+          <li>Connecté en tant que {{ app.user.username }}</li>
+          <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+          </ul>
         {% else %}
           <ul class="nav nav-pills nav-stacked">
-           <li><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
+           <li><a href="{{ path('fos_user_registration_register') }}">Créer mon foyer</a></li>
             <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
           </ul>
         {% endif %}          

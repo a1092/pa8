@@ -24,39 +24,19 @@ class User extends BaseUser
     protected $id;
 	
 	/**
-	 * @ORM\Column(name="prenom", type="string", length=255)
-	 *
-	 * @Assert\NotBlank(message="Prénom :", groups={"Registration", "Profile"})
-     * @Assert\Length(
-     *     min=3,
-     *     max="255",
-     *     minMessage="Trop court",
-     *     maxMessage="Trop long",
-     *     groups={"Registration", "Profile"}
-     * )
+	 * @ORM\Column(name="firstname", type="string", length=255)
      */
-	 protected $prenom;
+	 protected $firstname;
 	 
-	 /**
-	 * @ORM\Column(name="nom", type="string", length=255)
-	 *
-	 * @Assert\NotBlank(message="Nom :", groups={"Registration", "Profile"})
-     * @Assert\Length(
-     *     min=3,
-     *     max="255",
-     *     minMessage="Trop court",
-     *     maxMessage="Trop long",
-     *     groups={"Registration", "Profile"}
-     * )
+	/**
+	 * @ORM\Column(name="lastname", type="string", length=255)
      */
-	 protected $nom;
+	 protected $lastname;
 
-     /**
-     * @ORM\Column(name="sexe", type="string", length=255)
-     *
-     * @Assert\NotBlank(message="Sexe :", groups={"Registration", "Profile"})
+    /**
+     * @ORM\Column(name="gender", type="string", length=255)
      */
-     protected $sexe;
+     protected $gender;
 
     /**
      * @ORM\OneToOne(targetEntity="Sf\UserBundle\Entity\Image", cascade={"persist"})
@@ -87,66 +67,69 @@ class User extends BaseUser
     }
 	
     /**
-     * Set prenom
+     * Set firstname
      *
-     * @return string 
+     * @param string $firstname
+     * @return User
      */
-	public function setPrenom($prenom)
+	public function setFirstname($firstname)
 	{
-		$this->prenom = $prenom;
+		$this->firstname = $firstname;
 		return $this;
 	}
 	
 	/**
-     * Get prenom
-     *
-     * @return string 
-     */
-	public function getPrenom()
-	{
-		return $this->prenom;
-	}
-	
-    /**
-     * Set nom
-     *
-     * @return string 
-     */
-	public function setNom($nom)
-	{
-		$this->nom = $nom;
-		return $this;
-	}
-	
-	/**
-     * Get prenom
-     *
-     * @return string 
-     */
-	public function getNom()
-	{
-		return $this->nom;
-	}
-
-    /**
-     * Set sexe
+     * Get firstname
      *
      * @return string
      */
-    public function setSexe($sexe)
+	public function getFirstname()
+	{
+		return $this->firstname;
+	}
+	
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     * @return User
+     */
+	public function setLastname($lastname)
+	{
+		$this->lastname = $lastname;
+		return $this;
+	}
+	
+	/**
+     * Get lastname
+     *
+     * @return string 
+     */
+	public function getLastname()
+	{
+		return $this->lastname;
+	}
+
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     * @return User
+     */
+    public function setGender($gender)
     {
-        $this->sexe = $sexe;
+        $this->gender = $gender;
         return $this;
     }
 
     /**
-     * Get sexe
+     * Get gender
      *
      * @return string
      */
-    public function getSexe()
+    public function getGender()
     {
-        return $this->sexe;
+        return $this->gender;
     }
 
     /**
@@ -172,8 +155,7 @@ class User extends BaseUser
      */
     public function addFoyer(\Sf\UserBundle\Entity\Foyer $foyer)
     {
-      // Ici, on utilise l'ArrayCollection vraiment comme un tableau, avec la syntaxe []
-      $this->foyers[] = $foyer;
+        $this->foyers[] = $foyer;
     }
 
     /**
@@ -183,8 +165,7 @@ class User extends BaseUser
      */
     public function removeFoyer(\Sf\UserBundle\Entity\Foyer $foyer)
     {
-      // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
-      $this->foyers->removeElement($foyer);
+        $this->foyers->removeElement($foyer);
     }
 
     /**
@@ -194,6 +175,6 @@ class User extends BaseUser
      */
     public function getFoyers()
     {
-      return $this->foyers;
+        return $this->foyers;
     }
 }

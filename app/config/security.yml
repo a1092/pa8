@@ -2,8 +2,8 @@
 
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
-        sf\UserBundle\Entity\User: plaintext
+        Symfony\Component\Security\Core\User\User: sha512
+        sf\UserBundle\Entity\User: sha512
 
     role_hierarchy:
         ROLE_USER:        [ROLE_ENFANT, ROLE_PARENT]
