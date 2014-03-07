@@ -1,0 +1,40 @@
+{% extends 'SfTodoBundle::layout.html.twig' %}
+
+{% block body -%}
+    <h1>Task list</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Deadline</th>
+                <th>Persons concerned</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                <td>{% if entity.deadline %}{{ entity.deadline|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% for user in entity.getUsers() %}
+                    {{ user.firstname }}
+                <br />
+                {% endfor %}</td>
+                <td>{{ entity.description }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('task_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('task_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'SfContactBundle::layout.html.twig' %}
+
+{% block body -%}
+<h3>Contact</h3>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Nom</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+        <tr>
+            <th>Catégorie</th>
+            <td>{{ entity.category }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.email }}</td>
+        </tr>
+        <tr>
+            <th>Adresse</th>
+            <td>{{ entity.address }}</td>
+        </tr>
+        <tr>
+            <th>Téléphone (fixe)</th>
+            <td>{{ entity.homePhoneNumber }}</td>
+        </tr>
+        <tr>
+            <th>Téléphone (mobile)</th>
+            <td>{{ entity.mobilePhoneNumber }}</td>
+        </tr>
+        <tr>
+            <th>Téléphone (autre)</th>
+            <td>{{ entity.otherPhoneNumber }}</td>
+        </tr>
+        <tr>
+            <th>Remarques</th>
+            <td>{{ entity.remark }}</td>
+        </tr>
+        <tr>
+            <th>Ajouté par</th>
+            <td>
+                {% for member in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %}
+                    {% if entity.addBy == member.id %}{{ member.firstname }}{% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>Date de création</th>
+            <td>{{ entity.creationDate|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Dernière modification</th>
+            <td>{{ entity.modificationDate|date('Y-m-d H:i:s') }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="{{ path('contact_edit', { 'id': entity.id }) }}">Edit</a>
+{{ form(delete_form) }}
+
+{% endblock %}

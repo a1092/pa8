@@ -1,0 +1,69 @@
+{% extends 'SfShoppingBundle::layout.html.twig' %}
+
+{% block body -%}
+<h3>Liste des courses</h3>
+
+<table class="table">
+    <tr>
+        <th>Nom de la liste</th>
+        <td>{{ entity.name }}</td>
+    </tr>
+    <tr>
+        <th>Date des courses</th>
+        <td>{{ entity.deadline|date('l d F H:i') }}</td>
+    </tr>
+    <tr>
+        <th>Créée par</th>
+        <td>
+            {% for member in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %}
+                    {% if entity.createdBy == member.id %}{{ member.firstname }}{% endif %}
+                {% endfor %}
+        </td>
+    </tr>
+    <tr>
+        <th>Date de création</th>
+        <td>{{ entity.creationDate|date('Y-m-d H:i:s') }}</td>
+    </tr>
+    <tr>
+        <th>Dernière modification</th>
+        <td>{{ entity.modificationDate|date('Y-m-d H:i:s') }}</td>
+    </tr>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Article</th>
+            <th>Quantité</th>
+            <th>Ajouté par</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                {% for article in entity.getArticles() %}
+                    {{ article.name }}
+                <br />
+                {% endfor %}
+            </td>
+            <td>
+                {% for article in entity.getArticles() %}
+                    {{ article.quantity}}
+                <br />
+                {% endfor %}
+            </td>
+            <td>
+                {% for article in entity.getArticles() %}
+                    {% for member in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %}
+                    {% if article.addBy == member.id %}{{ member.firstname }}{% endif %}
+                {% endfor %}
+                <br />
+                {% endfor %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="{{ path('shoppinglist_edit', { 'id': entity.id }) }}">Editer</a>
+{{ form(delete_form) }}
+{% endblock %}

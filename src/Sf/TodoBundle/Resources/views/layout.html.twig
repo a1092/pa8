@@ -1,0 +1,12 @@
+{% extends "::layout.html.twig" %}
+
+{% block menu_fonctionnalite -%}
+<ul class="nav nav-pills nav-stacked">
+  <li>
+    <a href="{{ path('task') }}">Voir les tâches à faire</a>
+  </li>
+  <li>
+    <a href="{{ path('task_new') }}">Créer une nouvelle tâche</a>
+  </li>
+</ul>
+{% endblock %}

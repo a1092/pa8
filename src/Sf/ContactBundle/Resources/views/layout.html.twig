@@ -1,0 +1,15 @@
+{% extends "::layout.html.twig" %}
+
+{% block menu_fonctionnalite -%}
+<ul class="nav nav-pills nav-stacked">
+  <li>
+    <a href="{{ path('contact') }}">Voir les contacts</a>
+  </li>
+  <li>
+    <a href="{{ path('contact_new') }}">Créer un nouveau contact</a>
+  </li>
+  <li>
+    <a href="{{ path('contact_search') }}">Rechercher un contact</a>
+  </li>
+</ul>
+{% endblock %}

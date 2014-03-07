@@ -1,0 +1,7 @@
+parameters:
+#    sf_todo.example.class: Sf\TodoBundle\Example
+
+services:
+#    sf_todo.example:
+#        class: %sf_todo.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

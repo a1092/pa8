@@ -1,0 +1,7 @@
+parameters:
+#    sf_shopping.example.class: Sf\ShoppingBundle\Example
+
+services:
+#    sf_shopping.example:
+#        class: %sf_shopping.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

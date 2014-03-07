@@ -1,0 +1,57 @@
+{% extends 'SfTodoBundle::layout.html.twig' %}
+
+{% block body -%}
+    <h1>Task</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>Persons concerned</th>
+                <td>{% for user in entity.getUsers() %}
+                    {{ user.firstname }}
+                <br />
+                {% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Deadline</th>
+                <td>{{ entity.deadline|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Createdby</th>
+                <td>{% for member in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %}
+                    {% if entity.createdBy == member.id %}{{ member.firstname }}{% endif %}
+                {% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Creationdate</th>
+                <td>{{ entity.creationDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Modificationdate</th>
+                <td>{{ entity.modificationDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('task') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('task_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

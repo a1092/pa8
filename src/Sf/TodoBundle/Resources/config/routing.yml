@@ -1,0 +1,34 @@
+task:
+    pattern:  /
+    defaults: { _controller: "SfTodoBundle:Task:index" }
+
+task_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "SfTodoBundle:Task:show" }
+
+task_new:
+    pattern:  /new
+    defaults: { _controller: "SfTodoBundle:Task:new" }
+
+task_create:
+    pattern:  /create
+    defaults: { _controller: "SfTodoBundle:Task:create" }
+    requirements: { _method: post }
+
+task_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "SfTodoBundle:Task:edit" }
+
+task_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "SfTodoBundle:Task:update" }
+    requirements: { _method: post|put }
+
+task_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "SfTodoBundle:Task:delete" }
+    requirements: { _method: post|delete }
+
+task_calendar:
+    pattern: /calendar
+    defaults: { _controller:"SfTodoBundle:Task:calendar" }

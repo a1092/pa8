@@ -1,0 +1,7 @@
+parameters:
+#    sf_contact.example.class: Sf\ContactBundle\Example
+
+services:
+#    sf_contact.example:
+#        class: %sf_contact.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

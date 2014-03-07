@@ -1,0 +1,12 @@
+{% extends "::layout.html.twig" %}
+
+{% block menu_fonctionnalite -%}
+<ul class="nav nav-pills nav-stacked">
+  <li>
+    <a href="{{ path('shoppinglist') }}">Voir les listes de courses</a>
+  </li>
+  <li>
+    <a href="{{ path('shoppinglist_new') }}">Créer une nouvelle liste de courses</a>
+  </li>
+</ul>
+{% endblock %}
