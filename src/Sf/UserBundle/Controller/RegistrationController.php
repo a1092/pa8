@@ -45,6 +45,9 @@ class RegistrationController extends BaseController
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
+                $user->setNumberOfConnections(0);
+                $user->setRegistrationDate(new \DateTime('now'));
+
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
@@ -52,9 +55,16 @@ class RegistrationController extends BaseController
                     $response = new RedirectResponse($url);
                 }
 
-                 //$dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+                $connectedUser = $this->container->get('security.context')->getToken()->getUser();
+                if(!is_object($connectedUser))
+                {
+                    $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+                    $user->increaseNumberOfConnections();
+                    $userManager->updateUser($user);
+                    return $this->container->get('templating')->renderResponse('FOSUserBundle::bienvenue.html.twig');
+                }
 
-				 return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.'.$this->getEngine(), array(
+                 return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.'.$this->getEngine(), array(
             'user' => $user));
                 //return $response;
             }

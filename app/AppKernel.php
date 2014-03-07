@@ -23,6 +23,9 @@ class AppKernel extends Kernel
             new Sf\InstitutionnelBundle\SfInstitutionnelBundle(),
             new Sf\UserBundle\SfUserBundle(),
             new Sf\androidBundle\SfandroidBundle(),
+            new Sf\ContactBundle\SfContactBundle(),
+            new Sf\ShoppingBundle\SfShoppingBundle(),
+            new Sf\TodoBundle\SfTodoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

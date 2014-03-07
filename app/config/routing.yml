@@ -1,11 +1,18 @@
+sf_todo:
+    resource: "@SfTodoBundle/Resources/config/routing.yml"
+    prefix:   /task
+
+sf_shopping:
+    resource: "@SfShoppingBundle/Resources/config/routing.yml"
+    prefix:   /shopping
+
 sfandroid:
     resource: "@SfandroidBundle/Resources/config/routing.yml"
     prefix:   /android
 
-rest : 
-    type : rest 
-    resource : "routing_rest.yml"
-    prefix : /api
+sf_contact:
+    resource: "@SfContactBundle/Resources/config/routing.yml"
+    prefix:   /contact
 
 sf_user:
     resource: "@SfUserBundle/Resources/config/routing.yml"

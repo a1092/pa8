@@ -6,9 +6,8 @@ security:
         sf\UserBundle\Entity\User: sha512
 
     role_hierarchy:
-        ROLE_USER:        [ROLE_ENFANT, ROLE_PARENT]
-        ROLE_ADMIN:       [ROLE_USER, ROLE_MOBILE]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
         main:
@@ -25,6 +24,8 @@ security:
             form_login:
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
+                success_handler: login_success_handler
+                use_referer: true
             logout:
                 path:   fos_user_security_logout
                 target: /

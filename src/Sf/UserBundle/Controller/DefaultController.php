@@ -15,19 +15,38 @@ class DefaultController extends Controller
         return $this->render('SfUserBundle::layout.html.twig');
     }
 
+    public function bienvenueAction()
+    {
+      $user = $this->container->get('security.context')->getToken()->getUser();
+      $user->increaseNumberOfConnections();
+
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($user);
+      $em->flush();
+
+      if ($user->getNumberOfConnections() == 1)
+      {
+        return $this->render('SfUserBundle::bienvenue.html.twig');
+      }
+      else
+      {
+        return $this->render('SfUserBundle::layout.html.twig');
+      }
+    }
+
     public function modifierFoyerAction(Foyer $foyer)
     {
-    	$form = $this->createForm(new FoyerEditType(), $foyer);
+      $form = $this->createForm(new FoyerEditType(), $foyer);
 
-    	$request = $this->getRequest();
+      $request = $this->getRequest();
 
-    	if ($request->getMethod() == 'POST') {
-      	$form->bind($request);
+      if ($request->getMethod() == 'POST') {
+        $form->bind($request);
 
-      	if ($form->isValid()) {
-	        $em = $this->getDoctrine()->getManager();
-	        $em->persist($foyer);
-	        $em->flush();
+        if ($form->isValid()) {
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($foyer);
+          $em->flush();
 
         // On définit un message flash
         $this->get('session')->getFlashBag()->add('info', 'Nom modifié');

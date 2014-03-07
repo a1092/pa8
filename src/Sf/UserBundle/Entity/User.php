@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * User
  *
  * @ORM\Table(name="sf_user")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sf\UserBundle\Entity\UserRepository")
  */
 class User extends BaseUser
 {
@@ -48,13 +48,37 @@ class User extends BaseUser
      */
     protected $foyers;
 
+    /**
+     * @ORM\Column(name="current_foyer", type="integer")
+     */
+    protected $current_foyer;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="registration_date", type="datetime")
+     */
+    protected $registrationDate;
+
+    /**
+     * @ORM\Column(name="number_of_connections", type="integer")
+     */
+    protected $numberOfConnections;
+
+    /**
+     * @ORM\Column(name="color", type="string", length=7)
+     */
+     protected $color;
+
 	 
-	 public function __construct()
+	public function __construct()
     {
         parent::__construct();
         $this->foyer = new \Doctrine\Common\Collections\ArrayCollection();
+        $current_foyer = 0;
+        $numberOfConnections = 0;
+        $registrationDate = new \DateTime('now');
     }
-
 
     /**
      * Get id
@@ -156,6 +180,15 @@ class User extends BaseUser
     public function addFoyer(\Sf\UserBundle\Entity\Foyer $foyer)
     {
         $this->foyers[] = $foyer;
+
+        $foyers = $this->foyers;
+        $count = 0;
+        foreach($foyers as $f) {
+            $count++;
+        }
+        $this->current_foyer = $count-1;
+        
+        $foyer->addUser($this);
     }
 
     /**
@@ -176,5 +209,87 @@ class User extends BaseUser
     public function getFoyers()
     {
         return $this->foyers;
+    }
+
+    /**
+     * @param Sf\UserBundle\Entity\Foyer $foyer
+     */
+    public function setCurrentFoyer(\Sf\UserBundle\Entity\Foyer $foyer)
+    {
+        $this->current_foyer = $foyer;
+    }
+
+    /**
+     * @return Sf\UserBundle\Entity\Foyer 
+     */
+    public function getCurrentFoyer()
+    {
+        return $this->current_foyer;
+    }
+
+    /**
+     * Set registrationDate
+     *
+     * @param \DateTime $registrationDate
+     * @return User
+     */
+    public function setRegistrationDate($registrationDate)
+    {
+        $this->registrationDate = $registrationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get registrationDate
+     *
+     * @return \DateTime 
+     */
+    public function getRegistrationDate()
+    {
+        return $this->registrationDate;
+    }
+
+    /**
+     * @param integer $numberOfConnections
+     */
+    public function setNumberOfConnections($numberOfConnections)
+    {
+        $this->numberOfConnections = $numberOfConnections;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getNumberOfConnections()
+    {
+        return $this->numberOfConnections;
+    }
+
+    public function increaseNumberOfConnections()
+    {
+        $this->numberOfConnections++;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     * @return User
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+        return $this;
+    }
+    
+    /**
+     * Get color
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
 }

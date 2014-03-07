@@ -19,12 +19,39 @@ class Foyer
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
-    private $name;
+    protected $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Sf\UserBundle\Entity\User", cascade={"persist"})
+     */
+    protected $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sf\ContactBundle\Entity\Contact", mappedBy="foyer")
+     */
+    protected $contacts;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sf\ShoppingBundle\Entity\ShoppingList", mappedBy="foyer", cascade={"persist"})
+     */
+    protected $shoppingLists;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sf\TodoBundle\Entity\Task", mappedBy="foyer")
+     */
+    protected $tasks;
+
+
+    public function __construct()
+    {
+        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -57,5 +84,116 @@ class Foyer
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add user
+     *
+     * @param Sf\UserBundle\Entity\User $user
+     */
+    public function addUser(\Sf\UserBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param Sf\UserBundle\Entity\User $users
+     */
+    public function removeUser(\Sf\UserBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param Sf\ContactBundle\Entity\Contact $contact
+     * @return Contact
+     */
+    public function addContact(\Sf\ContactBundle\Entity\Contact $contact)
+    {
+        $this->contacts[] = $contact;
+        $contact->setFoyer($this);
+        return $this;
+    }
+
+    /**
+     * @param Sf\ContactBundle\Entity\Contact $contact
+     */
+    public function removeContact(\Sf\ContactBundle\Entity\Contact $contact)
+    {
+        $this->contacts->removeElement($contact);
+    }
+
+    /**
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * @param Sf\ShoppingBundle\Entity\ShoppingList $shoppingList
+     * @return ShoppingList
+     */
+    public function addShoppingList(\Sf\ShoppingBundle\Entity\ShoppingList $shoppingList)
+    {
+        $this->shoppingLists[] = $shoppingList;
+        $shoppingList->setFoyer($this);
+        return $this;
+    }
+
+    /**
+     * @param Sf\ShoppingBundle\Entity\ShoppingList $shoppingList
+     */
+    public function removeShoppingList(\Sf\ShoppingBundle\Entity\ShoppingList $shoppingList)
+    {
+        $this->shoppingLists->removeElement($shoppingList);
+    }
+
+    /**
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getShoppingLists()
+    {
+        return $this->shoppingLists;
+    }
+
+    /**
+     * @param Sf\TodoBundle\Entity\Task $task
+     * @return Task
+     */
+    public function addTask(\Sf\TodoBundle\Entity\Task $task)
+    {
+        $this->tasks[] = $task;
+        $task->setFoyer($this);
+        return $this;
+    }
+
+    /**
+     * @param Sf\TodoBundle\Entity\Task $task
+     */
+    public function removeTask(\Sf\TodoBundle\Entity\Task $task)
+    {
+        $this->tasks->removeElement($task);
+    }
+
+    /**
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
     }
 }

@@ -24,6 +24,11 @@ framework:
     fragments:       ~
     http_method_override: true
 
+services:
+     login_success_handler:
+       class: Sf\UserBundle\Handler\LoginSuccessHandler
+       arguments:  [@router, @security.context]
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"

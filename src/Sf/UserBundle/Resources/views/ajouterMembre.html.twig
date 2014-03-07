@@ -3,117 +3,73 @@
 {% block body %}
 
 {% trans_default_domain 'FOSUserBundle' %}
+<form action="{{ path('ajout_membre', {'id' : app.user.getFoyers[app.user.getCurrentFoyer()].id}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
 
-<form action="{{ path('ajout_membre', {'id' : app.user.getFoyers[0].id}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
-    
-    <div>
-        <h3>Inscription</h3>
+      <div>
+            <h3>Inscription</h3>
             {{ form_errors(form) }}
-            
-            <h4><small>Utilisateur</small></h4>
+            <h4>
+                  <small>Utilisateur</small>
+            </h4>
 
-            <div class="row">
-            <div class="large-12 columns">
-            {{ form_label(form.username, "Pseudo") }}
+            <div>{{ form_label(form.username, "Pseudo") }}
             {{ form_errors(form.username) }}
-            {{ form_widget(form.username) }}
-            </div>
-            </div>
+            {{ form_widget(form.username) }}</div>
 
-            <div class="row">
-            <div class="large-12 columns">
-            {{ form_label(form.firstname, "Prénom") }}
+            <div>{{ form_label(form.firstname, "Prénom") }}
             {{ form_errors(form.firstname) }}
-            {{ form_widget(form.firstname) }}
-            </div>
-            </div>
-            
-            <div class="row">
-            <div class="large-12 columns">
-            {{ form_label(form.lastname, "Nom") }}
+            {{ form_widget(form.firstname) }}</div>
+
+            <div>{{ form_label(form.lastname, "Nom") }}
             {{ form_errors(form.lastname) }}
-            {{ form_widget(form.lastname) }}
-            </div>
-            </div>
+            {{ form_widget(form.lastname) }}</div>
 
-            <div class="row">
-            <div class="large-12 columns">
-            {{ form_label(form.email, "Email") }}
+            <div>{{ form_label(form.email, "Email") }}
             {{ form_errors(form.email) }}
-            {{ form_widget(form.email) }}
-            </div>
-            </div>
-            
-            <div class="row">
-            <div class="large-12 columns">
-            {{ form_label(form.plainPassword.first, "Mot de passe") }}
+            {{ form_widget(form.email) }}</div>
+
+            <div>{{ form_label(form.plainPassword.first, "Mot de passe") }}
             {{ form_errors(form.plainPassword.first) }}
-            {{ form_widget(form.plainPassword.first) }}
-            </div>
-            </div>
-            
-            <div class="row">
-            <div class="large-12 columns">
-            {{ form_label(form.plainPassword.second, "Mot de passe (confirmation)") }}
+            {{ form_widget(form.plainPassword.first) }}</div>
+        
+
+            <div>{{ form_label(form.plainPassword.second, "Mot de passe (confirmation)") }}
             {{ form_errors(form.plainPassword.second) }}
-            {{ form_widget(form.plainPassword.second) }}
-            </div>
-            </div>
+            {{ form_widget(form.plainPassword.second) }}</div>
 
-            <div class="row">
-            <div class="large-12 columns">
-            {{ form_label(form.gender, "Sexe") }}
+            <div>{{ form_label(form.gender, "Sexe") }}
             {{ form_errors(form.gender) }}
-            {{ form_widget(form.gender) }}
-            </div>
-            </div>
+            {{ form_widget(form.gender) }}</div>
 
-            <div class="row">
-            <div class="large-12 columns">
-            {{ form_label(form.image, "Image") }}
+            <div>{{ form_label(form.image, "Image") }}
             {{ form_errors(form.image) }}
-            {{ form_widget(form.image) }}
-            </div>
-            </div>
-
-            {#<h4><small>Foyer</small></h4>#}
+            {{ form_widget(form.image) }}</div>
+            
 
             <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 
-			<script type="text/javascript">
-				$(document).ready(function() {
-				  // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-				  $container = $('div#fos_user_registration_form_foyers');
+            <script type="text/javascript">
+                        $(document).ready(function() {
+                          $container = $('div#fos_user_registration_form_foyers');
 
-				var index = $container.find(':input').length;
-				if (index == 0) {
-				  ajouterFoyer($container);
-				}
+                        var index = $container.find(':input').length;
+                        if (index == 0) {
+                          ajouterFoyer($container);
+                        }
+                        
+                          function ajouterFoyer($container) {
+                            $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, ' ')
+                                                                                .replace(/__name__/g, 'Nom'));
 
-				  
-
-				  // La fonction qui ajoute un formulaire Categorie
-				  function ajouterFoyer($container) {
-				    // Dans le contenu de l'attribut « data-prototype », on remplace :
-				    // - le texte "__name__label__" qu'il contient par le label du champ
-				    // - le texte "__name__" qu'il contient par le numéro du champ
-				    $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, ' ')
-				                                                        .replace(/__name__/g, 'Nom'));
-
-				    $container.append($prototype);
-				    index++;
-				  }
-				});
-			</script>
-            
+                            $container.append($prototype);
+                            index++;
+                          }
+                        });
+                  </script>
             {{ form_rest(form) }}
-            <div class="row">
-            <div class="large-12 columns">
-     <input type="submit" value="{{ 'Inscription'|trans }}" class="button" />
-     </div>
-     </div>
-    </div>
-    {{ form_widget(form) }}
-</form>
+            <input type="submit" value="{{ 'Inscription'|trans }}" class="btn btn-default" />
 
+      </div>
+      {{ form_widget(form) }}
+</form>
 {% endblock %}
