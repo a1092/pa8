@@ -1,15 +1,31 @@
-{% extends 'SfTodoBundle::layout.html.twig' %}
+{% extends visible == '1' 
+    ? 'SfTodoBundle::layout.html.twig' 
+    : 'SfTodoBundle::layoutCalendar.html.twig' %}
 
 {% block body -%}
+	{% if visible == 1 %}
     <h1>Task creation</h1>
+    {% else %}
+    <h1>Event creation</h1>
+    {% endif %}
 
-    {{ form(form) }}
+    <form action="{{ path('task_new', {'visible' : visible }) }}" method="post">
+    	{{ form_rest(form) }}
+    	<input type="submit" value="Créer" />
+  	</form>
 
-        <ul class="record_actions">
+  {% if visible == 1 %}
     <li>
         <a href="{{ path('task') }}">
             Back to the list
         </a>
     </li>
-</ul>
+    {% else %}
+	<li>
+        <a href="{{ path('task_calendar') }}">
+            Back to the calendar
+        </a>
+    </li>
+	{% endif %}
+
 {% endblock %}

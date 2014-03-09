@@ -23,6 +23,8 @@ class ContactController extends Controller
      */
     public function indexAction()
     {
+        $search = $this->createForm(new SearchContactType());
+
         $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
 
@@ -31,71 +33,50 @@ class ContactController extends Controller
 
         return $this->render('SfContactBundle:Contact:index.html.twig', array(
             'entities' => $entities,
+            'search'   => $search->createView(),
         ));
     }
     /**
      * Creates a new Contact entity.
      *
      */
-    public function createAction(Request $request)
-    {
-        $entity = new Contact();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $user = $this->container->get('security.context')->getToken()->getUser();
-            $foyers = $user->getFoyers();
-
-            $entity->setCreationDate(new \DateTime());
-            $entity->setModificationDate(new \DateTime());
-            $entity->setAddBy($user->getId());
-            $foyers[$user->getCurrentFoyer()]->addContact($entity);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('contact_show', array('id' => $entity->getId())));
-        }
-
-        return $this->render('SfContactBundle:Contact:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-
-    /**
-    * Creates a form to create a Contact entity.
-    *
-    * @param Contact $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(Contact $entity)
-    {
-        $form = $this->createForm(new ContactType(), $entity, array(
-            'action' => $this->generateUrl('contact_create'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
-
-    /**
-     * Displays a form to create a new Contact entity.
-     *
-     */
     public function newAction()
     {
-        $entity = new Contact();
-        $form   = $this->createCreateForm($entity);
+        $entity = new Contact;
 
+        // On crée le formulaire grâce à l'ArticleType
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $foyers = $user->getFoyers();
+        $form = $this->createForm(new ContactType, $entity);
+
+        // On récupère la requête
+        $request = $this->get('request');
+
+        // On vérifie qu'elle est de type POST
+        if ($request->getMethod() == 'POST') {
+          // On fait le lien Requête <-> Formulaire
+          $form->bind($request);
+
+            if ($form->isValid()) {
+
+                $entity->setCreationDate(new \DateTime());
+                $entity->setModificationDate(new \DateTime());
+                $entity->setAddBy($user->getId());
+                $foyers[$user->getCurrentFoyer()]->addContact($entity);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('contact_show', array('id' => $entity->getId())));
+            }
+        }
+
+        $search = $this->createForm(new SearchContactType());
         return $this->render('SfContactBundle:Contact:new.html.twig', array(
-            'entity' => $entity,
             'form'   => $form->createView(),
+            'search'   => $search->createView(),
         ));
+
     }
 
     /**
@@ -115,11 +96,10 @@ class ContactController extends Controller
             throw $this->createNotFoundException('Unable to find Contact entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
+        $search = $this->createForm(new SearchContactType());
         return $this->render('SfContactBundle:Contact:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'search'   => $search->createView(),
         ));
     }
 
@@ -163,68 +143,26 @@ class ContactController extends Controller
 
             return $this->render('SfContactBundle:Contact:index.html.twig', array(
             'entities' => $entities,
+            'search'   => $form->createView(),
         ));
         }
         }
 
         else {
-            return $this->render('SfContactBundle:Contact:search.html.twig', array(
-            'form'   => $form->createView(),
+            return $this->render('SfContactBundle:Contact:index.html.twig', array(
+            'search'   => $form->createView(),
         ));
         }
     }
 
-    /**
-     * Displays a form to edit an existing Contact entity.
-     *
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $foyers = $user->getFoyers();
-
-        $entity = $em->getRepository('SfContactBundle:Contact')->findOneBy(array('id' => $id, 'foyer' => $foyers[$user->getCurrentFoyer()]));
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Contact entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('SfContactBundle:Contact:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-    * Creates a form to edit a Contact entity.
-    *
-    * @param Contact $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Contact $entity)
-    {
-        $form = $this->createForm(new ContactType(), $entity, array(
-            'action' => $this->generateUrl('contact_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
     /**
      * Edits an existing Contact entity.
      *
      */
-    public function updateAction(Request $request, $id)
+    public function editAction($id)
     {
+        $search = $this->createForm(new SearchContactType());
+        
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -236,65 +174,62 @@ class ContactController extends Controller
             throw $this->createNotFoundException('Unable to find Contact entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+        $form = $this->createForm(new ContactType(), $entity);
+        $request = $this->getRequest();
 
-        if ($editForm->isValid()) {
-            $entity->setModificationDate(new \DateTime());
-            $em->flush();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
 
-            return $this->redirect($this->generateUrl('contact_show', array('id' => $entity->getId())));
+            if ($form->isValid()) {
+                $entity->setModificationDate(new \DateTime());
+                $em->persist($entity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('contact_show', array('id' => $entity->getId(), 'search'   => $search->createView())));
+            }
         }
 
         return $this->render('SfContactBundle:Contact:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form' => $form->createView(),
+            'search'   => $search->createView(),
         ));
     }
     /**
      * Deletes a Contact entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Contact $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $search = $this->createForm(new SearchContactType());
+        $form = $this->createFormBuilder()->getForm();
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
 
-            $user = $this->container->get('security.context')->getToken()->getUser();
-            $foyers = $user->getFoyers();
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $user = $this->container->get('security.context')->getToken()->getUser();
+                $foyers = $user->getFoyers();
 
-            $entity = $em->getRepository('SfContactBundle:Contact')->findOneBy(array('id' => $id, 'foyer' => $foyers[$user->getCurrentFoyer()]));
+                $entity = $em->getRepository('SfContactBundle:Contact')->findOneBy(array('id' => $id, 'foyer' => $foyers[$user->getCurrentFoyer()]));
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Contact entity.');
+                if (!$entity) {
+                    throw $this->createNotFoundException('Unable to find Contact entity.');
+                }
+
+                $em->remove($entity);
+                $em->flush();
+                return $this->redirect($this->generateUrl('contact', array('search'   => $search->createView())));
             }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('contact'));
     }
+    
+    return $this->render('SfContactBundle:Contact:supprimer.html.twig', array(
+      'entity' => $id,
+      'form'    => $form->createView(),
+      'search'   => $search->createView(),
+    ));
 
-    /**
-     * Creates a form to delete a Contact entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('contact_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
     }
 }

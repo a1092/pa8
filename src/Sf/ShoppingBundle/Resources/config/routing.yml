@@ -10,21 +10,22 @@ shoppinglist_new:
     pattern:  /new
     defaults: { _controller: "SfShoppingBundle:ShoppingList:new" }
 
-shoppinglist_create:
-    pattern:  /create
-    defaults: { _controller: "SfShoppingBundle:ShoppingList:create" }
-    requirements: { _method: post }
-
 shoppinglist_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "SfShoppingBundle:ShoppingList:edit" }
 
-shoppinglist_update:
-    pattern:  /{id}/update
-    defaults: { _controller: "SfShoppingBundle:ShoppingList:update" }
-    requirements: { _method: post|put }
-
 shoppinglist_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "SfShoppingBundle:ShoppingList:delete" }
-    requirements: { _method: post|delete }
+
+article_new:
+    pattern: /{id}/{page}/new
+    defaults: { _controller: "SfShoppingBundle:Article:new" }
+
+article_edit:
+    pattern: /{id}/editA
+    defaults: { _controller: "SfShoppingBundle:Article:edit" }
+
+article_delete:
+    pattern: /{id}/deleteA
+    defaults: { _controller: "SfShoppingBundle:Article:delete" }

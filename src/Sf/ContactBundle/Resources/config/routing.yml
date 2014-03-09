@@ -10,24 +10,13 @@ contact_new:
     pattern:  /new
     defaults: { _controller: "SfContactBundle:Contact:new" }
 
-contact_create:
-    pattern:  /create
-    defaults: { _controller: "SfContactBundle:Contact:create" }
-    requirements: { _method: post }
-
 contact_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "SfContactBundle:Contact:edit" }
 
-contact_update:
-    pattern:  /{id}/update
-    defaults: { _controller: "SfContactBundle:Contact:update" }
-    requirements: { _method: post|put }
-
 contact_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "SfContactBundle:Contact:delete" }
-    requirements: { _method: post|delete }
 
 contact_search:
     pattern:  /search

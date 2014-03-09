@@ -1,7 +1,13 @@
-{% extends 'SfTodoBundle::layout.html.twig' %}
+{% extends entity.visible == '1' 
+    ? 'SfTodoBundle::layout.html.twig' 
+    : 'SfTodoBundle::layoutCalendar.html.twig' %}
 
 {% block body -%}
+    {% if entity.visible == 1 %}
     <h1>Task</h1>
+    {% else %}
+    <h1>Event</h1>
+    {% endif %}
 
     <table class="table">
         <tbody>
@@ -22,7 +28,7 @@
             </tr>
             <tr>
                 <th>Description</th>
-                <td>{{ entity.description }}</td>
+                <td>{{ entity.description|nl2br }}</td>
             </tr>
             <tr>
                 <th>Createdby</th>
@@ -42,16 +48,26 @@
     </table>
 
         <ul class="record_actions">
-    <li>
-        <a href="{{ path('task') }}">
-            Back to the list
-        </a>
-    </li>
+    {% if entity.visible == 1 %}
+        <li>
+            <a href="{{ path('task') }}">
+                Back to the list
+            </a>
+        </li>
+    {% else %}
+        <li>
+            <a href="{{ path('task_calendar') }}">
+                Back to the calendar
+            </a>
+        </li>
+    {% endif %}
     <li>
         <a href="{{ path('task_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    <li><a href="{{ path('task_delete', { 'id': entity.id }) }}">
+            Supprimer
+        </a></li>
 </ul>
 {% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'SfShoppingBundle::layout.html.twig' %}
+
+{% block body -%}
+<h3>Edition article</h3>
+
+<form action="{{ path('article_edit', { 'id': entity.id }) }}" method="post" >
+
+{{ form_errors(form) }}
+
+<div>
+  {{ form_label(form.name, "Nom") }}
+  {{ form_errors(form.name) }}
+  {{ form_widget(form.name) }}
+</div>
+
+<div>
+  {{ form_label(form.quantity, "Quantité") }}
+  {{ form_errors(form.quantity) }}
+  {{ form_widget(form.quantity) }}
+</div>
+
+{{ form_rest(form) }}
+
+<input type="submit" value="Modifier" />
+
+</form>
+
+{% endblock %}

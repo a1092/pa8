@@ -15,7 +15,7 @@ class TaskType extends AbstractType
         $this->foyerId=$foyerId;
     }
 
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -30,13 +30,6 @@ class TaskType extends AbstractType
             ->add('users', 'entity', array(
                     'class'    => 'SfUserBundle:User',
                     'property' => 'firstname',
-                    /*'query_builder' => function(EntityRepository $er) use ($foyerId) {
-                                          return $er->createQueryBuilder('s')
-                                                    ->from('SfUserBundle:User', 's')
-                                                    ->where('s.foyer = :foyer')
-                                                    ->setParameter('foyer', $foyerId);
-
-                                          },*/
                     'query_builder' => function(UserRepository $r) use($foyerId) {
                         return $r->getSelectList($foyerId);},
                     'multiple' => true)

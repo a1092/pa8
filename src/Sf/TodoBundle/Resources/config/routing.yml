@@ -6,14 +6,13 @@ task_show:
     pattern:  /{id}/show
     defaults: { _controller: "SfTodoBundle:Task:show" }
 
-task_new:
-    pattern:  /new
-    defaults: { _controller: "SfTodoBundle:Task:new" }
+task_showEvent:
+    pattern:  /{id}/showEvent
+    defaults: { _controller: "SfTodoBundle:Task:showEvent" }
 
-task_create:
-    pattern:  /create
-    defaults: { _controller: "SfTodoBundle:Task:create" }
-    requirements: { _method: post }
+task_new:
+    pattern:  /{visible}/new
+    defaults: { _controller: "SfTodoBundle:Task:new" }
 
 task_edit:
     pattern:  /{id}/edit
@@ -27,8 +26,15 @@ task_update:
 task_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "SfTodoBundle:Task:delete" }
-    requirements: { _method: post|delete }
 
 task_calendar:
     pattern: /calendar
     defaults: { _controller:"SfTodoBundle:Task:calendar" }
+
+task_showCalendarPrevious:
+    pattern:  /{month}/{year}/previous
+    defaults: { _controller: "SfTodoBundle:Task:CalendarPrevious" }
+
+task_showCalendarNext:
+    pattern:  /{month}/{year}/next
+    defaults: { _controller: "SfTodoBundle:Task:CalendarNext" }

@@ -1,0 +1,36 @@
+<!-- Le menu du haut pour accéder aux fonctionnalités -->
+  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+  <div class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="{{ path('sf_user_homepage') }}">Home</a>
+      </li>
+      <li>
+        <a href="{{ path('chat') }}">Conversation</a>
+        {% set nb_new = 0 %}
+        {% for m in app.user.getNotSeenMessages() %}{% set nb_new = nb_new+1 %}{% endfor %}
+        {% if nb_new != 0 %}NEW{% endif %}
+      </li>
+      <li>
+        <a href="{{ path('task_calendar') }}">Calendar</a>
+      </li>
+      <li>
+        <a href="{{ path('shoppinglist') }}">Listes des courses</a>
+      </li>
+      <li>
+        <a href="{{ path('task') }}">To do</a>
+      </li>
+      <li>
+        <a href="{{ path('loan') }}">Loans</a>
+      </li>
+      <li>
+        <a href="{{ path('contact') }}">Contacts</a>
+      </li>
+    </ul>
+    <ul class ="nav navbar-nav navbar-right">
+      <li>
+        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+      </li>
+    </ul>
+  </div>
+  {% endif %}

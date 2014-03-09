@@ -35,7 +35,7 @@
         </tr>
         <tr>
             <th>Remarques</th>
-            <td>{{ entity.remark }}</td>
+            <td>{{ entity.remark|nl2br }}</td>
         </tr>
         <tr>
             <th>Ajouté par</th>
@@ -57,6 +57,6 @@
 </table>
 
 <a href="{{ path('contact_edit', { 'id': entity.id }) }}">Edit</a>
-{{ form(delete_form) }}
+<a href="{{ path('contact_delete', { 'id': entity.id }) }}">Delete</a>
 
 {% endblock %}

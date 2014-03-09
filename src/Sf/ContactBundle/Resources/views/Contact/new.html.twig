@@ -3,6 +3,61 @@
 {% block body -%}
 
 <h3>Nouveau contact</h3>
-{{ form(form) }}
+<form action="{{ path('contact_new') }}" method="post" {{ form_enctype(form) }}>
+
+{{ form_errors(form) }}
+
+<div>
+  {{ form_label(form.name, "Nom") }}
+  {{ form_errors(form.name) }}
+  {{ form_widget(form.name) }}
+</div>
+
+<div>
+  {{ form_label(form.category, "Catégorie") }}
+  {{ form_errors(form.category) }}
+  {{ form_widget(form.category) }}
+</div>
+
+<div>
+  {{ form_label(form.email, "E-mail") }}
+  {{ form_errors(form.email) }}
+  {{ form_widget(form.email) }}
+</div>
+
+<div>
+  {{ form_label(form.address, "Adresse") }}
+  {{ form_errors(form.address) }}
+  {{ form_widget(form.address) }}
+</div>
+
+<div>
+  {{ form_label(form.homePhoneNumber, "Téléphone maison") }}
+  {{ form_errors(form.homePhoneNumber) }}
+  {{ form_widget(form.homePhoneNumber) }}
+</div>
+
+<div>
+  {{ form_label(form.mobilePhoneNumber, "Téléphone mobile") }}
+  {{ form_errors(form.mobilePhoneNumber) }}
+  {{ form_widget(form.mobilePhoneNumber) }}
+</div>
+
+<div>
+  {{ form_label(form.otherPhoneNumber, "Téléphone autre") }}
+  {{ form_errors(form.otherPhoneNumber) }}
+  {{ form_widget(form.otherPhoneNumber) }}
+</div>
+
+<div>
+  {{ form_label(form.remark, "Remarque") }}
+  {{ form_errors(form.remark) }}
+  {{ form_widget(form.remark) }}
+</div>
+{{ form_rest(form) }}
+
+<input type="submit" value="Créer" />
+
+</form>
 
 {% endblock %}

@@ -1,0 +1,19 @@
+loan:
+    pattern:  /
+    defaults: { _controller: "SfLoanBundle:Loan:index" }
+
+loan_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "SfLoanBundle:Loan:show" }
+
+loan_new:
+    pattern:  /new
+    defaults: { _controller: "SfLoanBundle:Loan:new" }
+
+loan_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "SfLoanBundle:Loan:edit" }
+
+loan_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "SfLoanBundle:Loan:delete" }

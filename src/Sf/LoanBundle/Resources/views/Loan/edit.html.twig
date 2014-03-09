@@ -1,0 +1,26 @@
+{% extends 'SfLoanBundle::layout.html.twig' %}
+
+{% block body -%}
+    <h1>Loan edit</h1>
+
+    <form action="{{ path('loan_edit', { 'id': entity.id }) }}" method="post" >
+
+{{ form_errors(form) }}
+
+{{ form_rest(form) }}
+
+<input type="submit" value="Editer" />
+
+</form>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('loan') }}">
+            Back to the list
+        </a>
+    </li>
+     <li><a href="{{ path('loan_delete', { 'id': entity.id }) }}">
+            Supprimer
+        </a></li>
+</ul>
+{% endblock %}

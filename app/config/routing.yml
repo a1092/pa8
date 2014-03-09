@@ -1,3 +1,11 @@
+sf_chat:
+    resource: "@SfChatBundle/Resources/config/routing.yml"
+    prefix:   /chat
+
+sf_loan:
+    resource: "@SfLoanBundle/Resources/config/routing.yml"
+    prefix:   /loan
+
 sf_todo:
     resource: "@SfTodoBundle/Resources/config/routing.yml"
     prefix:   /task

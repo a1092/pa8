@@ -8,8 +8,19 @@
   <li>
     <a href="{{ path('contact_new') }}">Créer un nouveau contact</a>
   </li>
-  <li>
-    <a href="{{ path('contact_search') }}">Rechercher un contact</a>
-  </li>
+  
+  <form action="{{ path('contact_search') }}" method="post" >
+
+{{ form_errors(search) }}
+
+<div>
+  {{ form_label(search.recherche, "Recherche") }}
+  {{ form_errors(search.recherche) }}
+  {{ form_widget(search.recherche) }}
+</div>
+{{ form_rest(search) }}
+<input type="submit" value="Recherche" />
+
+</form>
 </ul>
 {% endblock %}

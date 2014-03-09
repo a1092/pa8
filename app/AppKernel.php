@@ -26,6 +26,8 @@ class AppKernel extends Kernel
             new Sf\ContactBundle\SfContactBundle(),
             new Sf\ShoppingBundle\SfShoppingBundle(),
             new Sf\TodoBundle\SfTodoBundle(),
+            new Sf\LoanBundle\SfLoanBundle(),
+            new Sf\ChatBundle\SfChatBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

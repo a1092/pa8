@@ -1,0 +1,34 @@
+{% extends entity.visible == '1' 
+    ? 'SfTodoBundle::layout.html.twig' 
+    : 'SfTodoBundle::layoutCalendar.html.twig' %}
+
+{% block body %}
+{% if entity.visible == 1 %}
+    <h1>Supprimer une tâche</h1>
+    <p>
+    Etes-vous certain de vouloir supprimer la tâche
+    {% else %}
+    <h1>Supprimer un évenement</h1>
+    <p>
+    Etes-vous certain de vouloir supprimer l'event
+    {% endif %}
+
+  "{{ entity.name }}" ?
+  </p>
+
+    {% if entity.visible == 1 %}
+            <a href="{{ path('task') }}">
+                Back to the list
+            </a>
+    {% else %}
+            <a href="{{ path('task_calendar') }}">
+                Back to the calendar
+            </a>
+    {% endif %}
+
+    <form action="{{ path('task_delete', {'id': entity.id}) }}" method="post">
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
+
+{% endblock %}

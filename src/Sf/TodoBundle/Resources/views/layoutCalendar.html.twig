@@ -1,0 +1,12 @@
+{% extends "::layout.html.twig" %}
+
+{% block menu_fonctionnalite -%}
+<ul class="nav nav-pills nav-stacked">
+  <li>
+    <a href="{{ path('task_calendar') }}">Voir le calendrier</a>
+  </li>
+  <li>
+    <a href="{{ path('task_new', { 'visible': '0' }) }}">Créer un nouvel évenement</a>
+  </li>
+</ul>
+{% endblock %}

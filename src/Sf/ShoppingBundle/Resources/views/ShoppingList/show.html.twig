@@ -10,7 +10,7 @@
     </tr>
     <tr>
         <th>Date des courses</th>
-        <td>{{ entity.deadline|date('l d F H:i') }}</td>
+        <td>{% if entity.deadline != null %}{{ entity.deadline|date('l d F H:i') }}{% endif %}</td>
     </tr>
     <tr>
         <th>Créée par</th>
@@ -35,6 +35,7 @@
             <th>Article</th>
             <th>Quantité</th>
             <th>Ajouté par</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -60,10 +61,40 @@
                 <br />
                 {% endfor %}
             </td>
+            <td>
+            {% for article in entity.getArticles() %}
+                <a href="{{ path('article_edit', { 'id': article.id }) }}">edit</a>
+                <a href="{{ path('article_delete', { 'id': article.id }) }}">delete</a>
+                <br />
+            {% endfor %}
+            </td>
         </tr>
+        <tr>
+        <form action="{{ path('article_new', { 'id': entity.id, 'page' : 'show'}) }}" method="post" {{ form_enctype(form) }}>
+
+                {{ form_errors(form) }}
+
+                <td>
+                  {{ form_label(form.name, "Nom") }}
+                  {{ form_errors(form.name) }}
+                  {{ form_widget(form.name) }}
+                </td>
+
+                <td>
+                  {{ form_label(form.quantity, "Quantité") }}
+                  {{ form_errors(form.quantity) }}
+                  {{ form_widget(form.quantity) }}
+                </td>
+                {{ form_rest(form) }}
+                <td><input type="submit" value="Ajouter" class="btn btn-primary" /></td>
+
+            </form>
+            </tr>
     </tbody>
 </table>
 
 <a href="{{ path('shoppinglist_edit', { 'id': entity.id }) }}">Editer</a>
-{{ form(delete_form) }}
+ <li><a href="{{ path('shoppinglist_delete', { 'id': entity.id }) }}">
+            Supprimer
+        </a></li>
 {% endblock %}

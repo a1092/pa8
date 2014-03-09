@@ -70,6 +70,21 @@ class User extends BaseUser
      */
      protected $color;
 
+     /**
+     * @ORM\OneToMany(targetEntity="Sf\LoanBundle\Entity\Loan", mappedBy="borrower", cascade={"persist"})
+     */
+    protected $borrowedThings;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sf\LoanBundle\Entity\Loan", mappedBy="lender", cascade={"persist"})
+     */
+    protected $lentThings;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Sf\ChatBundle\Entity\Message", cascade={"persist"})
+     */
+    protected $notSeenMessages;
+
 	 
 	public function __construct()
     {
@@ -291,5 +306,89 @@ class User extends BaseUser
     public function getColor()
     {
         return $this->color;
+    }
+
+    /**
+     * @param Sf\LoanBundle\Entity\Loan $borrowedThing
+     * @return Loan
+     */
+    public function addBorrowedThing(\Sf\LoanBundle\Entity\Loan $borrowedThing)
+    {
+        $this->borrowedThings[] = $borrowedThing;
+        $borrowedThing->setBorrower($this);
+        return $this;
+    }
+
+    /**
+     * @param Sf\LoanBundle\Entity\Loan $borrowedThing
+     */
+    public function removeBorrowedThing(\Sf\LoanBundle\Entity\Loan $borrowedThing)
+    {
+        $this->borrowedThings->removeElement($borrowedThing);
+    }
+
+    /**
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getBorrowedThings()
+    {
+        return $this->borrowedThings;
+    }
+
+    /**
+     * @param Sf\LoanBundle\Entity\Loan $lentThing
+     * @return Loan
+     */
+    public function addLentThing(\Sf\LoanBundle\Entity\Loan $lentThing)
+    {
+        $this->lentThings[] = $lentThing;
+        $lentThing->setLender($this);
+        return $this;
+    }
+
+    /**
+     * @param Sf\LoanBundle\Entity\Loan $lentThing
+     */
+    public function removeLentThing(\Sf\LoanBundle\Entity\Loan $lentThing)
+    {
+        $this->lentThings->removeElement($lentThing);
+    }
+
+    /**
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getLentThings()
+    {
+        return $this->lentThings;
+    }
+
+    /**
+     * Add notSeenMessage
+     *
+     * @param Sf\ChatBundle\Entity\Message $notSeenMessage
+     */
+    public function addNotSeenMessage(\Sf\ChatBundle\Entity\Message $notSeenMessage)
+    {
+        $this->notSeenMessages[] = $notSeenMessage;
+    }
+
+    /**
+     * Remove notSeenMessage
+     *
+     * @param Sf\ChatBundle\Entity\Message $notSeenMessage
+     */
+    public function removeNotSeenMessage(\Sf\ChatBundle\Entity\Message $notSeenMessage)
+    {
+        $this->notSeenMessages->removeElement($notSeenMessage);
+    }
+
+    /**
+     * Get notSeenMessages
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getNotSeenMessages()
+    {
+        return $this->notSeenMessages;
     }
 }

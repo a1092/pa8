@@ -46,6 +46,16 @@ class Foyer
      */
     protected $tasks;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sf\LoanBundle\Entity\Loan", mappedBy="foyer")
+     */
+    protected $loans;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sf\ChatBundle\Entity\Message", mappedBy="foyer")
+     */
+    protected $messages;
+
 
     public function __construct()
     {
@@ -195,5 +205,59 @@ class Foyer
     public function getTasks()
     {
         return $this->tasks;
+    }
+
+    /**
+     * @param Sf\LoanBundle\Entity\Loan $loan
+     * @return Loan
+     */
+    public function addLoan(\Sf\LoanBundle\Entity\Loan $loan)
+    {
+        $this->loans[] = $loan;
+        $loan->setFoyer($this);
+        return $this;
+    }
+
+    /**
+     * @param Sf\LoanBundle\Entity\Loan $loan
+     */
+    public function removeLoan(\Sf\LoanBundle\Entity\Loan $loan)
+    {
+        $this->loans->removeElement($loan);
+    }
+
+    /**
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getLoans()
+    {
+        return $this->loans;
+    }
+
+    /**
+     * @param Sf\ChatBundle\Entity\Message $message
+     * @return Message
+     */
+    public function addMessage(\Sf\ChatBundle\Entity\Message $message)
+    {
+        $this->messages[] = $message;
+        $message->setFoyer($this);
+        return $this;
+    }
+
+    /**
+     * @param Sf\ChatBundle\Entity\Message $message
+     */
+    public function removeMessage(\Sf\ChatBundle\Entity\Message $message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }

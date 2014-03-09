@@ -1,0 +1,35 @@
+{% extends 'SfLoanBundle::layout.html.twig' %}
+
+{% block body -%}
+    <h1>Loan list</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Machin a prêté (lender)</th>
+                <th>Quoi</th>
+                <th>A qui (borrower)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.lender }}</td>
+                <td>{{ entity.item }}</td>
+                <td>{{ entity.borrower }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('loan_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('loan_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}

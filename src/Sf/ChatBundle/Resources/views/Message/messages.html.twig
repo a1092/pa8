@@ -1,0 +1,48 @@
+{% if newMessages is defined %}
+{% for entity in newMessages %}
+        <div class="row">
+                <div class="col-md-2">
+                    {% for member in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %}
+                    {% if entity.sentBy == member.id %}
+                        {{ member.firstname }}{% endif %}
+                     {% endfor %}
+                </div>
+                <div class="col-md-8">
+<b>
+
+
+                {% if entity.notSeen != 0 %}
+                <i>{{ entity.content|nl2br }}</i>
+                {%else%}
+                {{ entity.content }}
+                {%endif%}
+</b>
+
+                </div>
+                <div class="col-md-2">{{ entity.sentDate|date('j-F H:i:s') }}</div>
+            </div>
+        {% endfor %}
+        {% endif %}
+
+{% if oldMessages is defined %}
+        {% for entity in oldMessages %}
+        <div class="row">
+                <div class="col-md-2">
+                    {% for member in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %}
+                    {% if entity.sentBy == member.id %}
+                        {{ member.firstname }}{% endif %}
+                     {% endfor %}
+                </div>
+                <div class="col-md-8">
+                {% if entity.notSeen != 0 %}
+                <i>{{ entity.content }}</i>
+                {%else%}
+                {{ entity.content }}
+                {%endif%}
+
+
+                </div>
+                <div class="col-md-2">{{ entity.sentDate|date('j-F H:i:s') }}</div>
+            </div>
+        {% endfor %}
+        {% endif %}

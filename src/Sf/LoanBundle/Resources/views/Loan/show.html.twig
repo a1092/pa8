@@ -1,0 +1,52 @@
+{% extends 'SfLoanBundle::layout.html.twig' %}
+
+{% block body -%}
+    <h1>Loan</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Machin a prêté (lender)</th>
+                <td>{{ entity.lender }}</td>
+            </tr>
+            <tr>
+                <th>Quoi</th>
+                <td>{{ entity.item }}</td>
+            </tr>
+            <tr>
+                <th>A qui (borrower)</th>
+                <td>{{ entity.borrower }}</td>
+            </tr>
+            <tr>
+                <th>Createdby</th>
+                <td>{% for member in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %}
+                    {% if entity.createdBy == member.id %}{{ member.firstname }}{% endif %}
+                {% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Creationdate</th>
+                <td>{{ entity.creationDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Modificationdate</th>
+                <td>{{ entity.modificationDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+        <li>
+            <a href="{{ path('loan') }}">
+                Back to the list
+            </a>
+        </li>
+    <li>
+        <a href="{{ path('loan_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li><a href="{{ path('loan_delete', { 'id': entity.id }) }}">
+            Supprimer
+        </a></li>
+</ul>
+{% endblock %}

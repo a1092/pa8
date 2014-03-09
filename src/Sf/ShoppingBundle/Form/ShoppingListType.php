@@ -18,9 +18,6 @@ class ShoppingListType extends AbstractType
         $builder
             ->add('name')
             ->add('deadline', 'datetime', array('required' => false, 'data' => new \DateTime('tomorrow')))
-            ->add('articles', 'collection', array('type'         => new ArticleType(),
-                                              'allow_add'    => true,
-                                              'allow_delete' => true))
         ;
     }
     

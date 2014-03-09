@@ -1,0 +1,20 @@
+chat:
+    pattern:  /
+    defaults: { _controller: "SfChatBundle:Message:index" }
+
+chat_previous:
+    pattern:  /{page}/previous
+    defaults: { _controller: "SfChatBundle:Message:previous" }
+
+chat_next:
+    pattern:  /{page}/next
+    defaults: { _controller: "SfChatBundle:Message:next" }
+
+chat_new:
+    pattern:  /new
+    defaults: { _controller: "SfChatBundle:Message:new" }
+
+
+chat_show:
+    pattern:  /show
+    defaults: { _controller: "SfChatBundle:Message:show" }

@@ -1,0 +1,12 @@
+{% extends "::layout.html.twig" %}
+
+{% block menu_fonctionnalite -%}
+<ul class="nav nav-pills nav-stacked">
+  <li>
+    <a href="{{ path('loan') }}">Voir les emprunts</a>
+  </li>
+  <li>
+    <a href="{{ path('loan_new') }}">Créer un nouvel emprunt</a>
+  </li>
+</ul>
+{% endblock %}

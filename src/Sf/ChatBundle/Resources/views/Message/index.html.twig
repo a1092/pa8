@@ -1,0 +1,54 @@
+{% extends 'SfChatBundle::layout.html.twig' %}
+
+{% block body -%}
+    <h1>Messages</h1>
+
+    <form action="{{ path('chat_new') }}" method="post" >
+
+{{ form_errors(form) }}
+
+<div>
+  {{ form_label(form.content, "Blabla") }}
+  {{ form_errors(form.content) }}
+  {{ form_widget(form.content) }}
+</div>
+{{ form_rest(form) }}
+<input type="submit" value="Envoyer" />
+
+</form>
+
+
+<div id="messages">
+</div>
+
+
+<script src="jquery.js"></script>
+<script>
+
+setInterval(function() {
+      $.ajax({
+        type: 'GET',
+        url: '{{ path('chat_show') }}',
+        data: "action=refresh",
+        success: function(data) {
+        $("#messages").load('{{ path('chat_show') }}');
+        }
+      });
+      
+}, 1000);
+
+</script>
+
+
+        <div class="row">
+    <div class="col-md-2">
+        <a href="{{ path('chat_previous', { 'page': page }) }}">Previous Messages</a>
+    </div>
+    <div class="col-md-2 col-md-offset-10">
+        {% if page > 1 %}
+        <a href="{{ path('chat_next', { 'page': page }) }}">Next Messages</a>
+        {% endif %}
+    </div>
+</div>
+
+    {% endblock %}

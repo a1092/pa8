@@ -1,7 +1,13 @@
-{% extends 'SfTodoBundle::layout.html.twig' %}
+{% extends entity.visible == '1' 
+    ? 'SfTodoBundle::layout.html.twig' 
+    : 'SfTodoBundle::layoutCalendar.html.twig' %}
 
 {% block body -%}
+    {% if entity.visible == 1 %}
     <h1>Task edit</h1>
+    {% else %}
+    <h1>Event edit</h1>
+    {% endif %}
 
     {{ form(edit_form) }}
 
@@ -11,6 +17,8 @@
             Back to the list
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+     <li><a href="{{ path('task_delete', { 'id': entity.id }) }}">
+            Supprimer
+        </a></li>
 </ul>
 {% endblock %}
