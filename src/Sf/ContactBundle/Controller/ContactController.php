@@ -195,6 +195,7 @@ class ContactController extends Controller
             'search'   => $search->createView(),
         ));
     }
+    
     /**
      * Deletes a Contact entity.
      *

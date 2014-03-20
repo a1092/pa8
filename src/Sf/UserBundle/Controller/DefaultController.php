@@ -74,6 +74,7 @@ class DefaultController extends Controller
         if ($form->isValid()) {
           $newUser->setEnabled(true);
           $newUser->addFoyer($foyer);
+          $newUser->setCurrentFoyer(0);
           $em = $this->getDoctrine()->getManager();
           $em->persist($newUser);
           $em->flush();

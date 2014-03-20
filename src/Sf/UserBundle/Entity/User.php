@@ -227,15 +227,15 @@ class User extends BaseUser
     }
 
     /**
-     * @param Sf\UserBundle\Entity\Foyer $foyer
+     * @param integer $foyer
      */
-    public function setCurrentFoyer(\Sf\UserBundle\Entity\Foyer $foyer)
+    public function setCurrentFoyer($foyer)
     {
         $this->current_foyer = $foyer;
     }
 
     /**
-     * @return Sf\UserBundle\Entity\Foyer 
+     * @return integer
      */
     public function getCurrentFoyer()
     {

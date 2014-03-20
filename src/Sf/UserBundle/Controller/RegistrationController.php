@@ -47,6 +47,7 @@ class RegistrationController extends BaseController
 
                 $user->setNumberOfConnections(0);
                 $user->setRegistrationDate(new \DateTime('now'));
+                $user->setCurrentFoyer(0);
 
                 $userManager->updateUser($user);
 
