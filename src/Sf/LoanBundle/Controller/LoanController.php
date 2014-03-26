@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sf\LoanBundle\Entity\Loan;
+use Sf\LoanBundle\Entity\LoanRepository;
 use Sf\LoanBundle\Form\LoanType;
 
 /**
@@ -25,7 +26,8 @@ class LoanController extends Controller
 
         $foyers = $user->getFoyers();
 
-        $entities = $em->getRepository('SfLoanBundle:Loan')->findBy(array('foyer' => $foyers[$user->getCurrentFoyer()]));
+        //$entities = $em->getRepository('SfLoanBundle:Loan')->findBy(array('foyer' => $foyers[$user->getCurrentFoyer()]));
+        $entities = $em->getRepository('SfLoanBundle:Loan')->getPersonnalList($foyers[$user->getCurrentFoyer()], $user);
 
         return $this->render('SfLoanBundle:Loan:index.html.twig', array(
             'entities' => $entities,

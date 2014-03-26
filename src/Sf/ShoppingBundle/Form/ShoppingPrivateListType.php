@@ -5,22 +5,34 @@ namespace Sf\ShoppingBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Sf\UserBundle\Entity\UserRepository;
 use \DateTime;
 
-class ShoppingListEditType extends AbstractType
+class ShoppingPrivateListType extends AbstractType
 {
-        /**
+    private $foyerId;
+
+    public function __construct($foyerId) {
+        $this->foyerId=$foyerId;
+    }
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $foyerId = $this->foyerId;
+
         $builder
             ->add('name')
-            ->add('deadline', 'datetime', array('required' => false))
-            ->add('articles', 'collection', array('type'         => new ArticleType(),
-                                              'allow_add'    => true,
-                                              'allow_delete' => true))
+            ->add('deadline', 'datetime', array('required' => false, 'data' => new \DateTime('tomorrow')))
+            ->add('users', 'entity', array(
+                    'class'    => 'SfUserBundle:User',
+                    'property' => 'firstname',
+                    'query_builder' => function(UserRepository $r) use($foyerId) {
+                        return $r->getSelectList($foyerId);},
+                    'multiple' => true))
         ;
     }
     
@@ -39,6 +51,6 @@ class ShoppingListEditType extends AbstractType
      */
     public function getName()
     {
-        return 'sf_shoppingbundle_shoppinglist';
+        return 'sf_shoppingbundle_shoppinglistprivate';
     }
 }

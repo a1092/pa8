@@ -6,8 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sf\ShoppingBundle\Entity\ShoppingList;
-use Sf\ShoppingBundle\Entity\ShoppingListRepository;
-use Sf\ShoppingBundle\Form\ShoppingListType;
+use Sf\ShoppingBundle\Form\ShoppingPrivateListType;
 use Sf\ShoppingBundle\Form\ArticleType;
 use Sf\TodoBundle\Entity\Task;
 
@@ -15,7 +14,7 @@ use Sf\TodoBundle\Entity\Task;
  * ShoppingList controller.
  *
  */
-class ShoppingListController extends Controller
+class ShoppingPrivateListController extends Controller
 {
 
     /**
@@ -29,21 +28,21 @@ class ShoppingListController extends Controller
 
         $foyers = $user->getFoyers();
 
-        $entities = $em->getRepository('SfShoppingBundle:ShoppingList')->getPersonnalList($foyers[$user->getCurrentFoyer()], $user, false);
+        $entities = $em->getRepository('SfShoppingBundle:ShoppingList')->getPersonnalList($foyers[$user->getCurrentFoyer()], $user, true);
 
         foreach ($entities as $entity) {
             $form[] = $this->createForm(new ArticleType())->createView();
         }
 
         if($entities) {
-            return $this->render('SfShoppingBundle:ShoppingList:index.html.twig', array(
+            return $this->render('SfShoppingBundle:ShoppingList:indexPrivate.html.twig', array(
                 'entities' => $entities,
                 'form'   => $form,
             ));
         }
 
         else {
-            return $this->render('SfShoppingBundle:ShoppingList:index.html.twig', array(
+            return $this->render('SfShoppingBundle:ShoppingList:indexPrivate.html.twig', array(
                 'entities' => $entities,
             ));
         }
@@ -59,7 +58,7 @@ class ShoppingListController extends Controller
         // On crée le formulaire grâce à l'ArticleType
         $user = $this->container->get('security.context')->getToken()->getUser();
         $foyers = $user->getFoyers();
-        $form = $this->createForm(new ShoppingListType, $entity);
+        $form = $this->createForm(new ShoppingPrivateListType($foyers[$user->getCurrentFoyer()]), $entity);
 
         // On récupère la requête
         $request = $this->get('request');
@@ -74,9 +73,6 @@ class ShoppingListController extends Controller
                 $entity->setModificationDate(new \DateTime());
                 $entity->setCreatedBy($user->getId());
                 $entity->setPrivate(true);
-                foreach ($foyers[$user->getCurrentFoyer()]->getUsers() as $u) {
-                    $entity->addUser($u);
-                }
 
                 $foyers[$user->getCurrentFoyer()]->addShoppingList($entity);
 
@@ -108,35 +104,12 @@ class ShoppingListController extends Controller
             }
         }
 
-        return $this->render('SfShoppingBundle:ShoppingList:new.html.twig', array(
+        return $this->render('SfShoppingBundle:ShoppingList:newPrivate.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
-    /**
-     * Finds and displays a ShoppingList entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $form = $this->createForm(new ArticleType());
-        $em = $this->getDoctrine()->getManager();
-
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $foyers = $user->getFoyers();
-
-        $entity = $em->getRepository('SfShoppingBundle:ShoppingList')->findOneBy(array('id' => $id, 'foyer' => $foyers[$user->getCurrentFoyer()]));
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ShoppingList entity.');
-        }
-
-
-        return $this->render('SfShoppingBundle:ShoppingList:show.html.twig', array(
-            'form'   => $form->createView(),
-            'entity'      => $entity));
-    }
 
     /**
      * Edits an existing ShoppingList entity.
@@ -155,7 +128,7 @@ class ShoppingListController extends Controller
             throw $this->createNotFoundException('Unable to find ShoppingList entity.');
         }
 
-        $form = $this->createForm(new ShoppingListType(), $entity);
+        $form = $this->createForm(new ShoppingPrivateListType($foyers[$user->getCurrentFoyer()]), $entity);
         $request = $this->getRequest();
 
         if ($request->getMethod() == 'POST') {
@@ -201,44 +174,9 @@ class ShoppingListController extends Controller
             }
         }
 
-        return $this->render('SfShoppingBundle:ShoppingList:edit.html.twig', array(
+        return $this->render('SfShoppingBundle:ShoppingList:editPrivate.html.twig', array(
             'entity'      => $entity,
             'form'   => $form->createView(),
         ));
-    }
-    
-    public function deleteAction(ShoppingList $id)
-    {
-        $form = $this->createFormBuilder()->getForm();
-
-        $request = $this->getRequest();
-        if ($request->getMethod() == 'POST') {
-        $form->bind($request);
-
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $user = $this->container->get('security.context')->getToken()->getUser();
-                $foyers = $user->getFoyers();
-
-                $entity = $em->getRepository('SfShoppingBundle:ShoppingList')->findOneBy(array('id' => $id, 'foyer' => $foyers[$user->getCurrentFoyer()]));
-
-                if (!$entity) {
-                    throw $this->createNotFoundException('Unable to find ShoppingList entity.');
-                }
-                foreach($entity->getArticles() as $article)
-                {
-                    $em->remove($article);
-                }
-                $em->remove($entity);
-                $em->flush();
-                return $this->redirect($this->generateUrl('shoppinglist'));
-            }
-        }
-
-        return $this->render('SfShoppingBundle:ShoppingList:supprimer.html.twig', array(
-          'entity' => $id,
-          'form'    => $form->createView()
-        ));
-
     }
 }

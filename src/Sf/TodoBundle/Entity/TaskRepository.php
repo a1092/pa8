@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class TaskRepository extends EntityRepository
 {
-	public function getSelectList($foyer, $month, $year)
+	public function getCalendarList($foyer, $month, $year, $user)
   {
     $qb = $this->_em->createQueryBuilder();
 
@@ -24,15 +24,41 @@ class TaskRepository extends EntityRepository
 
   	$qb->select('a')
   	   ->from('SfTodoBundle:Task', 'a')
+       ->join('a.users', 'u')
   	   ->where('a.foyer = :foyer')
        ->setParameter('foyer', $foyer)
+       ->andWhere('a.createdBy = :createdBy or u = :user')
+       ->setParameter('createdBy', $user->getId())
+       ->setParameter('user', $user)
        ->andWhere('a.deadline >= :startmonth')
        ->setParameter('startmonth', $startmonth)
        ->andWhere('a.deadline < :endmonth')
        ->setParameter('endmonth', $endmonth)
-       ->orderBy('a.deadline', 'ASC');
+       ->orderBy('a.deadline', 'ASC')
+       ;
 
     // Et on retourne simplement le QueryBuilder, et non la Query, attention
+    return $qb->getQuery()
+              ->getResult();
+  }
+
+
+  public function getPersonnalList($foyer, $user)
+  {
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('a')
+    ->from('SfTodoBundle:Task', 'a')
+    ->join('a.users', 'u')
+    ->where('a.foyer = :foyer')
+    ->setParameter('foyer', $foyer)
+    ->andWhere('a.visible = true')
+    ->andWhere('a.createdBy = :createdBy or u = :user')
+    ->setParameter('createdBy', $user->getId())
+    ->setParameter('user', $user)
+    ->orderBy('a.deadline', 'ASC')
+    ;
+
     return $qb->getQuery()
               ->getResult();
   }

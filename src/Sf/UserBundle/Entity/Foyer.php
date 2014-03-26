@@ -52,9 +52,9 @@ class Foyer
     protected $loans;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sf\ChatBundle\Entity\Message", mappedBy="foyer")
+     * @ORM\OneToMany(targetEntity="Sf\ChatBundle\Entity\Chat", mappedBy="foyer")
      */
-    protected $messages;
+    protected $chats;
 
 
     public function __construct()
@@ -235,29 +235,29 @@ class Foyer
     }
 
     /**
-     * @param Sf\ChatBundle\Entity\Message $message
-     * @return Message
+     * @param Sf\ChatBundle\Entity\Chat $chat
+     * @return Chat
      */
-    public function addMessage(\Sf\ChatBundle\Entity\Message $message)
+    public function addChat(\Sf\ChatBundle\Entity\Chat $chat)
     {
-        $this->messages[] = $message;
-        $message->setFoyer($this);
+        $this->chats[] = $chat;
+        $chat->setFoyer($this);
         return $this;
     }
 
     /**
-     * @param Sf\ChatBundle\Entity\Message $message
+     * @param Sf\ChatBundle\Entity\Chat $chat
      */
-    public function removeMessage(\Sf\ChatBundle\Entity\Message $message)
+    public function removeChat(\Sf\ChatBundle\Entity\Chat $chat)
     {
-        $this->messages->removeElement($message);
+        $this->chats->removeElement($chat);
     }
 
     /**
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getMessages()
+    public function getChats()
     {
-        return $this->messages;
+        return $this->chats;
     }
 }

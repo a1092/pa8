@@ -50,15 +50,10 @@ class Message
     private $notSeen;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Sf\UserBundle\Entity\User", cascade={"persist"})
-     */
-    protected $users;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Sf\UserBundle\Entity\Foyer", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="Sf\ChatBundle\Entity\Chat", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $foyer;
+    private $chat;
 
 
     /**
@@ -164,52 +159,23 @@ class Message
     }
 
     /**
-     * Add user
+     * Set chat
      *
-     * @param Sf\UserBundle\Entity\User $user
+     * @param Sf\ChatBundle\Entity\Chat $chat
      */
-    public function addUser(\Sf\UserBundle\Entity\User $user)
+    public function setChat(\Sf\ChatBundle\Entity\Chat $chat)
     {
-        $this->users[] = $user;
+        $this->chat = $chat;
     }
 
     /**
-     * Remove user
+     * Get chat
      *
-     * @param Sf\UserBundle\Entity\User $user
+     * @return Sf\ChatBundle\Entity\Chat 
      */
-    public function removeUser(\Sf\UserBundle\Entity\User $user)
+    public function getChat()
     {
-        $this->users->removeElement($user);
+        return $this->chat;
     }
 
-    /**
-     * Get users
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-
-    /**
-     * Set foyer
-     *
-     * @param Sf\UserBundle\Entity\Foyer $foyer
-     */
-    public function setFoyer(\Sf\UserBundle\Entity\Foyer $foyer)
-    {
-        $this->foyer = $foyer;
-    }
-
-    /**
-     * Get foyer
-     *
-     * @return Sf\UserBundle\Entity\Foyer 
-     */
-    public function getFoyer()
-    {
-        return $this->foyer;
-    }
 }

@@ -29,7 +29,7 @@ class TaskController extends Controller
 
         $foyers = $user->getFoyers();
 
-        $entities = $em->getRepository('SfTodoBundle:Task')->findBy(array('foyer' => $foyers[$user->getCurrentFoyer()], 'visible' => true));
+        $entities = $em->getRepository('SfTodoBundle:Task')->getPersonnalList($foyers[$user->getCurrentFoyer()], $user);
 
         return $this->render('SfTodoBundle:Task:index.html.twig', array(
             'entities' => $entities,
@@ -46,7 +46,7 @@ class TaskController extends Controller
         $date = new \DateTime("now");
         $date->modify('first day of this month');
 
-        $entities = $em->getRepository('SfTodoBundle:Task')->getSelectList($foyers[$user->getCurrentFoyer()], $date->format('m'), $date->format('Y'));
+        $entities = $em->getRepository('SfTodoBundle:Task')->getCalendarList($foyers[$user->getCurrentFoyer()], $date->format('m'), $date->format('Y'), $user);
 
         return $this->render('SfTodoBundle:Task:calendar.html.twig', array(
             'entities' => $entities,
@@ -69,7 +69,7 @@ class TaskController extends Controller
             $year = $year + 1;
         }
 
-        $entities = $em->getRepository('SfTodoBundle:Task')->getSelectList($foyers[$user->getCurrentFoyer()], $month, $year);
+        $entities = $em->getRepository('SfTodoBundle:Task')->getCalendarList($foyers[$user->getCurrentFoyer()], $month, $year);
 
         $date = new \DateTime();
         $date->setDate($year, $month, '1');
@@ -95,7 +95,7 @@ class TaskController extends Controller
             $year = $year - 1;
         }
 
-        $entities = $em->getRepository('SfTodoBundle:Task')->getSelectList($foyers[$user->getCurrentFoyer()], $month, $year);
+        $entities = $em->getRepository('SfTodoBundle:Task')->getCalendarList($foyers[$user->getCurrentFoyer()], $month, $year);
 
         $date = new \DateTime();
         $date->setDate($year, $month, '1');

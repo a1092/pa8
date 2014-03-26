@@ -3,7 +3,7 @@
 {% block body -%}
     <h1>Messages</h1>
 
-    <form action="{{ path('chat_new') }}" method="post" >
+    <form action="{{ path('chat_newprivate', { 'chatId': chat }) }}" method="post" >
 
 {{ form_errors(form) }}
 
@@ -20,7 +20,7 @@
 
 <div id="messages">
 </div>
-<a href="{{ path('chat_show') }}">show</a>
+<a href="{{ path('chat_showprivate', { 'chatId': chat }) }}">show</a>
 
 <script src="jquery.js"></script>
 <script>
@@ -28,10 +28,10 @@
 setInterval(function() {
       $.ajax({
         type: 'GET',
-        url: '{{ path('chat_show') }}',
+        url: '{{ path('chat_showprivate', { 'chatId': chat }) }}',
         data: "action=refresh",
         success: function(data) {
-        $("#messages").load('{{ path('chat_show') }}');
+        $("#messages").load('{{ path('chat_showprivate', { 'chatId': chat }) }}');
         }
       });
       
@@ -42,11 +42,11 @@ setInterval(function() {
 
         <div class="row">
     <div class="col-md-2">
-        <a href="{{ path('chat_previous', { 'page': page }) }}">Previous Messages</a>
+        <a href="{{ path('chat_previousprivate', { 'chatId': chat, 'page': page }) }}">Previous Messages</a>
     </div>
     <div class="col-md-2 col-md-offset-10">
         {% if page > 1 %}
-        <a href="{{ path('chat_next', { 'page': page }) }}">Next Messages</a>
+        <a href="{{ path('chat_nextprivate', { 'chatId': chat, 'page': page }) }}">Previous Messages</a>
         {% endif %}
     </div>
 </div>

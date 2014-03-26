@@ -29,3 +29,15 @@ article_edit:
 article_delete:
     pattern: /{id}/deleteA
     defaults: { _controller: "SfShoppingBundle:Article:delete" }
+
+shoppinglist_private:
+    pattern:  /private
+    defaults: { _controller: "SfShoppingBundle:ShoppingPrivateList:index" }
+
+shoppinglist_privatenew:
+    pattern:  /privatenew
+    defaults: { _controller: "SfShoppingBundle:ShoppingPrivateList:new" }
+
+shoppinglist_privateedit:
+    pattern:  /{id}/privateedit
+    defaults: { _controller: "SfShoppingBundle:ShoppingPrivateList:edit" }

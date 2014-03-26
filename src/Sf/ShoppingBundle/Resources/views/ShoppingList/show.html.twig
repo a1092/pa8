@@ -20,6 +20,14 @@
                 {% endfor %}
         </td>
     </tr>
+    {% if entity.private == true %}
+        <th>Personnes concernées</th>
+            <td>{% for user in entity.getUsers() %}
+                    {{ user.firstname }}
+                <br />
+                {% endfor %}
+        </td>
+    {% endif %}
     <tr>
         <th>Date de création</th>
         <td>{{ entity.creationDate|date('Y-m-d H:i:s') }}</td>
@@ -93,8 +101,12 @@
     </tbody>
 </table>
 
-<a href="{{ path('shoppinglist_edit', { 'id': entity.id }) }}">Editer</a>
- <li><a href="{{ path('shoppinglist_delete', { 'id': entity.id }) }}">
-            Supprimer
-        </a></li>
+{% if entity.private == true %}
+<a href="{{ path('shoppinglist_private') }}">Retour aux listes</a>
+{% else %}
+<a href="{{ path('shoppinglist') }}">Retour aux listes</a>
+{% endif %}
+
+<br /><a href="{{ path('shoppinglist_edit', { 'id': entity.id }) }}">Editer</a>
+<br /><a href="{{ path('shoppinglist_delete', { 'id': entity.id }) }}">Supprimer</a>
 {% endblock %}

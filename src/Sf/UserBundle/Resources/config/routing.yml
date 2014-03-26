@@ -2,6 +2,10 @@ sf_user_homepage:
     pattern:  /
     defaults: { _controller: SfUserBundle:Default:index }
 
+sf_connexion:
+    pattern: test
+    defaults: { _controller: SfUserBundle:Test:test }
+
 sf_bienvenue:
     pattern: bienvenue
     defaults:  { _controller: SfUserBundle:Default:bienvenue }

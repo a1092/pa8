@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ShoppingList
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sf\ShoppingBundle\Entity\ShoppingListRepository")
  */
 class ShoppingList
 {
@@ -39,6 +39,18 @@ class ShoppingList
      * @ORM\Column(name="deadline", type="datetime", nullable=true)
      */
     protected $deadline;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="private", type="boolean")
+     */
+    private $private;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Sf\UserBundle\Entity\User", cascade={"persist"})
+     */
+    protected $users;
 
     /**
      * @var integer
@@ -163,6 +175,59 @@ class ShoppingList
     public function getDeadline()
     {
         return $this->deadline;
+    }
+
+    /**
+     * Set private
+     *
+     * @param boolean $private
+     * @return Task
+     */
+    public function setPrivate($private)
+    {
+        $this->private = $private;
+
+        return $this;
+    }
+
+    /**
+     * Get private
+     *
+     * @return boolean 
+     */
+    public function getPrivate()
+    {
+        return $this->private;
+    }
+
+    /**
+     * Add user
+     *
+     * @param Sf\UserBundle\Entity\User $user
+     */
+    public function addUser(\Sf\UserBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param Sf\UserBundle\Entity\User $users
+     */
+    public function removeUser(\Sf\UserBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 
     /**

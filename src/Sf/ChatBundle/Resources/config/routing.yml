@@ -14,7 +14,26 @@ chat_new:
     pattern:  /new
     defaults: { _controller: "SfChatBundle:Message:new" }
 
-
 chat_show:
     pattern:  /show
     defaults: { _controller: "SfChatBundle:Message:show" }
+
+chat_private:
+    pattern:  /private
+    defaults: { _controller: "SfChatBundle:MessagePrivate:index" }
+
+chat_newprivate:
+    pattern:  /{chatId}/newprivate
+    defaults: { _controller: "SfChatBundle:MessagePrivate:new" }
+
+chat_previousprivate:
+    pattern:  /{chatId}/{page}/previousprivate
+    defaults: { _controller: "SfChatBundle:MessagePrivate:previous" }
+
+chat_nextprivate:
+    pattern:  /{chatId}/{page}/nextprivate
+    defaults: { _controller: "SfChatBundle:MessagePrivate:next" }
+
+chat_showprivate:
+    pattern:  /{chatId}/showprivate
+    defaults: { _controller: "SfChatBundle:MessagePrivate:show" }

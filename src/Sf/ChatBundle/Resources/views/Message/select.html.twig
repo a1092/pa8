@@ -1,0 +1,16 @@
+{% extends 'SfChatBundle::layout.html.twig' %}
+
+{% block body -%}
+    <h1>Messages</h1>
+
+    <form action="{{ path('chat_private') }}" method="post" >
+
+{{ form_errors(form) }}
+
+{{ form_rest(form) }}
+<input type="submit" value="Afficher" class="btn btn-primary" />
+
+</form>
+
+
+    {% endblock %}
