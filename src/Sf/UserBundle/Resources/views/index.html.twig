@@ -1,0 +1,8 @@
+{% extends "SfUserBundle::layout.html.twig" %}
+
+{% block body %}
+  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+  <p>Page d'accueil</p>
+{% endif %}
+
+{% endblock %}

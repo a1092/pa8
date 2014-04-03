@@ -1,0 +1,19 @@
+{% extends "SfUserBundle::layout.html.twig" %}
+
+{% block body %}
+<h3>Options</h3>
+{% if message is defined %}
+<p>{{ message }}</p>
+{% endif %}
+
+<p><h4>Foyer</h4>
+
+	<a href="{{ path('foyer_edit', {'id' : app.user.getFoyers[0].id}) }}">Modifier le nom de mon foyer</a><br />
+	<a href="{{ path('foyer_newmember', {'id' : app.user.getFoyers[0].id}) }}">Créer un nouveau membre dans mon foyer</a></p>
+
+<p><h4>Utilisateur</h4>
+	
+	<a href="{{ path('foyer_new') }}">Créer un nouveau foyer</a><br />
+	<a href="{{ path('foyer_change') }}">Changer le foyer actuel</a><br /></p>
+
+{% endblock %}

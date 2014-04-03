@@ -13,14 +13,27 @@ use Doctrine\ORM\EntityRepository;
 class UserRepository extends EntityRepository
 {
 	public function getSelectList($foyer)
-  {
-    $qb = $this->createQueryBuilder('a');
+	{
+		$qb = $this->createQueryBuilder('a');
 
-  	$qb->join('a.foyers', 'f')
-  	->where('f.id = :foyer')
-    ->setParameter('foyer', $foyer);
+		$qb->join('a.foyers', 'f')
+		->where('f.id = :foyer')
+		->setParameter('foyer', $foyer);
 
     // Et on retourne simplement le QueryBuilder, et non la Query, attention
-    return $qb;
-  }
+		return $qb;
+	}
+
+	public function getUserList($foyer)
+	{
+		$qb = $this->createQueryBuilder('a');
+
+		$qb->join('a.foyers', 'f')
+		->where('f.id = :foyer')
+		->setParameter('foyer', $foyer);
+
+    // Et on retourne simplement le QueryBuilder, et non la Query, attention
+		return $qb->getQuery()
+              ->getResult();
+	}
 }

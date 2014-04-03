@@ -73,7 +73,7 @@ class ShoppingListController extends Controller
                 $entity->setCreationDate(new \DateTime());
                 $entity->setModificationDate(new \DateTime());
                 $entity->setCreatedBy($user->getId());
-                $entity->setPrivate(true);
+                $entity->setPrivate(false);
                 foreach ($foyers[$user->getCurrentFoyer()]->getUsers() as $u) {
                     $entity->addUser($u);
                 }

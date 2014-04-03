@@ -202,8 +202,6 @@ class User extends BaseUser
             $count++;
         }
         $this->current_foyer = $count-1;
-        
-        $foyer->addUser($this);
     }
 
     /**

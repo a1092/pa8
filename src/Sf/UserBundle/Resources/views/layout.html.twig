@@ -1,26 +1,8 @@
-{# src/Sf/UserBundle/Resources/views/layout.html.twig #}
-
-{# On étend notre layout #}
 {% extends "::layout.html.twig" %}
 
-{% block title %}Prout !{% endblock %}
+{% block menu_fonctionnalite -%}
 
-{# Dans notre layout, il faut définir le block body #}
-{% block body %}
-
-{# On affiche les messages flash que définissent les contrôleurs du bundle #}
-  {% for key, message in app.session.flashbag.all() %}
-    <div class="alert alert-{{ key }}">
-      {{ message|trans({}, 'FOSUserBundle') }}
-    </div>
-  {% endfor %}
-
-  {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
   {% block fos_user_content %}
-  		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-          <a href="{{ path('foyer_edit', {'id' : app.user.getFoyers[0].id}) }}">Choisir un nom pour mon foyer</a><br />
-          <a href="{{ path('ajout_membre', {'id' : app.user.getFoyers[0].id}) }}">Rajouter des membres dans mon foyer</a>
-        {% endif %}      
   {% endblock fos_user_content %}
 
 {% endblock %}

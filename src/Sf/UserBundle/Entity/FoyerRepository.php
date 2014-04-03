@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class FoyerRepository extends EntityRepository
 {
+	public function getSelectList($user)
+	{
+		$qb = $this->createQueryBuilder('a');
+
+		$qb->join('a.users', 'u')
+		->where('u.id = :user')
+		->setParameter('user', $user);
+
+    // Et on retourne simplement le QueryBuilder, et non la Query, attention
+		return $qb;
+	}
 }

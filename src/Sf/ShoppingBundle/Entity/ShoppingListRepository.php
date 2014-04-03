@@ -18,7 +18,7 @@ class ShoppingListRepository extends EntityRepository
 
     $qb->select('a')
     ->from('SfShoppingBundle:ShoppingList', 'a')
-    ->join('a.users', 'u')
+    ->leftjoin('a.users', 'u')
     ->where('a.foyer = :foyer')
     ->setParameter('foyer', $foyer)
     ->andWhere('a.private = :private')

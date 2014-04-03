@@ -3,7 +3,7 @@
 {% block body %}
 
 {% trans_default_domain 'FOSUserBundle' %}
-<form action="{{ path('ajout_membre', {'id' : app.user.getFoyers[app.user.getCurrentFoyer()].id}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+<form action="{{ path('foyer_newmember', {'id' : app.user.getFoyers[app.user.getCurrentFoyer()].id}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
 
       <div>
             <h3>Inscription</h3>

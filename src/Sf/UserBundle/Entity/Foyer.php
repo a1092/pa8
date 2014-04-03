@@ -22,7 +22,7 @@ class Foyer
     protected $id;
 
     /**
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;
 
@@ -59,7 +59,6 @@ class Foyer
 
     public function __construct()
     {
-        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -104,6 +103,7 @@ class Foyer
     public function addUser(\Sf\UserBundle\Entity\User $user)
     {
         $this->users[] = $user;
+        $user->addFoyer($this);
     }
 
     /**

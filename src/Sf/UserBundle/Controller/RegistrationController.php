@@ -66,7 +66,7 @@ class RegistrationController extends BaseController
                 }
 
                  return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.'.$this->getEngine(), array(
-            'user' => $user));
+            'user' => $user, 'message' => 'Vous êtes bien inscrit !'));
                 //return $response;
             }
         }

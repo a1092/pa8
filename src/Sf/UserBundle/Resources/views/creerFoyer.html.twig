@@ -1,0 +1,14 @@
+{% extends "SfUserBundle::layout.html.twig" %}
+
+{% block body %}
+
+{% if message is defined %}
+<p>{{ message }}</p>
+{% endif %}
+
+  <form action="{{ path('foyer_new', {'id' : app.user.getFoyers[0].id}) }}" method="post">
+    {{ form_rest(form) }}
+    <input type="submit" value="Créer" class="btn btn-danger" />
+  </form>
+
+{% endblock %}

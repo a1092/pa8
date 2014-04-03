@@ -10,14 +10,26 @@ sf_bienvenue:
     pattern: bienvenue
     defaults:  { _controller: SfUserBundle:Default:bienvenue }
 
+options:
+    pattern: /options
+    defaults: { _controller: SfUserBundle:Foyer:index }
+
+foyer_new:
+    pattern: /foyer_new
+    defaults: { _controller: SfUserBundle:Foyer:new }
+
 foyer_edit:
     pattern: /foyer_edit/{id}
-    defaults: { _controller: SfUserBundle:Default:modifierFoyer }
+    defaults: { _controller: SfUserBundle:Foyer:edit }
     requirements:
         id:  \d+
 
-ajout_membre:
-    pattern: /ajout_membre/{id}
-    defaults: { _controller: SfUserBundle:Default:ajouterMembre }
+foyer_newmember:
+    pattern: /newmember/{id}
+    defaults: { _controller: SfUserBundle:Foyer:newMember }
     requirements:
         id:  \d+
+
+foyer_change:
+    pattern: /foyer_change
+    defaults: { _controller: SfUserBundle:Foyer:change }

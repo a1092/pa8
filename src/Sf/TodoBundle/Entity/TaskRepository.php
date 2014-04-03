@@ -24,7 +24,7 @@ class TaskRepository extends EntityRepository
 
   	$qb->select('a')
   	   ->from('SfTodoBundle:Task', 'a')
-       ->join('a.users', 'u')
+       ->leftjoin('a.users', 'u')
   	   ->where('a.foyer = :foyer')
        ->setParameter('foyer', $foyer)
        ->andWhere('a.createdBy = :createdBy or u = :user')
@@ -49,7 +49,7 @@ class TaskRepository extends EntityRepository
 
     $qb->select('a')
     ->from('SfTodoBundle:Task', 'a')
-    ->join('a.users', 'u')
+    ->leftjoin('a.users', 'u')
     ->where('a.foyer = :foyer')
     ->setParameter('foyer', $foyer)
     ->andWhere('a.visible = true')
