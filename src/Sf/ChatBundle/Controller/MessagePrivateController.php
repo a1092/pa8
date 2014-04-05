@@ -422,7 +422,9 @@ class MessagePrivateController extends Controller
             ->getManager()
             ->getRepository('SfChatBundle:Chat')
             ->findOneById($chatId);
-
+			
+			$entity->setNotSeen($notSeen);
+			
             foreach($chat->getUsers() as $reader) {
                 if ($reader != $user) {
                     $reader->addNotSeenMessage($entity);

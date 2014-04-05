@@ -69,7 +69,7 @@ class TaskController extends Controller
             $year = $year + 1;
         }
 
-        $entities = $em->getRepository('SfTodoBundle:Task')->getCalendarList($foyers[$user->getCurrentFoyer()], $month, $year);
+        $entities = $em->getRepository('SfTodoBundle:Task')->getCalendarList($foyers[$user->getCurrentFoyer()], $month, $year, $user);
 
         $date = new \DateTime();
         $date->setDate($year, $month, '1');
@@ -95,7 +95,7 @@ class TaskController extends Controller
             $year = $year - 1;
         }
 
-        $entities = $em->getRepository('SfTodoBundle:Task')->getCalendarList($foyers[$user->getCurrentFoyer()], $month, $year);
+        $entities = $em->getRepository('SfTodoBundle:Task')->getCalendarList($foyers[$user->getCurrentFoyer()], $month, $year, $user);
 
         $date = new \DateTime();
         $date->setDate($year, $month, '1');

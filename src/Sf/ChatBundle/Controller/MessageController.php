@@ -307,6 +307,8 @@ class MessageController extends Controller
                     foreach($foyers[$user->getCurrentFoyer()]->getUsers() as $reader) {
                         $chat->addUser($reader);
                     }
+					
+					
                     $em->persist($chat);
                     $em->flush();
                 }
@@ -315,10 +317,14 @@ class MessageController extends Controller
                 $entity->setSentBy($user->getId());
                 $chat->addMessage($entity);
                 $notSeen = 0;
+				
+				$entity->setNotSeen($notSeen);
+								
                 foreach($chat->getUsers() as $reader) {
                     if ($reader != $user) {
                         $reader->addNotSeenMessage($entity);
                         $entity->setNotSeen($notSeen + 1);
+						
                         $notSeen = $notSeen + 1;
                     }
                 }
