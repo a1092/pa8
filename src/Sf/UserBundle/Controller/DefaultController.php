@@ -19,6 +19,22 @@ class DefaultController extends Controller
       $user->increaseNumberOfConnections();
 
       $em = $this->getDoctrine()->getManager();
+      $foyers = $em->getRepository('SfUserBundle:Foyer')->getSelectList($user);
+
+      foreach($user->getFoyers() as $uF) {
+        $inIt = false;
+        foreach ($foyers as $f) {
+          if($uF == $f) {
+            $inIt = true;
+          }
+        }
+        if($inIt == false) {
+          $uF->addUser($user);
+          $em->persist($uF);
+          $em->flush();
+        }
+      }
+
       $em->persist($user);
       $em->flush();
 

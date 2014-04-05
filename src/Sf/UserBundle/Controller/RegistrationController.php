@@ -16,6 +16,15 @@ use FOS\UserBundle\Controller\RegistrationController as BaseController;
 
 class RegistrationController extends BaseController
 {
+public function getDoctrine()
+ {
+    if (!$this->container->has('doctrine')) {
+            throw new \LogicException('The DoctrineBundle is not registered in your application.');
+ }
+ 
+    return $this->container->get('doctrine');
+ }
+
     public function registerAction(Request $request)
     {
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
@@ -61,6 +70,24 @@ class RegistrationController extends BaseController
                 {
                     $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
                     $user->increaseNumberOfConnections();
+
+                    $em = $this->getDoctrine()->getManager();
+      $foyers = $em->getRepository('SfUserBundle:Foyer')->getSelectList($user);
+
+      foreach($user->getFoyers() as $uF) {
+        $inIt = false;
+        foreach ($foyers as $f) {
+          if($uF == $f) {
+            $inIt = true;
+          }
+        }
+        if($inIt == false) {
+          $uF->addUser($user);
+          $em->persist($uF);
+          $em->flush();
+        }
+      }
+
                     $userManager->updateUser($user);
                     return $this->container->get('templating')->renderResponse('FOSUserBundle::bienvenue.html.twig');
                 }

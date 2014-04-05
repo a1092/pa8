@@ -37,8 +37,17 @@ class FoyerController extends Controller
           }
         }
         $foyer->addUser($user);
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($foyer);
+        $em->flush();
+
+        $count = 0;
+        foreach($foyers as $f) {
+            $count++;
+        }
+        $user->setCurrentFoyer($count-1);
+        $em->persist($user);
         $em->flush();
 
         return $this->render('SfUserBundle::options.html.twig', array(

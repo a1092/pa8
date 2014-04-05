@@ -103,7 +103,6 @@ class Foyer
     public function addUser(\Sf\UserBundle\Entity\User $user)
     {
         $this->users[] = $user;
-        $user->addFoyer($this);
     }
 
     /**
