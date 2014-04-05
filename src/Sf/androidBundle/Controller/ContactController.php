@@ -4,49 +4,52 @@ namespace Sf\androidBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Sf\ContactBundle\Entity\Contact;
 use Sf\UserBundle\Entity\Foyer;
 use Sf\ContactBundle\Form\ContactType;
 use Sf\ContactBundle\Form\SearchContactType;
 
-/**
- * Contact controller.
- *
- */
 class ContactController extends Controller
 {
 
-    /**
-     * Lists all Contact entities.
-     *
-     */
-    public function indexAction()
+    public function getContactsAction()
     {
         $content = $this->get("request")->getContent();
         $params = json_decode($content);
-        //Dans ton JSON, il faut : ID user
         $id = $params->id;
 
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('SfUserBundle:User')->findById($id);
+        $user = $em->getRepository('SfUserBundle:User')->findOneById($id);
         $foyers = $user->getFoyers();
 
         $entities = $em->getRepository('SfContactBundle:Contact')->findByFoyer($foyers[$user->getCurrentFoyer()]);
-
-        return new JsonResponse(array('entities' => $entities));
+		
+		foreach($entities as $contact){
+		    $tab = array('contactId' => $contact->getId(),
+			'contactName' => $contact->getName(),
+			'contactCategory' => $contact->getCategory(),
+			'contactEmail' => $contact->getEmail(),
+			'contactAddress' => $contact->getAddress(),
+			'contactHomePhoneNumber' => $contact->getHomePhoneNumber(),
+			'contactMobilePhoneNumber' => $contact->getMobilePhoneNumber(),
+			'contactOtherPhoneNumber' => $contact->getOtherPhoneNumber(),
+			'contactRemark' => $contact->getRemark(),
+			);
+		    $final[] = $tab;
+		    
+           $tab = array();
+		}
+        return new JsonResponse(array('entities' => $final));
     }
 
-    /**
-     * Creates a new Contact entity.
-     *
-     */
-    public function newAction()
+    public function newContactAction()
     {
         $content = $this->get("request")->getContent();
         $params = json_decode($content);
-        //Dans ton JSON, il faut : ID user
         $id = $params->id;
 
         $name = $params->name;
@@ -84,34 +87,43 @@ class ContactController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('SfUserBundle:User')->findById($id);
+        $user = $em->getRepository('SfUserBundle:User')->findOneById($id);
         $foyers = $user->getFoyers();
 
         $contact->setCreationDate(new \DateTime());
         $contact->setModificationDate(new \DateTime());
         $contact->setAddBy($user->getId());
 
-        $foyers[$user->getCurrentFoyer()]->addContact($entity);
+        $foyers[$user->getCurrentFoyer()]->addContact($contact);
 
         $em->persist($contact);
         $em->flush();
 
         $entities = $em->getRepository('SfContactBundle:Contact')->findByFoyer($foyers[$user->getCurrentFoyer()]);
-
-        return new JsonResponse(array('entities' => $entities));
+		
+		foreach($entities as $contact){
+		    $tab = array('contactId' => $contact->getId(),
+			'contactName' => $contact->getName(),
+			'contactCategory' => $contact->getCategory(),
+			'contactEmail' => $contact->getEmail(),
+			'contactAddress' => $contact->getAddress(),
+			'contactHomePhoneNumber' => $contact->getHomePhoneNumber(),
+			'contactMobilePhoneNumber' => $contact->getMobilePhoneNumber(),
+			'contactOtherPhoneNumber' => $contact->getOtherPhoneNumber(),
+			'contactRemark' => $contact->getRemark(),
+			);
+		    $final[] = $tab;
+		    
+           $tab = array();
+		}
+        return new JsonResponse(array('entities' => $final));
     }
 
-    /**
-     * Edits a new Contact entity.
-     *
-     */
-    public function editAction()
+    public function editContactAction()
     {
         $content = $this->get("request")->getContent();
         $params = json_decode($content);
-        //Dans ton JSON, il faut : ID user
         $idUser = $params->idUser;
-        //Il faut : ID contact
         $idContact = $params->idContact;
 
         $name = $params->name;
@@ -123,7 +135,9 @@ class ContactController extends Controller
         $remark = $params->remark;
         $category = $params->category;
 
-        $contact = $em->getRepository('SfContactBundle:Bundle')->findById($idContact);
+        $em = $this->getDoctrine()->getManager();
+
+        $contact = $em->getRepository('SfContactBundle:Contact')->findOneById($idContact);
         $contact->setName($name);
         if ($email != '') {
             $contact->setEmail($email);
@@ -146,46 +160,70 @@ class ContactController extends Controller
         if ($category != '') {
             $contact->setCategory($category);
         }
-
-        $em = $this->getDoctrine()->getManager();
-
-        $user = $em->getRepository('SfUserBundle:User')->findById($id);
+		
+        $user = $em->getRepository('SfUserBundle:User')->findOneById($idUser);
         $foyers = $user->getFoyers();
 
         $contact->setModificationDate(new \DateTime());
 
-        $foyers[$user->getCurrentFoyer()]->addContact($entity);
+        $foyers[$user->getCurrentFoyer()]->addContact($contact);
 
         $em->persist($contact);
         $em->flush();
 
         $entities = $em->getRepository('SfContactBundle:Contact')->findByFoyer($foyers[$user->getCurrentFoyer()]);
-
-        return new JsonResponse(array('entities' => $entities));
+		
+		foreach($entities as $contact){
+		    $tab = array('contactId' => $contact->getId(),
+			'contactName' => $contact->getName(),
+			'contactCategory' => $contact->getCategory(),
+			'contactEmail' => $contact->getEmail(),
+			'contactAddress' => $contact->getAddress(),
+			'contactHomePhoneNumber' => $contact->getHomePhoneNumber(),
+			'contactMobilePhoneNumber' => $contact->getMobilePhoneNumber(),
+			'contactOtherPhoneNumber' => $contact->getOtherPhoneNumber(),
+			'contactRemark' => $contact->getRemark(),
+			);
+		    $final[] = $tab;
+		    
+           $tab = array();
+		}
+        return new JsonResponse(array('entities' => $final));
     }
 
-    /**
-     * Deletes a Contact entity.
-     *
-     */
-    public function deleteAction()
+    public function deleteContactAction()
     {
         $content = $this->get("request")->getContent();
         $params = json_decode($content);
-        //Dans ton JSON, il faut : ID user
         $idUser = $params->idUser;
-        //Il faut : ID contact
         $idContact = $params->idContact;
 
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('SfContactBundle:Contact')->findOneBy(array('id' => $idContact));
         $em->remove($entity);
         $em->flush();
-
-        $user = $em->getRepository('SfUserBundle:User')->findById($idUser);
+		
+		
+        $user = $em->getRepository('SfUserBundle:User')->findOneById($idUser);
         $foyers = $user->getFoyers();
-
-        $entities = $em->getRepository('SfContactBundle:Contact')->findByFoyer($foyers[$user->getCurrentFoyer()]);
-        return new JsonResponse(array('entities' => $entities));
+		
+		$entities = $em->getRepository('SfContactBundle:Contact')->findByFoyer($foyers[$user->getCurrentFoyer()]);
+		
+		foreach($entities as $contact){
+		    $tab = array('contactId' => $contact->getId(),
+			'contactName' => $contact->getName(),
+			'contactCategory' => $contact->getCategory(),
+			'contactEmail' => $contact->getEmail(),
+			'contactAddress' => $contact->getAddress(),
+			'contactHomePhoneNumber' => $contact->getHomePhoneNumber(),
+			'contactMobilePhoneNumber' => $contact->getMobilePhoneNumber(),
+			'contactOtherPhoneNumber' => $contact->getOtherPhoneNumber(),
+			'contactRemark' => $contact->getRemark(),
+			);
+		    $final[] = $tab;
+		    
+           $tab = array();
+		}
+        return new JsonResponse(array('entities' => $final));
     }
-
 }

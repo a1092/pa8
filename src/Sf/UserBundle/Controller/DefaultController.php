@@ -19,6 +19,13 @@ class DefaultController extends Controller
       $user->increaseNumberOfConnections();
 
       $em = $this->getDoctrine()->getManager();
+
+      $em->persist($user);
+      $em->flush();
+
+      if ($user->getNumberOfConnections() == 1)
+      {
+        
       $foyers = $em->getRepository('SfUserBundle:Foyer')->getSelectList($user);
 
       foreach($user->getFoyers() as $uF) {
@@ -34,12 +41,6 @@ class DefaultController extends Controller
           $em->flush();
         }
       }
-
-      $em->persist($user);
-      $em->flush();
-
-      if ($user->getNumberOfConnections() == 1)
-      {
         return $this->render('SfUserBundle::bienvenue.html.twig');
       }
       else

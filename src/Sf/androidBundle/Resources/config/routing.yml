@@ -5,3 +5,51 @@ sfandroid_homepage:
 sfandroid_connexion:
     pattern:  /connexion
     defaults: { _controller: SfandroidBundle:Default:connexion }
+
+sfandroid_getContacts:
+    pattern:  /getContacts
+    defaults: { _controller: SfandroidBundle:Contact:getContacts }
+
+sfandroid_newContact:
+    pattern:  /newContact
+    defaults: { _controller: SfandroidBundle:Contact:newContact }
+
+sfandroid_editContact:
+    pattern:  /editContact
+    defaults: { _controller: SfandroidBundle:Contact:editContact }
+
+sfandroid_deleteContact:
+    pattern:  /deleteContact
+    defaults: { _controller: SfandroidBundle:Contact:deleteContact }
+
+sfandroid_getShoppingLists:
+    pattern:  /getShoppingLists
+    defaults: { _controller: SfandroidBundle:ShoppingList:getShoppingLists }
+
+sfandroid_newShoppingList:
+    pattern:  /newShoppingList
+    defaults: { _controller: SfandroidBundle:ShoppingList:newShoppingList }
+
+sfandroid_newShoppingItem:
+    pattern:  /newShoppingItem
+    defaults: { _controller: SfandroidBundle:ShoppingList:newShoppingItem }
+
+sfandroid_editShoppingItem:
+    pattern:  /editShoppingItem
+    defaults: { _controller: SfandroidBundle:ShoppingList:editShoppingItem }
+
+sfandroid_deleteShoppingItem:
+    pattern:  /deleteShoppingItem
+    defaults: { _controller: SfandroidBundle:ShoppingList:deleteShoppingItem }
+
+sfandroid_getLoans:
+    pattern:  /getLoans
+    defaults: { _controller: SfandroidBundle:Loan:getLoans }
+
+sfandroid_newLoan:
+    pattern:  /newLoan
+    defaults: { _controller: SfandroidBundle:Loan:newLoan }
+
+sfandroid_getToDoTasks:
+    pattern:  /getToDoTasks
+    defaults: { _controller: SfandroidBundle:ToDoTask:getToDoTasks }
