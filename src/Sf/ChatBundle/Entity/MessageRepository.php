@@ -27,4 +27,23 @@ class MessageRepository extends EntityRepository
 	    // (n'oubliez pas le use correspondant en début de fichier)
 		return new Paginator($qb);
 	}
+	
+	public function receiveMessages($lastcheck, $user) {
+	
+		$qb = $this->_em->createQueryBuilder();
+
+		$qb->select('a')
+		->from('SfChatBundle:Message', 'a')
+		->leftjoin('a.chat', 'c')
+		->leftJoin('c.users', 'u', 'WITH', 'u.id = :userid')
+		->setParameter('userid', $user->getId())
+		->where('a.sentDate > :lastcheck')
+		->setParameter('lastcheck', $lastcheck)
+		->andwhere('c.open = true')
+		->orderBy('a.sentDate', 'DESC')
+		;
+
+	      return $qb->getQuery()
+              ->getResult();
+	}
 }

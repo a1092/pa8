@@ -1,0 +1,87 @@
+
+#chat-dock {
+
+	
+	position: absolute;
+	
+	bottom: 0px;
+	right: 0px;
+	
+	
+}
+
+
+
+
+.chatter-new {
+
+	float: right;
+	margin-left: 20px;
+	margin-right: 20px;
+	
+	
+	padding: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	
+	background-color: #000;
+	
+}
+
+.chatter-close {
+
+	float: right;
+	margin-left: 20px;
+	margin-right: 20px;
+	
+	width: 240px;
+	padding: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	
+	background-color: #000;
+	
+}
+
+
+
+.chatter-open {
+
+	float: right;
+	margin-left: 20px;
+	margin-right: 20px;
+	
+	width: 240px;
+
+	
+	border: 1px solid #000;
+	margin-top: -200px;
+	
+	display: none;
+}
+
+.chatter-names {
+
+	color: white;
+	background-color: black;
+	padding: 6px;
+}
+
+.chatter-discussion {
+	height: 180px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	
+	background-color: #FFF;
+}
+
+.chatter-message {
+
+	border-top: black 1px solid;
+}
+
+.chatter-message input {
+
+	width: 100%;
+	border: 0px;
+}

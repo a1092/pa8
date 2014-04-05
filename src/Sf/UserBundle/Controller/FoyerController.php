@@ -8,6 +8,7 @@ use Sf\UserBundle\Entity\User;
 use Sf\UserBundle\Form\Type\FoyerEditType;
 use Sf\UserBundle\Form\Type\RegistrationFoyerFormType;
 use Sf\UserBundle\Form\ChoiceType;
+use Symfony\Component\HttpFoundation\Response;
 
 class FoyerController extends Controller
 {
@@ -101,6 +102,9 @@ class FoyerController extends Controller
       if ($form->isValid()) {
         $newUser->setEnabled(true);
         $newUser->addFoyer($foyer);
+		$newUser->setRegistrationDate(new \DateTime('now'));
+		
+        $newUser->setNumberOfConnections(0);
         $newUser->setCurrentFoyer(0);
         $em = $this->getDoctrine()->getManager();
         $em->persist($newUser);
@@ -162,4 +166,37 @@ class FoyerController extends Controller
       'form'   => $conv->createView(),
       ));
   }
+  
+	public function membersAction() {
+		$user = $this->container->get('security.context')->getToken()->getUser();
+		
+		$foyers = $user->getFoyers();
+		
+		$members = array();
+		$i = 1;
+		foreach($foyers as $foyer) {
+			
+			foreach($foyer->getUsers() as $member) {
+			
+				if(!in_array($member, $members) && $member != $user) {
+					$members[$i] = array(
+						"userid" => $member->getId(),
+						"username" => $member->getUsername(),
+						"firstname" => $member->getFirstname(),
+						"lastname" => $member->getLastname(),
+						
+						);
+					$i++;
+				}
+			}
+		
+		}
+		
+		$response = new Response(json_encode(array(
+			'members' => $members
+		)));
+		$response->headers->set('Content-Type', 'application/json');
+
+		return $response;
+	}
 }

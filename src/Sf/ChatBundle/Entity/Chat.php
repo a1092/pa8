@@ -26,7 +26,14 @@ class Chat
      *
      * @ORM\Column(name="private", type="boolean")
      */
-    private $private;    
+    private $private;  
+
+	/**
+     * @var boolean
+     *
+     * @ORM\Column(name="open", type="boolean")
+     */
+    private $open = true;  	
 
     /**
      * @ORM\ManyToMany(targetEntity="Sf\UserBundle\Entity\User", cascade={"persist"})
@@ -74,6 +81,30 @@ class Chat
     public function setPrivate($private)
     {
         $this->private = $private;
+
+        return $this;
+    }
+	
+	
+	/**
+     * Get open
+     *
+     * @return boolean
+     */
+    public function getOpen()
+    {
+        return $this->open;
+    }
+
+    /**
+     * Set open
+     *
+     * @param boolean $open
+     * @return Chat
+     */
+    public function setOpen($open)
+    {
+        $this->open = $open;
 
         return $this;
     }

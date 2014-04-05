@@ -37,3 +37,21 @@ chat_nextprivate:
 chat_showprivate:
     pattern:  /{chatId}/showprivate
     defaults: { _controller: "SfChatBundle:MessagePrivate:show" }
+
+
+chat_create:
+    pattern:  /create
+    defaults: { _controller: "SfChatBundle:Chat:create" }
+
+chat_send_message:
+    pattern:  /send
+    defaults: { _controller: "SfChatBundle:Chat:send" }
+
+chat_load:
+    pattern:  /load
+    defaults: { _controller: "SfChatBundle:Chat:load" }
+
+chat_receive_message:
+    pattern:  /receive
+    defaults: { _controller: "SfChatBundle:Chat:receive" }
+

@@ -33,3 +33,7 @@ foyer_newmember:
 foyer_change:
     pattern: /foyer_change
     defaults: { _controller: SfUserBundle:Foyer:change }
+
+foyer_members:
+    pattern: /members
+    defaults: { _controller: SfUserBundle:Foyer:members }

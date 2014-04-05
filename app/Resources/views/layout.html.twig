@@ -6,7 +6,10 @@
 
   <title>{% block title %}Home Sweet Home !{% endblock %}</title>
   {% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" href="http://www.erichynds.com/examples/jquery-ui-multiselect-widget/jquery.multiselect.css" />
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+  <link rel="stylesheet" href="{{ asset('css/chat.css') }}" type="text/css" />
   <link href="Font-Awesome/css/font-awesome.min.css" rel="stylesheet">{% endblock %}
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
@@ -76,11 +79,217 @@
       <p>Live Love Laugh © 2014</p>
     </footer>
   </div>
+  
+  <div id="chat-dock">
+	{% block chatdock %}
+		
+		<div class="chatter-new" onclick="newChat('', true);"> New chat </div>
+		
+		
+	{% endblock %}
+	
+	
+  </div>
+  <div style="clear: both;"></div>
+  <script>
+		chatcounter = 0;
+		
+		
+		
+		function openChat(id) {
+			$("#"+id+"-close").css('display', 'none');
+			$("#"+id+"-open").css('display', 'block');
+			
+		}
+		
+		function closeChat(id) {
+			$("#"+id+"-open").css('display', 'none');
+			$("#"+id+"-close").css('display', 'block');
+		}
+		
+		function newChat(id, open) {
+			
+			chatters = "";
+			
+			if(id =="") {
+				
+				members = "";
+				
+				$.ajax({
+				   url : '{{ path('foyer_members') }}', 
+				   type : 'GET',
+				   dataType: 'json',
+				   async: false,
+				   success: function(data, textStatus, jqXHR)
+					{
+						
+						members = data.members
+					},
+					error: function (jqXHR, textStatus, errorThrown)
+					{
+				 
+					}
+				});
+				
+				$.each( members, function(key, obj){
+					chatters += '<option value="'+obj.userid+'">'+obj.username+'</option>';
+				});
+				
+			}
+			
+			
+			$("#chat-dock").append(' \
+			<div class="chatter-close" id="chatter'+chatcounter+'-close" onclick="openChat(\'chatter'+chatcounter+'\');">Ludovic Muncherji</div> \
+			<div class="chatter-open" id="chatter'+chatcounter+'-open" > \
+				<form id="chatter'+chatcounter+'-form" name="chatter'+chatcounter+'-form" onsubmit="sendMessage(this.name); return false;"> \
+				<div class="chatter-names" name="chatter-names"  onclick="closeChat(\'chatter'+chatcounter+'\');"> \
+				<select multiple> \
+				'+chatters+' \
+				</select> \
+				</div> \
+				<div class="chatter-discussion"></div> \
+				<div class="chatter-message"><input type="hidden" name="chatid" value="'+id+'" /><input type="text" name="message" value="Your message..." /></div> \
+				</form> \
+			</div> \
+			');
+			
+			if(open == true) {
+				openChat('chatter'+chatcounter);
+			}
+
+			$('#chatter'+chatcounter+'-open select').multiselect({
+			   selectedList: 4 // 0-based index
+			});
+			
+			
+			
+			chatcounter++;
+			
+			return chatcounter-1;
+		}
+		
+		
+		
+		function sendMessage(form) {
+			
+			message = $("#"+form+" [name=message]").val();
+			
+			if(message == "") {
+				alert("Aucun message.");
+				return false;
+			}
+			
+			chatid = $("#"+form+" [name=chatid] ").val();
+			
+			if(chatid == "") {
+				chatters =  []; 
+				
+				$("#"+form+" [name=chatter-names] :selected").each(function(i, selected){ 
+				  chatters[i] = $(selected).val(); 
+				});
+				
+				
+				chatid = registerChat(form, chatters);
+			}
+			
+			$.ajax({
+			   url : '{{ path('chat_send_message') }}', 
+			   type : 'POST',
+			   data : 'chatid='+chatid+"&message="+message,
+			   async: false,
+			   success: function(data, textStatus, jqXHR)
+				{
+					$("#"+form+" [name=message] ").val("");
+					
+				},
+				error: function (jqXHR, textStatus, errorThrown)
+				{
+					alert("Erreur dans l'envoi du message.");
+				}
+			});
+			
+		}
+		
+		
+		function registerChat(form, chatters) {
+			chatid = 0;
+			$.ajax({
+			   url : '{{ path('chat_create') }}', 
+			   type : 'POST',
+			   data : 'chatters='+chatters,
+			   async: false,
+			   success: function(data, textStatus, jqXHR)
+				{
+					
+					$("#"+form+" [name=chatid]").val(data.chatid);
+					$("#"+form+" [name=chatter-names]").html(data.chatters);
+					
+					chatid = data.chatid;
+				},
+				error: function (jqXHR, textStatus, errorThrown)
+				{
+			 
+				}
+			});
+			
+			return chatid;
+		}
+		
+		function loadChat() {
+			$.ajax({
+			   url : '{{ path('chat_load') }}', 
+			   type : 'POST',
+			   async: false,
+			   success: function(data, textStatus, jqXHR)
+				{
+					$.each( data.chatters, function(key, obj){
+						
+						formid = newChat(obj.chatid, true);
+						$("#chatter"+formid+"-form [name=chatter-names]").html(obj.chatters_name);
+						//alert(obj.chatid);
+					});
+					
+					
+				},
+				error: function (jqXHR, textStatus, errorThrown)
+				{
+			 
+				}
+			});
+		}
+		
+		time_receive = 0;
+		
+		function receiveChat() {
+			$.ajax({
+			   url : '{{ path('chat_receive_message') }}', 
+			   type : 'POST',
+			   data : 'date='+Date.now(),
+			   async: false,
+			   success: function(data, textStatus, jqXHR)
+				{
+					alert(data);
+					
+				},
+				error: function (jqXHR, textStatus, errorThrown)
+				{
+			 
+				}
+			});
+		}
+		
+		receiveChat();
+	</script>
 
   {% block javascripts %}
     {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+	    <script type="text/javascript" src="{{ asset('js/jquery.multiselect.js') }}"></script>
+
     <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+	
+	<script>loadChat();</script>
   {% endblock %}
 
 
