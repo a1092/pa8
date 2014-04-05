@@ -21,28 +21,23 @@ class DefaultController extends Controller
 		$content = $this->get("request")->getContent();
 		$params = json_decode($content);
 
-		$repository = $this->getDoctrine()
-					   ->getManager()
-					   ->getRepository('SfUserBundle:User');
-		$listeUser = $repository->findAll();
+		$em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('SfUserBundle:User')->findOneByUsername($params->userName);
+					   
+		if(!$user) { return new JsonResponse(array('data' => "fail")); }
 		
-		$passwordDb = '';
+		$passwordDb = $user->getPassword();
+					   
+		$encoder_service = $this->get('security.encoder_factory');
+		$encoder = $encoder_service->getEncoder($user);
+		$encoded_pass = $encoder->encodePassword($params->password, $user->getSalt());
 		
-		foreach($listeUser as $user)
-		{
-			$passwordDb = $user->getPassword();
-			$userNameDb = $user->getUserName();
-			$password = $params->password;
-			
-			$encoder_service = $this->get('security.encoder_factory');
-			$encoder = $encoder_service->getEncoder($user);
-			$encoded_pass = $encoder->encodePassword($password, $user->getSalt());
-			
-			if(($passwordDb == $encoded_pass) && ($userNameDb == $params->userName)){
+		
+		if(($passwordDb == $encoded_pass)){
 				$data = "success";
-				return new JsonResponse(array('data' => $data));
+				return new JsonResponse(array('data' => $data, 'id' => $user->getId()));
 			}
-		}
+		
 		$data = "fail";
 		return new JsonResponse(array('data' => $data));
     }
