@@ -89,10 +89,14 @@ class ShoppingListController extends Controller
                     $task->setModificationDate($entity->getModificationDate());
                     $foyers[$user->getCurrentFoyer()]->addTask($task);
                     $task->setVisible(false);
-                    foreach ($entity->getUsers() as $u) {
-                        $task->addUser($u);
-                    }
-
+					$users = $entity->getUsers();
+					
+					if(!empty($users)) {
+						foreach ($users as $u) {
+							$task->addUser($u);
+						}
+					}
+					
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($task);
                     $em->flush();
