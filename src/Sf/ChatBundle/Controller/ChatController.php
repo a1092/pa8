@@ -146,7 +146,7 @@ class ChatController extends Controller
 		}
 		
 		$chat->setOpen(true);
-		$em->persist($message);
+		$em->persist($chat);
 		$em->flush();
 		
 		
