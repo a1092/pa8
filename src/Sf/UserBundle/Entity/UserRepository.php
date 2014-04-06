@@ -32,7 +32,6 @@ class UserRepository extends EntityRepository
 		->where('f.id = :foyer')
 		->setParameter('foyer', $foyer);
 
-    // Et on retourne simplement le QueryBuilder, et non la Query, attention
 		return $qb->getQuery()
               ->getResult();
 	}

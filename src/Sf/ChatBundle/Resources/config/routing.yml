@@ -55,3 +55,7 @@ chat_receive_message:
     pattern:  /receive
     defaults: { _controller: "SfChatBundle:Chat:receive" }
 
+chat_archive:
+    pattern:  /archive
+    defaults: { _controller: "SfChatBundle:Chat:archive" }
+

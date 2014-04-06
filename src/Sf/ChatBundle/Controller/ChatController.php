@@ -45,10 +45,30 @@ class ChatController extends Controller
 					$users[] = $u;
 			}
 			
-		
+			
+			$msg_result = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('SfChatBundle:Message')
+					 ->findBy(array("chat" => $c));
+			
+			$j = 1;
+			$messages = array();
+			foreach($msg_result as $m) {
+				$messages[$j] = array(
+					"chatid" => $m->getChat()->getId(),
+					"chatters_name" =>  implode(", ", $users),
+					"sender" => $m->getSentBy(),
+					"message" => $m->getContent(),
+					"date" => $m->getSentDate(),
+				);
+				$j++;
+			}
+			
+			
 			$chatters[$i] = array(
 				"chatid" => $c->getId(),
-				'chatters_name' => implode(", ", $users)
+				'chatters_name' => implode(", ", $users),
+				'messages' => $messages
 			);
 			
 			$i++;
@@ -84,6 +104,8 @@ class ChatController extends Controller
 				$chat->addUser($chatter);
 				$chatters_name[] = $chatter->getUsername();
 			}
+			
+			$chat->addUser($user);
 		}
 		
 		$foyers = $user->getFoyers();
@@ -121,10 +143,12 @@ class ChatController extends Controller
 				$chat->addUser($reader);
 			}
 			
-			
-			$em->persist($chat);
-			$em->flush();
 		}
+		
+		$chat->setOpen(true);
+		$em->persist($message);
+		$em->flush();
+		
 		
 		$message = new Message();
 		
@@ -154,15 +178,71 @@ class ChatController extends Controller
 	public function receiveAction(Request $request) {
 		$em = $this->getDoctrine()->getManager();
 		$user = $this->container->get('security.context')->getToken()->getUser();
-		$date = strtotime($request->request->get('date'));
 		
+		$date = ($request->request->get('date'));
+
+		//echo date("d-m-Y H:i:s", $date);
+		
+//		$date = (\DateTime)  $date;
+//		echo $date->format("d-m-Y H:i:s");
+		$date = new \DateTime(date("d-m-Y H:i:s", $date));
 		
 		$result = $this->getDoctrine()
                      ->getManager()
                      ->getRepository('SfChatBundle:Message')
                      ->receiveMessages($date, $user);
 		
-		var_dump($result);
+		$messages = array();
+		
+		
+		
+			
+	
+		
+		$i = 1;
+		foreach($result as $m) {
+		
+			$users = array();
+			
+			foreach($m->getChat()->getUsers() as $u) {
+				if($u != $user) 
+					$users[] = $u;
+			}
+			
+			$messages[$i] = array(
+			
+				"chatid" => $m->getChat()->getId(),
+				"chatters_name" =>  implode(", ", $users),
+				"sender" => $m->getSentBy(),
+				"message" => $m->getContent(),
+				"date" => $m->getSentDate(),
+				
+			);
+		
+		}
+		
+		$response = new Response(json_encode(array('messages' => $messages)));
+		$response->headers->set('Content-Type', 'application/json');
+
+		return $response;
+	}
+	
+	
+	
+	public function archiveAction(Request $request) {
+		$em = $this->getDoctrine()->getManager();
+		$chatid = $request->request->get('chatid');
+		
+		$chat = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('SfChatBundle:Chat')
+                     ->find($chatid);
+		
+		if($chat) {
+			$chat->setOpen(false);
+			$em->persist($chat);
+			$em->flush();
+		}
 		return new Response();
 	}
 }

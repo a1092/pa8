@@ -37,12 +37,13 @@ class MessageRepository extends EntityRepository
 		->leftjoin('a.chat', 'c')
 		->leftJoin('c.users', 'u', 'WITH', 'u.id = :userid')
 		->setParameter('userid', $user->getId())
-		->where('a.sentDate > :lastcheck')
+		->where('a.sentDate >= :lastcheck')
 		->setParameter('lastcheck', $lastcheck)
 		->andwhere('c.open = true')
 		->orderBy('a.sentDate', 'DESC')
 		;
-
+		
+		
 	      return $qb->getQuery()
               ->getResult();
 	}
