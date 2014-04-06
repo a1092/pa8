@@ -41,71 +41,75 @@
             <h2>Créer un nouveau foyer</h2>
             <p class="bg-danger">{{ form_errors(form) }}</p>
             <h3><small>Mon compte</small></h3>
-            <form action="" method="post" class="form-horizontal" role="form">
+			<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} class="form-horizontal" method="POST" class="fos_user_registration_register"role="form">
               <div class="form-group">
                 <label for="username" class="col-sm-3 control-label">Pseudo</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="username" placeholder="Pseudo" value="">
-                  <span class="help-block"></span>
+				  {{ form_widget(form.username) }}
+                  <span class="help-block">{{ form_errors(form.username) }}</span>
                 </div>
               </div><!-- /.form-group -->
               <div class="form-group">
                 <label for="firstname" class="col-sm-3 control-label">Prénom</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="firstname" placeholder="Prénom" value="">
-                  <span class="help-block"></span>
+                  {{ form_widget(form.firstname) }}
+                  <span class="help-block">{{ form_errors(form.firstname) }}</span>
                 </div>
               </div><!-- /.form-group -->
               <div class="form-group">
                 <label for="lastname" class="col-sm-3 control-label">Nom</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="lastname" placeholder="Nom" value="">
-                  <span class="help-block"></span>
+                  {{ form_widget(form.lastname) }}
+                  <span class="help-block">{{ form_errors(form.lastname) }}</span>
                 </div>
               </div><!-- /.form-group -->
               <div class="form-group">
                 <label for="email" class="col-sm-3 control-label">Email</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="email" placeholder="Email" value="">
-                  <span class="help-block"></span>
+                  {{ form_widget(form.email) }}
+                  <span class="help-block">{{ form_errors(form.email) }}</span>
                 </div>
               </div><!-- /.form-group -->
               <div class="form-group">
                 <label for="first" class="col-sm-3 control-label">Mot de passe</label>
                 <div class="col-sm-9">
-                  <input type="password" class="form-control" name="first" placeholder="Mot de passe" value="">
-                  <span class="help-block"></span>
+                 {{ form_widget(form.plainPassword.first) }}
+                  <span class="help-block">{{ form_errors(form.plainPassword.first) }}</span>
                 </div>
               </div><!-- /.form-group -->
               <div class="form-group">
                 <label for="second" class="col-sm-3 control-label">Confirmation</label>
                 <div class="col-sm-9">
-                  <input type="password" class="form-control" name="second" placeholder="Confirmation" value="">
-                  <span class="help-block"></span>
+                  {{ form_widget(form.plainPassword.second) }}
+                  <span class="help-block">{{ form_errors(form.plainPassword.second) }}</span>
                 </div>
               </div><!-- /.form-group -->
               <div class="form-group">
                 <label for="sexe" class="col-sm-3 control-label">Sexe</label>
                 <div class="col-sm-9">
-                  <select class="form-control" name="sexe">
-                    <option>Masculin</option>
-                    <option>Féminin</option>
-                  </select>
-                  <span class="help-block"></span>
+                   {{ form_widget(form.gender) }}
+                  <span class="help-block">{{ form_errors(form.gender) }}</span>
                 </div>
               </div><!-- /.form-group -->
               <div class="form-group">
                 <label for="avatar" class="col-sm-3 control-label">Avatar</label>
                 <div class="col-sm-9">
-                  <input type="file" name="avatar" data-filename-placement="inside" title="Parcourir les fichiers" class="text-left">
-                  <span class="help-block"></span>
+                  {{ form_widget(form.image) }}
+                  <span class="help-block">{{ form_errors(form.image) }}</span>
+                </div>
+              </div><!-- /.form-group -->
+              <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">Couleur</label>
+                <div class="col-sm-9">
+                  {{ form_widget(form.color) }}
+                  <span class="help-block">{{ form_errors(form.color) }}</span>
                 </div>
               </div><!-- /.form-group -->
               <h3><small>Mon foyer</small></h3>
               <div class="form-group">
                 <label for="name-foyer" class="col-sm-3 control-label">Nom</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="name-foyer" placeholder="Nom" value="">
+				  <input type="text" class="form-control" placeholder="Nom" id="fos_user_registration_form_foyers_Nom_name" name="fos_user_registration_form[foyers][Nom][name]" required="required">
                   <span class="help-block"></span>
                 </div>
               </div><!-- /.form-group -->
@@ -113,9 +117,9 @@
               <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 
               <script type="text/javascript">
-                $(document).ready(function() {
+                /* $(document).ready(function() {
                   $container = $('div#fos_user_registration_form_foyers');
-
+					
                   var index = $container.find(':input').length;
                   if (index == 0) {
                     ajouterFoyer($container);
@@ -124,18 +128,19 @@
                   function ajouterFoyer($container) {
                     $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, ' ')
                       .replace(/__name__/g, 'Nom'));
-
+					alert($prototype.html());
                     $container.append($prototype);
                     index++;
                   }
-                });
+                }); */
               </script>
 
               <p class="text-center">
                 <button type="submit" class="btn btn-success">
                   <span class="glyphicon glyphicon-ok"></span> Enregistrer
                 </button>
-              </p>     
+              </p> 
+				{{ form_rest(form) }}			  
             </form>      
           </div>
         </div>

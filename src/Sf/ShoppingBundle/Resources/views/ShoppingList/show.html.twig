@@ -1,42 +1,50 @@
-{% extends 'SfShoppingBundle::layout.html.twig' %}
+{% extends '::layout.html.twig' %}
+
+{% block bodyback %}
+{% endblock %}
+
+
+{% block bodytitle %}
+	<i class="glyphicon glyphicon-shopping-cart"></i> {{ entity.name }} {% if entity.deadline != null %}<small>{{ entity.deadline|date('l d F H:i') }}</small>{% endif %}
+{% endblock %}
+
+
+{% block bodyaction %}
+	<button class="btn btn-danger" onclick="document.location = '{{ path('shoppinglist_delete', { 'id': entity.id }) }}'">Supprimer</a>
+	<button class="btn btn-success" onclick="document.location = '{{ path('shoppinglist_edit', { 'id': entity.id }) }}'">Editer</a>
+	
+{% endblock %}
+
 
 {% block body -%}
-<h3>Liste des courses</h3>
+	
+	<div>
+		<div class="label label-default" style="float: right; margin-right: 10px;"><i class="glyphicon glyphicon-time"></i> {{ entity.creationDate|date('d-m-Y H:i') }}</div> 
 
-<table class="table">
-    <tr>
-        <th>Nom de la liste</th>
-        <td>{{ entity.name }}</td>
-    </tr>
-    <tr>
-        <th>Date des courses</th>
-        <td>{% if entity.deadline != null %}{{ entity.deadline|date('l d F H:i') }}{% endif %}</td>
-    </tr>
-    <tr>
-        <th>Créée par</th>
-        <td>
-            {% for member in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %}
-                    {% if entity.createdBy == member.id %}{{ member.firstname }}{% endif %}
-                {% endfor %}
-        </td>
-    </tr>
-    {% if entity.private == true %}
-        <th>Personnes concernées</th>
-            <td>{% for user in entity.getUsers() %}
-                    {{ user.firstname }}
-                <br />
-                {% endfor %}
-        </td>
-    {% endif %}
-    <tr>
-        <th>Date de création</th>
-        <td>{{ entity.creationDate|date('Y-m-d H:i:s') }}</td>
-    </tr>
-    <tr>
-        <th>Dernière modification</th>
-        <td>{{ entity.modificationDate|date('Y-m-d H:i:s') }}</td>
-    </tr>
-</table>
+		<div class="label label-default" style="float: right; margin-right: 10px;"><i class="glyphicon glyphicon-user"></i> 
+			 {% for member in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %}
+				{% if entity.createdBy == member.id %}{{ member.firstname }}{% endif %}
+			{% endfor %}
+		</div>
+		
+		{% if entity.private == true %}
+		<div class="label label-default" style="float: right; margin-right: 10px;">
+			<i class="glyphicon glyphicon-lock"></i>
+			
+			{% for user in entity.getUsers() %}
+				{{ user.username }}
+			{% endfor %}
+			
+		</div>
+		{% endif %}
+		
+		
+		
+		
+		<div style="clear:both;"></div>
+	</div>
+	
+  
 <table class="table">
     <thead>
         <tr>
@@ -107,6 +115,4 @@
 <a href="{{ path('shoppinglist') }}">Retour aux listes</a>
 {% endif %}
 
-<br /><a href="{{ path('shoppinglist_edit', { 'id': entity.id }) }}">Editer</a>
-<br /><a href="{{ path('shoppinglist_delete', { 'id': entity.id }) }}">Supprimer</a>
 {% endblock %}

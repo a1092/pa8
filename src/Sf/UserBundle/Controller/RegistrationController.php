@@ -45,7 +45,69 @@ public function getDoctrine()
         }
 
         $form = $formFactory->createForm();
-        $form->setData($user);
+		
+		$form->add('username', 'text', array(
+			'attr' => array(
+				'class' => 'form-control',
+				'placeholder' => 'Surnom'
+			)
+		))
+		->add('firstname', 'text', array(
+			'attr' => array(
+				'class' => 'form-control',
+				'placeholder' => 'Prénom'
+			)
+		))
+		->add('lastname', 'text', array(
+			'attr' => array(
+				'class' => 'form-control',
+				'placeholder' => 'Nom'
+			)
+		))
+		->add('email', 'email', array(
+			'attr' => array(
+				'class' => 'form-control',
+				'placeholder' => 'Email'
+			)
+		))
+		->add('plainPassword', 'repeated', array(
+           'type' => 'password',
+		  
+			'options' => array(
+				 'attr' => array(
+					'class' => 'form-control',
+					'placeholder' => 'Mot de passe'
+				)
+			),
+        ))
+			
+		
+		
+		->add('gender', 'choice', array(
+			'attr' => array(
+				'class' => 'form-control',
+			),
+			'choices'   => array(
+					''   => '',
+					'Masculin' => 'Masculin',
+					'Feminin' => 'Feminin'
+			)
+		))
+		->add('color', 'choice', array(
+			'attr' => array(
+				'class' => 'form-control',
+			),
+			'choices'   => array(
+					'Bleu'   => 'Bleu',
+					'Rouge' => 'Rouge',
+					'Vert' => 'Vert'
+			)
+		))
+		
+		;
+        
+		
+		$form->setData($user);
 
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
@@ -72,28 +134,34 @@ public function getDoctrine()
                     $user->increaseNumberOfConnections();
 
                     $em = $this->getDoctrine()->getManager();
-      $foyers = $em->getRepository('SfUserBundle:Foyer')->getSelectList($user);
+					  $foyers = $em->getRepository('SfUserBundle:Foyer')->getSelectList($user);
 
-      foreach($user->getFoyers() as $uF) {
-        $inIt = false;
-        foreach ($foyers as $f) {
-          if($uF == $f) {
-            $inIt = true;
-          }
-        }
-        if($inIt == false) {
-          $uF->addUser($user);
-          $em->persist($uF);
-          $em->flush();
-        }
-      }
+					  foreach($user->getFoyers() as $uF) {
+						$inIt = false;
+						foreach ($foyers as $f) {
+						  if($uF == $f) {
+							$inIt = true;
+						  }
+						}
+						if($inIt == false) {
+						  $uF->addUser($user);
+						  $em->persist($uF);
+						  $em->flush();
+						}
+					  }
 
                     $userManager->updateUser($user);
-                    return $this->container->get('templating')->renderResponse('FOSUserBundle::bienvenue.html.twig');
+                   
+				   $url = $this->container->get('router')->generate('sf_welcome');
+                    return new RedirectResponse($url);
                 }
 
-                 return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.'.$this->getEngine(), array(
-            'user' => $user, 'message' => 'Vous êtes bien inscrit !'));
+                 //return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.'.$this->getEngine(), array(
+            //'user' => $user, 'message' => 'Vous êtes bien inscrit !'));
+			
+				$url = $this->container->get('router')->generate('sf_welcome');
+                    return new RedirectResponse($url);
+					
                 //return $response;
             }
         }
@@ -102,4 +170,9 @@ public function getDoctrine()
             'form' => $form->createView(),
         ));
     }
+	
+	 public function welcomeAction(Request $request)
+    {
+		return $this->container->get('templating')->renderResponse('FOSUserBundle::bienvenue.html.twig');
+	}
 }

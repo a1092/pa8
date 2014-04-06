@@ -34,3 +34,7 @@ foyer_change:
 foyer_members:
     pattern: /members
     defaults: { _controller: SfUserBundle:Foyer:members }
+
+sf_welcome:
+    pattern: /welcome
+    defaults: { _controller: SfUserBundle:Registration:welcome }

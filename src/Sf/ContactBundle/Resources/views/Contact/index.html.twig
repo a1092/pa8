@@ -1,34 +1,54 @@
-{% extends 'SfContactBundle::layout.html.twig' %}
+{% extends '::layout.html.twig' %}
+
+{% block bodytitle %}
+	Carnet d'adresses
+{% endblock %}
+
+
+{% block bodyaction %}
+	 <button class="btn btn-default" onclick="document.location = '{{ path('contact_new') }}'">Nouveau contact</a>
+	 </div>
+	 
+	 <div style="float: right; margin-right: 10px; width: 300px; ">
+	  <form action="{{ path('contact_search') }}" method="post" >
+	 <div class="input-group" >
+     
+	  {{ form_widget(search.recherche) }}
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">&nbsp;<i class="glyphicon glyphicon-search"></i>&nbsp;</button>
+      </span>
+	  
+    </div>
+	{{ form_rest(search) }}
+	</form>
+	
+		
+{% endblock %}
+
 
 {% block body -%}
-<h3>Liste des contacts</h3>
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
+			<th></th>
             <th>Nom</th>
             <th>Catégorie</th>
             <th>Email</th>
-            <th>Adresse</th>
-            <th>Téléphone (fixe)</th>
-            <th>Téléphone (mobile)</th>
-            <th>Téléphone (autre)</th>
-            <th>Remarques</th>
-            <th>Actions</th>
+            <th>Tél. fixe</th>
+            <th style="width: 50px;">Tél. mobile</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         {% for entity in entities %}
         <tr>
-
+			<td><i class="glyphicon glyphicon-user"></i></td>
             <td>{{ entity.name }}</td>
             <td>{{ entity.category }}</td>
             <td>{{ entity.email }}</td>
-            <td>{{ entity.address }}</td>
             <td>{{ entity.homePhoneNumber }}</td>
             <td>{{ entity.mobilePhoneNumber }}</td>
-            <td>{{ entity.otherPhoneNumber }}</td>
-            <td>{{ entity.remark|nl2br }}</td>
             <td>
                 <a href="{{ path('contact_show', { 'id': entity.id }) }}" class="btn btn-mini btn-primary" style="font-size: 10px; line-height: 7px;" >show</a>
                 <a href="{{ path('contact_edit', { 'id': entity.id }) }}" class="btn btn-mini btn-primary" style="font-size: 10px; line-height: 7px;" >edit</a>

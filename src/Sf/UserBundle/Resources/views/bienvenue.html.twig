@@ -1,7 +1,17 @@
 {% extends "SfUserBundle::layout.html.twig" %}
 
+{% block bodytitle %}
+Bienvenue chez vous !
+{% endblock %}
+
+
 {% block body %}
-<h3>Bienvenue</h3>
 
 <p>Ceci est la page de bienvenue. Elle contient toutes les informations importantes vous permettant de comprendre le fonctionnement de notre site. Cette page est présente seulement lors de la première connexion, alors lisez-là attentivement !</p>
+
+<div class="text-center">
+	<button class="btn btn-success" onclick="document.location='{{ path('sf_bienvenue') }}'"> Accèder à mon foyer </button>
+</div>
+
+
 {% endblock %}

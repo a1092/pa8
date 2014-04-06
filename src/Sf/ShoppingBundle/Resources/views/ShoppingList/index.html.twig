@@ -1,17 +1,29 @@
 {% extends 'SfShoppingBundle::layout.html.twig' %}
 
-{% block body -%}
-<h3>Listes de courses</h3>
 
-<table class="table">
+{% block bodytitle %}
+	Liste des courses
+{% endblock %}
+
+
+{% block bodyaction %}
+	 <button class="btn btn-default" onclick="document.location = '{{ path('shoppinglist_new') }}'">Nouvelle liste</a>
+{% endblock %}
+
+
+
+{% block body -%}
+
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>Nom de la liste des courses</th>
+            <th>Liste</th>
             <th>Date des courses</th>
-            <th>Créée par</th>
-            <th>Article</th>
-            <th>Quantité</th>
-            <th>Ajouté par</th>
+            <th>Auteur</th>
+			<th>Article</th>
+			<th>Ajouter</th>
+
+            <th>Contributeurs</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -20,63 +32,48 @@
         {% for entity in entities %}
 
         <tr>
-            <td>{{ entity.name }}</td>
+            <td>{% if entity.private == true %}<i class="glyphicon glyphicon-lock"></i> {% endif %}{{ entity.name }}</td>
             <td>{% if entity.deadline != null %}{{ entity.deadline|date('l d F H:i') }}{% endif %}</td>
             <td>
                 {% for member in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %}
-                    {% if entity.createdBy == member.id %}{{ member.firstname }}{% endif %}
+                    {% if entity.createdBy == member.id %}{{ member.username }}{% endif %}
                 {% endfor %}
             </td>
-            <td>
-                {% for article in entity.getArticles() %}
-                    {{ article.name }}
-                <br />
-                {% endfor %}
-                <form action="{{ path('article_new', { 'id': entity.id, 'page' : 'index'}) }}" method="post" >
-
-{{ form_errors(form[cpt]) }}
-
-<div>
-  {{ form_label(form[cpt].name, "Nom") }}
-  {{ form_errors(form[cpt].name) }}
-  {{ form_widget(form[cpt].name) }}
-</div>
-
-<div>
-  {{ form_label(form[cpt].quantity, "Quantité") }}
-  {{ form_errors(form[cpt].quantity) }}
-  {{ form_widget(form[cpt].quantity) }}
-</div>
-
-{{ form_rest(form[cpt]) }}
-
-<input type="submit" value="Créer" class="btn btn-primary" />
-
-</form>
+			 <td>
+				{{ entity.getArticles()|length }} produits
+				
+				
             </td>
+			<td>
+				<form action="{{ path('article_new', { 'id': entity.id, 'page' : 'index'}) }}" method="post" class="form-inline" >
+
+				{{ form_errors(form[cpt]) }}
+				{{ form_errors(form[cpt].name) }}
+				{{ form_errors(form[cpt].quantity) }}
+				<div class="form-group">
+					{{ form_widget(form[cpt].name) }}
+					{{ form_widget(form[cpt].quantity) }}
+					<input type="submit" value="Ajouter" class="form-control" />
+				</div>
+				 
+				{{ form_rest(form[cpt]) }}
+
+				</form>
+			</td>
             <td>
-                {% for article in entity.getArticles() %}
-                    {{ article.quantity}}
-                <br />
-                {% endfor %}
+				{% if entity.getUsers()|length == 0 %} 
+					Tout le monde 
+				{% else %} 
+					{{ entity.getUsers()|join(', ') }}
+				{% endif %}
             </td>
+           
+            
             <td>
-                {% for article in entity.getArticles() %}
-                    {% for member in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %}
-                    {% if article.addBy == member.id %}{{ member.firstname }}{% endif %}
-                {% endfor %}
-                <br />
-                {% endfor %}
-            </td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('shoppinglist_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('shoppinglist_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+				<button class="btn btn-small" onclick="document.location='{{ path('shoppinglist_show', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-eye-open"></i></button>
+				<button class="btn btn-small" onclick="document.location='{{ path('shoppinglist_edit', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-edit"></i></button>
+				<button class="btn btn-small btn-success" onclick="document.location='{{ path('shoppinglist_delete', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-ok"></i></button>
+                
             </td>
         </tr>
         {% set cpt = (cpt+1) %}

@@ -389,4 +389,9 @@ class User extends BaseUser
     {
         return $this->notSeenMessages;
     }
+	
+	public function __toString()
+    {
+        return $this->getUsername();
+    }
 }

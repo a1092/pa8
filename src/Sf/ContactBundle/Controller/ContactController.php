@@ -24,7 +24,16 @@ class ContactController extends Controller
     public function indexAction()
     {
         $search = $this->createForm(new SearchContactType());
-
+		$search->add('recherche', 'text', array(
+			'attr' => array(
+				'class' => 'form-control'
+			),
+			'required' => false
+		));
+		
+		
+		
+		
         $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
 
@@ -107,7 +116,13 @@ class ContactController extends Controller
     public function searchAction()
     {
         $form = $this->createForm(new SearchContactType());
-
+		$form->add('recherche', 'text', array(
+			'attr' => array(
+				'class' => 'form-control'
+			),
+			'required' => false
+		));
+		
         $request = $this->getRequest();
         $requestInArray = $this->getRequest()->request->get('searchcontact');
 
@@ -119,11 +134,13 @@ class ContactController extends Controller
         $search = $requestInArray['recherche'];
 
         $em = $this->getDoctrine()->getManager();
-
+		
+		$user = $this->container->get('security.context')->getToken()->getUser();
+		$foyers = $user->getFoyers();
+					
             if($search != '')
             {
-                     $user = $this->container->get('security.context')->getToken()->getUser();
-        $foyers = $user->getFoyers();
+                     
 
                    $qb = $em->createQueryBuilder();
 

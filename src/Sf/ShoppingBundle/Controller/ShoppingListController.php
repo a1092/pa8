@@ -24,15 +24,29 @@ class ShoppingListController extends Controller
      */
     public function indexAction()
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+       $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
 
         $foyers = $user->getFoyers();
 
-        $entities = $em->getRepository('SfShoppingBundle:ShoppingList')->getPersonnalList($foyers[$user->getCurrentFoyer()], $user, false);
+        $entities = $em->getRepository('SfShoppingBundle:ShoppingList')->getPersonnalList($foyers[$user->getCurrentFoyer()], $user, true);
 
         foreach ($entities as $entity) {
-            $form[] = $this->createForm(new ArticleType())->createView();
+            $form[] = $this->createForm(new ArticleType())
+						->add('name', 'text', array(
+							'attr' => array(
+								'placeholder' => 'Produit',
+								'class' => 'form-control'
+							)
+						))
+						->add('quantity', 'text', array(
+							'attr' => array(
+								'placeholder' => 'Qté',
+								'class' => 'form-control',
+								'size' => '1'
+							)
+						))
+						->createView();
         }
 
         if($entities) {
@@ -59,7 +73,7 @@ class ShoppingListController extends Controller
         // On crée le formulaire grâce à l'ArticleType
         $user = $this->container->get('security.context')->getToken()->getUser();
         $foyers = $user->getFoyers();
-        $form = $this->createForm(new ShoppingListType, $entity);
+        $form = $this->createForm(new ShoppingListType($foyers[$user->getCurrentFoyer()]), $entity);
 
         // On récupère la requête
         $request = $this->get('request');
@@ -159,7 +173,7 @@ class ShoppingListController extends Controller
             throw $this->createNotFoundException('Unable to find ShoppingList entity.');
         }
 
-        $form = $this->createForm(new ShoppingListType(), $entity);
+        $form = $this->createForm(new ShoppingListType($foyers[$user->getCurrentFoyer()]), $entity);
         $request = $this->getRequest();
 
         if ($request->getMethod() == 'POST') {

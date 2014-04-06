@@ -1,7 +1,19 @@
-{% extends 'SfLoanBundle::layout.html.twig' %}
+{% extends '::layout.html.twig' %}
+
+
+
+{% block bodytitle %}
+	Prêts
+{% endblock %}
+
+
+{% block bodyaction %}
+	 <button class="btn btn-default" onclick="document.location = '{{ path('loan_new') }}'">Nouvel emprunt</a>
+	 	
+{% endblock %}
+
 
 {% block body -%}
-    <h1>Loan list</h1>
 
     <table class="table">
         <thead>
