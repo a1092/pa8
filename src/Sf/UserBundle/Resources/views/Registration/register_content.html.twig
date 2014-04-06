@@ -1,87 +1,154 @@
 {% trans_default_domain 'FOSUserBundle' %}
-<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
 
-      <div>
-            <h3>Inscription</h3>
-            {{ form_errors(form) }}
-            <h4>
-                  <small>Utilisateur</small>
-            </h4>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            <div>
-                  {{ form_label(form.username, "Pseudo") }}
-            {{ form_errors(form.username) }}
-            {{ form_widget(form.username) }}
-            </div>
+  <title>Kylin // Inscription</title>
 
-            <div>
-                  {{ form_label(form.firstname, "Prénom") }}
-            {{ form_errors(form.firstname) }}
-            {{ form_widget(form.firstname) }}
-            </div>
+  <!-- Bootstrap core CSS -->
+  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
-            <div>
-                  {{ form_label(form.lastname, "Nom") }}
-            {{ form_errors(form.lastname) }}
-            {{ form_widget(form.lastname) }}
-            </div>
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/style.css') }} " rel="stylesheet">
 
-            <div>
-                  {{ form_label(form.email, "Email") }}
-            {{ form_errors(form.email) }}
-            {{ form_widget(form.email) }}
-            </div>
+  <!-- Just for debugging purposes. Don't actually copy this line! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
-            <div>
-                  {{ form_label(form.plainPassword.first, "Mot de passe") }}
-            {{ form_errors(form.plainPassword.first) }}
-            {{ form_widget(form.plainPassword.first) }}
-            </div>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
-            <div>
-                  {{ form_label(form.plainPassword.second, "Mot de passe (confirmation)") }}
-            {{ form_errors(form.plainPassword.second) }}
-            {{ form_widget(form.plainPassword.second) }}
-            </div>
+</head>
+<body class="connexion">
 
-            <div>
-                  {{ form_label(form.gender, "Sexe") }}
-            {{ form_errors(form.gender) }}
-            {{ form_widget(form.gender) }}
-            </div>
-
-            <div>
-                  {{ form_label(form.image, "Image") }}
-            {{ form_errors(form.image) }}
-            {{ form_widget(form.image) }}
-            </div>
-
-            <h4>
-                  <small>Foyer</small>
-            </h4>
-
-            <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-
-            <script type="text/javascript">
-                        $(document).ready(function() {
-                          $container = $('div#fos_user_registration_form_foyers');
-
-                        var index = $container.find(':input').length;
-                        if (index == 0) {
-                          ajouterFoyer($container);
-                        }
-
-                          function ajouterFoyer($container) {
-                            $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, ' ')
-                                                                                .replace(/__name__/g, 'Nom'));
-
-                            $container.append($prototype);
-                            index++;
-                          }
-                        });
-                  </script>
-            {{ form_rest(form) }}
-            <input type="submit" value="{{ 'Inscription'|trans }}" class="btn btn-primary" />
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <img src="{{ asset('img/logo.png') }}" class="img-responsive" />
       </div>
-      {{ form_widget(form) }}
-</form>
+    </div><!-- /.row -->
+    <div class="row connexion-form">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="panel">
+          <div class="panel-body">
+            <h2>Créer un nouveau foyer</h2>
+            <p class="bg-danger">{{ form_errors(form) }}</p>
+            <h3><small>Mon compte</small></h3>
+            <form action="" method="post" class="form-horizontal" role="form">
+              <div class="form-group">
+                <label for="username" class="col-sm-3 control-label">Pseudo</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="username" placeholder="Pseudo" value="">
+                  <span class="help-block"></span>
+                </div>
+              </div><!-- /.form-group -->
+              <div class="form-group">
+                <label for="firstname" class="col-sm-3 control-label">Prénom</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="firstname" placeholder="Prénom" value="">
+                  <span class="help-block"></span>
+                </div>
+              </div><!-- /.form-group -->
+              <div class="form-group">
+                <label for="lastname" class="col-sm-3 control-label">Nom</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="lastname" placeholder="Nom" value="">
+                  <span class="help-block"></span>
+                </div>
+              </div><!-- /.form-group -->
+              <div class="form-group">
+                <label for="email" class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="email" placeholder="Email" value="">
+                  <span class="help-block"></span>
+                </div>
+              </div><!-- /.form-group -->
+              <div class="form-group">
+                <label for="first" class="col-sm-3 control-label">Mot de passe</label>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" name="first" placeholder="Mot de passe" value="">
+                  <span class="help-block"></span>
+                </div>
+              </div><!-- /.form-group -->
+              <div class="form-group">
+                <label for="second" class="col-sm-3 control-label">Confirmation</label>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" name="second" placeholder="Confirmation" value="">
+                  <span class="help-block"></span>
+                </div>
+              </div><!-- /.form-group -->
+              <div class="form-group">
+                <label for="sexe" class="col-sm-3 control-label">Sexe</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="sexe">
+                    <option>Masculin</option>
+                    <option>Féminin</option>
+                  </select>
+                  <span class="help-block"></span>
+                </div>
+              </div><!-- /.form-group -->
+              <div class="form-group">
+                <label for="avatar" class="col-sm-3 control-label">Avatar</label>
+                <div class="col-sm-9">
+                  <input type="file" name="avatar" data-filename-placement="inside" title="Parcourir les fichiers" class="text-left">
+                  <span class="help-block"></span>
+                </div>
+              </div><!-- /.form-group -->
+              <h3><small>Mon foyer</small></h3>
+              <div class="form-group">
+                <label for="name-foyer" class="col-sm-3 control-label">Nom</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="name-foyer" placeholder="Nom" value="">
+                  <span class="help-block"></span>
+                </div>
+              </div><!-- /.form-group -->
+
+              <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+
+              <script type="text/javascript">
+                $(document).ready(function() {
+                  $container = $('div#fos_user_registration_form_foyers');
+
+                  var index = $container.find(':input').length;
+                  if (index == 0) {
+                    ajouterFoyer($container);
+                  }
+
+                  function ajouterFoyer($container) {
+                    $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, ' ')
+                      .replace(/__name__/g, 'Nom'));
+
+                    $container.append($prototype);
+                    index++;
+                  }
+                });
+              </script>
+
+              <p class="text-center">
+                <button type="submit" class="btn btn-success">
+                  <span class="glyphicon glyphicon-ok"></span> Enregistrer
+                </button>
+              </p>     
+            </form>      
+          </div>
+        </div>
+      </div>
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.file-input.js') }}"></script>
+  <script>$(document).ready(function(){$('input[type=file]').bootstrapFileInput();});</script>
+</body>
+</html>
