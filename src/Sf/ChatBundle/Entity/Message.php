@@ -29,9 +29,7 @@ class Message
     private $content;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="sentBy", type="integer")
+     * @ORM\ManyToOne(targetEntity="Sf\UserBundle\Entity\User", cascade={"persist"})
      */
     private $sentBy;
 
@@ -89,28 +87,7 @@ class Message
         return $this->content;
     }
 
-    /**
-     * Set sentBy
-     *
-     * @param integer $sentBy
-     * @return Message
-     */
-    public function setSentBy($sentBy)
-    {
-        $this->sentBy = $sentBy;
-
-        return $this;
-    }
-
-    /**
-     * Get sentBy
-     *
-     * @return integer 
-     */
-    public function getSentBy()
-    {
-        return $this->sentBy;
-    }
+    
 
     /**
      * Set sentDate
@@ -178,4 +155,27 @@ class Message
         return $this->chat;
     }
 
+
+    /**
+     * Set sentBy
+     *
+     * @param \Sf\UserBundle\Entity\User $sentBy
+     * @return Message
+     */
+    public function setSentBy(\Sf\UserBundle\Entity\User $sentBy = null)
+    {
+        $this->sentBy = $sentBy;
+
+        return $this;
+    }
+
+    /**
+     * Get sentBy
+     *
+     * @return \Sf\UserBundle\Entity\User 
+     */
+    public function getSentBy()
+    {
+        return $this->sentBy;
+    }
 }

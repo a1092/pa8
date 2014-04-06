@@ -57,7 +57,7 @@ class ChatController extends Controller
 				$messages[$j] = array(
 					"chatid" => $m->getChat()->getId(),
 					"chatters_name" =>  implode(", ", $users),
-					"sender" => $m->getSentBy(),
+					"sender" => $m->getSentBy()->getUsername(),
 					"message" => $m->getContent(),
 					"date" => $m->getSentDate(),
 				);
@@ -154,7 +154,7 @@ class ChatController extends Controller
 		
 		$message->setContent($content);
 		$message->setSentDate(new \DateTime());
-		$message->setSentBy($user->getId());
+		$message->setSentBy($user);
 		$chat->addMessage($message);
 		$notSeen = 0;
 		
@@ -213,7 +213,7 @@ class ChatController extends Controller
 			
 				"chatid" => $m->getChat()->getId(),
 				"chatters_name" =>  implode(", ", $users),
-				"sender" => $m->getSentBy(),
+				"sender" => $m->getSentBy()->getUsername(),
 				"message" => $m->getContent(),
 				"date" => $m->getSentDate(),
 				

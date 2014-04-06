@@ -33,6 +33,8 @@ class MessageRepository extends EntityRepository
 		$qb = $this->_em->createQueryBuilder();
 
 		$qb->select('a')
+		->addselect('c')
+		->addselect('u')
 		->from('SfChatBundle:Message', 'a')
 		->leftjoin('a.chat', 'c')
 		->leftJoin('c.users', 'u', 'WITH', 'u.id = :userid')

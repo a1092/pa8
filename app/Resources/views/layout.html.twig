@@ -256,9 +256,14 @@
 						
 						$.each(obj.messages, function(key, obj){
 						
-							$("#chatter"+formid+"-form [name=chatter-discussion]").append("<p>"+obj.message+"</p>");
+							$("#chatter"+formid+"-form [name=chatter-discussion]").append("<p><b>"+obj.sender+"</b>: "+obj.message+"</p>");
+							
 							
 						});
+						
+						var wtf    = $("#chatter"+formid+"-form [name=chatter-discussion]");
+						var height = wtf[0].scrollHeight;
+						wtf.scrollTop(height);
 					});
 					
 					
@@ -296,10 +301,16 @@
 						
 						
 						//alert(obj.chatid);
-						$("#chatter"+formid+"-form [name=chatter-discussion]").append("<p>"+obj.message+"</p>");
+						$("#chatter"+formid+"-form [name=chatter-discussion]").append("<p><b>"+obj.sender+"</b>: "+obj.message+"</p>");
 						
+						var wtf    = $("#chatter"+formid+"-form [name=chatter-discussion]");
+						var height = wtf[0].scrollHeight;
+						wtf.scrollTop(height);
+					
 					//	alert(obj.message);
 					});
+					
+					
 					
 				},
 				error: function (jqXHR, textStatus, errorThrown)
@@ -309,7 +320,7 @@
 			});
 			
 			lasttime_receive = Math.round(new Date().getTime() / 1000);
-			setTimeout(receiveChat, 4000);
+			setTimeout(receiveChat, 3000);
 		}
 		
 		
