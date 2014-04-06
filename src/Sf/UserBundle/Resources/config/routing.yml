@@ -1,6 +1,3 @@
-sf_user_homepage:
-    pattern:  /
-    defaults: { _controller: SfUserBundle:Default:index }
 
 sf_connexion:
     pattern: test

@@ -1,24 +1,79 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
-
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block fos_user_content %}
-{% if error %}
-    <div>{{ error|trans }}</div>
-{% endif %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<form action="{{ path("fos_user_security_check") }}" method="post">
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+  <title>Kylin // Connexion</title>
 
-    <label for="username">{{ 'security.login.username'|trans }}</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+  <!-- Bootstrap core CSS -->
+  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <label for="password">{{ 'security.login.password'|trans }}</label>
-    <input type="password" id="password" name="_password" required="required" />
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/style.css') }} " rel="stylesheet">
 
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+  <!-- Just for debugging purposes. Don't actually copy this line! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
-    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-</form>
-{% endblock fos_user_content %}
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+<body class="connexion">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <img src="{{ asset('img/logo.png') }}" class="img-responsive" />
+      </div>
+    </div><!-- /.row -->
+    <div class="row connexion-form">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <div class="panel">
+          <div class="panel-body">
+            <h2>Connexion au foyer</h2>
+            <form role="form" action="{{ path("fos_user_security_check") }}" method="post">
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+				  <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Pseudo" />
+
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+				  <input type="password" class="form-control" placeholder="Mot de passe"  id="password" name="_password" required="required" />
+                </div>
+              </div>
+			   <div class="form-group">
+				 <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+				 <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+              </div>
+              <div class="form-group">
+                <button type="submit" id="_submit" name="_submit" class="btn btn-default btn-block btn-connexion">Connexion</button>
+              </div>
+            </form>            
+          </div>
+        </div>
+      </div>
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+</body>
+</html>

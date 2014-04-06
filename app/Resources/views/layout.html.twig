@@ -1,97 +1,120 @@
-{# app/Resources/views/layout.html.twig #}
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{% block title %}Home Sweet Home !{% endblock %}</title>
-  {% block stylesheets %}
-  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
-  <link rel="stylesheet" type="text/css" href="http://www.erichynds.com/examples/jquery-ui-multiselect-widget/jquery.multiselect.css" />
-  <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
-  <link rel="stylesheet" href="{{ asset('css/chat.css') }}" type="text/css" />
-  <link href="Font-Awesome/css/font-awesome.min.css" rel="stylesheet">{% endblock %}
+  <title>Kylin // Dashboard</title>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+  
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="http://www.erichynds.com/examples/jquery-ui-multiselect-widget/jquery.multiselect.css" />
 
+	<link rel="stylesheet" href="{{ asset('css/chat.css') }}" type="text/css" />
+
+	
+	
+  <!-- Bootstrap core CSS -->
+  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+
+  <!-- Just for debugging purposes. Don't actually copy this line! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <style id="holderjs-style" type="text/css"></style>
 </head>
 
 <body>
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  
-<div id="menu">{% include '::menu.html.twig' %}</div>
 
-  
-  <div class="container">
-
-    <!-- Le header -->
-    <div class="row">
-      <div class="col-md-9">
-        <h1>
-          <a href="{{ path('sf_user_homepage') }}">Home Sweet Home</a>
-        </h1>
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        <h3>
-          Bienvenue chez
-          {% if app.user.getFoyers[app.user.getCurrentFoyer()].name != NULL %} {{ app.user.getFoyers[app.user.getCurrentFoyer()].name }} {% else %} toi {% endif %}
-        </h3>
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/" title="Kylin" rel="homepage">Kylin</a>
       </div>
-      <div class="col-md-3">
-        {% if app.user.image is not null %}
-        <img src="{{ asset(app.user.image.webPath) }}" alt="{{ app.user.image.alt }}" class="img-circle"/>
-        {% endif %}
-        <br />
-        Connecté en tant que {{ app.user.username }}
-      {% endif %}
+      <div class="navbar-collapse collapse navbar-responsive-collapse">
+        <p class="navbar-text">Chez {% if app.user.getFoyers[app.user.getCurrentFoyer()].name != NULL %} {{ app.user.getFoyers[app.user.getCurrentFoyer()].name }} {% else %} toi {% endif %}</p>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{ path('options') }}"><span class="glyphicon glyphicon-wrench" title="Options"></span></a></li>
+          <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off" title="Déconnexion"></span></a></li>
+        </ul>
+        <p class="navbar-text navbar-right"> Bonjour {{ app.user.username }}</p>
       </div>
     </div>
-
-    <!-- Pour les personnes non connectées -->
-    <div>
-      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") == false %}
-      <ul class="nav nav-pills nav-stacked">
-        <li>
-          <a href="{{ path('fos_user_registration_register') }}">Créer mon foyer</a>
-        </li>
-        <li>
-          <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-        </li>
-      </ul>
-      {% endif %}
-    </div>
-
-    <!-- Les menus des fonctionnalités -->
-    <div id="content" class="container">
-      {% block menu_fonctionnalite %}
-      {% endblock %}
-    </div>
-
-    <!-- Le corps -->
-    <div id="content" class="container">
-      {% block body %}
-      {% endblock %}
-    </div>
-
-    <!-- Le pied -->
-    <hr>
-    <footer>
-      <p>Live Love Laugh © 2014</p>
-    </footer>
   </div>
-  
+
+  <nav class="sidebar-mobile" role="navigation">
+    <a href="#" class="active"><span class="glyphicon glyphicon-home" title="Accueil"></span></a>
+    <a href="#"><span class="glyphicon glyphicon-comment" title="Accueil"></span></a>
+    <a href="#"><span class="glyphicon glyphicon-calendar" title="Calendrier"></span></a>
+    <a href="#"><span class="glyphicon glyphicon-ok" title="To Do"></span></a>
+    <a href="#"><span class="glyphicon glyphicon-shopping-cart" title="Liste de courses"></span></a>
+    <a href="#"><span class="glyphicon glyphicon-transfer" title="Prêts"></span></a>
+    <a href="#"><span class="glyphicon glyphicon-phone-alt" title="Contacts"></span></a>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2 col-md-1 sidebar">
+        <ul class="nav nav-sidebar">
+          <li><a href="{{ path('sf_bienvenue') }}" class="active"><span class="glyphicon glyphicon-home" title="Accueil"></span></a></li>
+          <li><a href="{{ path('chat') }}"><span class="glyphicon glyphicon-comment" title="Accueil"></span></a></li>
+          <li><a href="{{ path('task_calendar') }}"><span class="glyphicon glyphicon-calendar" title="Calendrier"></span></a></li>
+          <li><a href="{{ path('task') }}"><span class="glyphicon glyphicon-ok" title="To Do"></span></a></li>
+          <li><a href="{{ path('shoppinglist') }}"><span class="glyphicon glyphicon-shopping-cart" title="Liste de courses"></span></a></li>
+          <li><a href="{{ path('loan') }}"><span class="glyphicon glyphicon-transfer" title="Prêts"></span></a></li>
+          <li><a href="{{ path('contact') }}"><span class="glyphicon glyphicon-phone-alt" title="Contacts"></span></a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+		<div>
+			<h1 class="page-header"> {% block bodytitle %}Kylin{% endblock %}
+				<div style="float: right;" class="btn-group">
+					{% block bodyaction %}
+						<button class="btn btn-default">tesst</button>
+						<button class="btn btn-default">tesst</button>
+						<button class="btn btn-default">tesst</button>
+					{% endblock %}
+				</div>
+			</h1>
+			
+		</div>
+		<div id="content" class="container">
+		  {% block body %}
+		  {% endblock %}
+		</div>
+      </div>
+    </div><!-- /.row -->
+  </div><!-- /.container fluid -->
+
   <div id="chat-dock">
-	{% block chatdock %}
-		
-		<div class="chatter-new" onclick="newChat('', true);"> New chat </div>
-		
-		
-	{% endblock %}
 	
-	
+	<div class="chatter-new" onclick="newChat('', true);"> New chat </div>
   </div>
   <div style="clear: both;"></div>
-  <script>
+  
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.multiselect.js') }}"></script>
+
+<script>
 		chatcounter = 0;
 		
 		
@@ -350,20 +373,10 @@
 			
 		}
 		
+		loadChat();
 		receiveChat();
+		
 	</script>
-
-  {% block javascripts %}
-    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-	    <script type="text/javascript" src="{{ asset('js/jquery.multiselect.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
-	
-	<script>loadChat();</script>
-  {% endblock %}
-
 
 </body>
 </html>

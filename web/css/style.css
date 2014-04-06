@@ -1,0 +1,154 @@
+a {
+	-webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-o-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+	color: #fbdc68;
+	transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+a:hover,
+a:focus { color: #354650; outline: 0; text-decoration: none; }
+
+a:before,
+a:after {
+	-webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-o-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+	transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+.navbar { margin-bottom: 0px; text-transform: uppercase; }
+
+.navbar-inverse { padding-bottom: 20px; padding-top: 20px; }
+
+.navbar-inverse { background-color: #ef4545; border-color: transparent; }
+
+.navbar-inverse .navbar-nav > li > a { color: white; }
+
+.navbar-inverse .navbar-nav > li > a:hover { color: #fbdc68; }
+
+.navbar-brand { 	
+	display: inline-block;
+	width: 170px;
+	height: 59px;
+	text-indent: -9999px;
+	background-image: url(../img/logo.png);
+	background-position: 0 -4px;
+	background-size: 170px 59px;
+	background-repeat: no-repeat;
+}
+
+.navbar-inverse .navbar-brand { color: white; }
+
+.navbar-inverse .navbar-toggle { border-color: transparent; }
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover { background-color: transparent; color: #fbdc68; }
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus { background-color: transparent; color: #fbdc68; }
+
+.btn-blackblue {
+	background-color: #354650;
+	border: 0;
+	border-radius: 5px;
+	color: #FFFFFF;
+}
+.btn-blackblue:hover {
+	background-color: #7f271a;
+	color: #FFFFFF;
+}
+
+.homepage-bg {
+	background-image: url("../img/homepage2.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	-o-background-size: cover;
+  	-moz-background-size: cover;
+  	-webkit-background-size: cover;
+  	background-position: center;
+  	color: #FFFFFF;
+  	padding-top: 20px;
+}
+
+.marketing {
+	background-color: white;
+	padding: 30px 0;
+}
+.marketing .glyphicon {
+	color: #ef4545;
+	font-size: 60px;
+}
+
+.marketing .col-lg-4 {
+	text-align: center;
+}
+
+.team {
+	background-color: #ef4545;
+	padding: 30px 0;
+	text-align: center;
+	color: #354650;
+}
+
+.team h3 {
+	color: #fbdc68;
+}
+
+.team img {
+	width: 130px;
+	height: 130px;
+}
+
+.partners {
+	background-color: #ef4545;
+	padding: 20px 0;
+	text-align: center;
+	color: #354650;
+}
+
+footer img {
+	width: 150px;
+}
+
+footer {
+	background-color: #354650;
+	padding: 20px 0;
+	color: #FFFFFF;
+}
+
+footer a { color: #ef4545; }
+footer a:hover { color: #fbdc68; }
+
+.white-txt { color: #FFFFFF; }
+.red-txt { color: #7f271a; }
+
+
+/*
+ * Connexion
+ */
+
+.connexion {
+	background-color: #ef4545;
+	padding: 50px 0;
+	text-align: center;
+	color: #FFFFFF;
+}
+
+.connexion-form {
+	padding-top: 20px;
+}
+
+.connexion h2 {
+	color: #1e1e1e;
+}
+
+.btn-connexion {
+	background-color: #ef4545;
+	border: 0;
+	color: white;
+}
+.btn-connexion:hover {
+	background-color: #fbdc68;
+}
+	

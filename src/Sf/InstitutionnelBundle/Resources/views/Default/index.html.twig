@@ -1,7 +1,192 @@
-<html>
-	<head></head>
-	
-	<body>
-	Han je t'ai hacké !!
-	</body>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Kylin // Accueil</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+  <!-- Just for debugging purposes. Don't actually copy this line! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+<body>
+
+<header>
+  <nav role="navigation">
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/" title="Kylin" rel="homepage">Kylin</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="">Fonctionnalités</a></li>
+            <li><a href="">Equipe</a></li>
+            <li><a href="">Partenaires</a></li>
+            <li><button type="button" class="btn btn-default navbar-btn btn-blackblue" onclick="document.location='{{ path('fos_user_security_login') }}'">Se connecter à mon foyer</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>           
+  </nav>
+</header>
+
+<div class="container-fluid homepage-bg">
+  <div class"container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-1">
+      <h2>Ras le bol des post-its sur le frigo ? Adoptez Kylin !</h2>
+      <p class="lead">Une famille française passe en moyenne 2 heures devant un écran chaque jour. Et si vous utilisiez ce temps pour garder le contact avec vos proches et pour vous organisez ? Et même quand vous n'êtes pas là, Kylin vous permet de gérer votre foyer à distance ! Terminés les soucis des tâches pas faites !</p>
+      <p>
+        <button type="button" class="btn btn-default navbar-btn btn-lg btn-blackblue">Inscrire mon foyer</button>
+      </p>
+      </div>
+      <div class="col-md-3"><img src="{{ asset('img/iphone.png') }}" class="img-responsive" alt="Responsive image"></div>
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+</div><!-- /.container fluid -->
+
+  <div class="container marketing">
+    <div class="row">
+      <div class="col-lg-4">
+        <span class="glyphicon glyphicon-flash"></span>
+        <h2>Intelligent et connecté</h2>
+        <p>Pour la première fois, un outil propose à la famille de rester connectée pour communiquer et s'organiser. L'application installée sur mobile prend le relais lorsque vous n'êtes pas chez vous ! Vous resterez ainsi en contact et organisé à toute heure et en tout lieu !</p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <span class="glyphicon glyphicon-gift"></span>
+        <h2>Le tout-en-un</h2>
+        <p>Finissez en avec les 36 applications installées sur vos différents appareils. Kylin vous propose toutes les applications que vous avez déjà dans une seule. En plus les fonctionnalités communiquent entre elles !</p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <span class="glyphicon glyphicon-time"></span>
+        <h2>Inter-générationelle</h2>
+        <p>Utilisable aussi bien par les enfants que les grand-parents, Kylin est inter-générationelle. Nous avons réalisé une interface qui plaira et sera adaptée aussi bien aux petits qu'aux grands !</p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+    <hr class="divider">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <p class="text-center">
+          <img src="img/get-apple.png" alt-="Prochainement sur l'App Store" title="Prochainement sur l'App Store" />
+          <a href="#"><img src="{{ asset('img/get-google.png') }}" alt-="Disponible sur le Play Store" title="Disponible sur le Google Play" /></a>
+        </p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="row featurette">
+      <div class="col-md-8">
+        <h2 class="featurette-heading">Calendrier collectif. <span class="text-muted">Organisez-vous !</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+      <div class="col-md-4">
+        <img class="img-responsive" src="{{ asset('img/screen.png') }}" alt="Screen">
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="row">
+      <div class="col-md-4">
+        <img class="img-responsive" src="{{ asset('img/screen.png') }}" alt="Screen">
+      </div>
+      <div class="col-md-8">
+        <h2 class="featurette-heading">Messagerie. <span class="text-muted">Communiquez.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="row featurette">
+      <div class="col-md-8">
+        <h2 class="featurette-heading">Liste des contacts. <span class="text-muted">Partagez.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+      <div class="col-md-4">
+        <img class="img-responsive" src="{{ asset('img/screen.png') }}" alt="Screen">
+      </div>
+    </div>
+
+  </div><!-- /.container -->
+
+  <div class="container-fluid team">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>L'équipe</h2>
+          <p class="white-txt"><i>Kylin a été pensé et conçu par 6 étudiants-ingénieurs de l'Efrei en Master 1 Architecture des Systèmes d'Information.</i></p>
+        </div>
+      </div><!-- /.row -->
+      <div class="row">
+        <div class="col-md-2">
+          <img src="{{ asset('img/team/alex.png') }}" alt="Alexandre" class="img-circle">
+          <h3>Alexandre</h3> <h5>Chef de projet</h5>
+        </div>
+        <div class="col-md-2">
+          <img src="{{ asset('img/team/celia.jpg') }}" alt="Célia" class="img-circle">
+          <h3>Célia</h3> <h5>Développeur web</h5>
+        </div>
+        <div class="col-md-2">
+          <img src="{{ asset('img/team/ludo.jpg') }}" alt="Ludovic" class="img-circle">
+          <h3>Ludovic</h3> <h5>Webdesigner UX/UI</h5>
+        </div>
+        <div class="col-md-2">
+          <img src="{{ asset('img/team/marie.jpg') }}" alt="Marie" class="img-circle">
+          <h3>Marie</h3> <h5>Développeur fonctionnel</h5>
+        </div>
+        <div class="col-md-2">
+          <img src="{{ asset('img/team/simon.jpg') }}" alt="Simon" class="img-circle">
+          <h3>Simon</h3> <h5>Développeur Android</h5>
+        </div>
+        <div class="col-md-2">
+          <img src="{{ asset('img/team/sinan.jpg') }}" alt="Sinan" class="img-circle">
+          <h3>Sinan</h3> <h5>Commercial</h5>
+        </div>
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+  </div><!-- /.container fluid -->
+
+  <!-- FOOTER -->
+  <footer>
+    <div class"container">
+      <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+          <p class="text-center">&copy; 2014 Captain Family &middot; <a href="#">Mentions légales</a> &middot; <a href="#">CGU</a> &middot; <a href="#">Nous contacter</a></p>
+          <p class="text-center"><a href="http://www.efrei.fr"><img src="img/efrei.png" alt="Efrei" /></a></p>
+        </div>
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/docs.min.js"></script>
+</body>
 </html>
