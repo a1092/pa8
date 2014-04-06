@@ -29,6 +29,10 @@
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
   <style id="holderjs-style" type="text/css"></style>
+  
+  {% block head %}
+	{% endblock %}
+					
 </head>
 
 <body>
@@ -83,9 +87,6 @@
 			<h1 class="page-header"> {% block bodytitle %}Kylin{% endblock %}
 				<div style="float: right;" class="btn-group">
 					{% block bodyaction %}
-						<button class="btn btn-default">tesst</button>
-						<button class="btn btn-default">tesst</button>
-						<button class="btn btn-default">tesst</button>
 					{% endblock %}
 				</div>
 			</h1>
@@ -307,7 +308,7 @@
 			   url : '{{ path('chat_receive_message') }}', 
 			   type : 'POST',
 			   data : 'date='+lasttime_receive,
-			   async: false,
+			 
 			   success: function(data, textStatus, jqXHR)
 				{
 					
@@ -377,6 +378,10 @@
 		receiveChat();
 		
 	</script>
+	
+	{% block javascript %}
+		
+	{% endblock %}
 
 </body>
 </html>

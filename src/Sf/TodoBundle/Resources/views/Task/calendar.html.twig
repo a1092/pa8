@@ -1,52 +1,73 @@
-{% extends 'SfTodoBundle::layoutCalendar.html.twig' %}
+{% extends '::layout.html.twig' %}
+
+{% block bodytitle %}
+Calendrier
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block javascript %}
+{% endblock %}
+
+{% block bodyaction %}
+	
+		<button class="btn btn-default" onclick="document.location='{{ path('task_showCalendarPrevious', { 'month': date|date('m'), 'year': date|date('Y') }) }}'">&lt;</button>
+		<button class="btn btn-default" onclick="document.location='{{ path('task_showCalendarNext', { 'month': date|date('m'), 'year': date|date('Y') }) }}'">&gt;</button>
+	</div>
+	<div style="float: right; margin-right: 20px;" class="btn-group">
+	<button class="btn btn-default" onclick="document.location='{{ path('task_new', { 'visible': '0' }) }}'">Nouvel évènement</button>
+
+{% endblock %}
+
+
 
 {% block body -%}
-<h1>Calendar</h1>
+
+
+
+
 <h2>{{ date|date('F') }}</h2>
 
-<table class="table">
-    <tr><th>Lundi</th><th>Mardi</th><th>Mercredi</th><th>Jeudi</th><th>Vendredi</th><th>Samedi</th><th>Dimanche</th></tr>
+<table class="table text-center">
+    <tr><th style="width:14%;">Lundi</th><th style="width:14%;">Mardi</th><th style="width:14%;">Mercredi</th><th style="width:14%;">Jeudi</th><th style="width:14%;">Vendredi</th><th style="width:14%;">Samedi</th><th style="width:14%;">Dimanche</th></tr>
 
     {% set nbdays = date|date('t') %}
     {% set firstday = date|date('N') %}
     {% set j = 0 %}
-
-    {% for i in 0..(nbdays+firstday) %}
-        {% if i%7 == 2 %}
+	
+	
+    {% for i in 0..(nbdays+firstday-2) %}
+        {% if i%7 == 0 %}
             <tr>
         {% endif %}
 
-        {% if j <= firstday %}
+        {% if j < (firstday-1) %}
             {% set j = (j + 1) %}
             <td></td>
 
         {% else %}
-            <td>
-            {{ (i-firstday) }}
+            <td> 
+            <div>{{ (i-firstday+2) }}</div>
 
             {% for entity in entities %}
                 {% if entity.deadline|date('d') == (i-firstday) %}
-                    <br />
-                    {{ entity.deadline|date('H:i') }} : <a href="{{ path('task_showEvent', { 'id': entity.id }) }}">{{ entity.name }}</a>
+                    <div class="margin-top: 10px; label {% if entity.deadline > date() %} label-primary {% else %} label-danger {% endif %}">
+                    [{{ entity.deadline|date('H:i') }}] <a style="color: white; " href="{{ path('task_showEvent', { 'id': entity.id }) }}">{{ entity.name }}</a>
+					</div>
                 {% endif %}
             {% endfor %}
 
             </td>
         {% endif %}
 
-        {% if i%7 == 1 %}
+        {% if i%7 == 6 %}
             </tr>
         {% endif %}
     {% endfor %}
 </table>
 
-<div class="row">
-    <div class="col-md-2">
-        <a href="{{ path('task_showCalendarPrevious', { 'month': date|date('m'), 'year': date|date('Y') }) }}">Previous Month</a>
-    </div>
-    <div class="col-md-2 col-md-offset-10">
-        <a href="{{ path('task_showCalendarNext', { 'month': date|date('m'), 'year': date|date('Y') }) }}" >Next Month</a>
-    </div>
-</div>
+
 
 {% endblock %}

@@ -1,8 +1,25 @@
-{% extends 'SfTodoBundle::layout.html.twig' %}
+{% extends '::layout.html.twig' %}
+
+
+
+{% block bodytitle %}
+Tâches
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block javascript %}
+{% endblock %}
+
+{% block bodyaction %}
+	<button class="btn btn-default" onclick="document.location='{{ path('task_new', { 'visible': '1' }) }}'">Nouvelle tâche</button>
+{% endblock %}
+
 
 {% block body -%}
-    <h1>Task list</h1>
-
+   
     <table class="table">
         <thead>
             <tr>
