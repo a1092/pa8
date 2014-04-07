@@ -8,8 +8,44 @@
     {% else %}
     <h1>Event edit</h1>
     {% endif %}
-
-    {{ form(edit_form) }}
+	
+	
+	<form action="{{ path('task_update', {'id' : entity.id }) }}" method="post">
+    	
+		
+		{{ form_errors(edit_form) }}
+		
+		Nom:
+		{{ form_widget(edit_form.name) }}
+		{{ form_errors(edit_form.name) }}
+		
+		
+		Description:
+		{{ form_widget(edit_form.description) }}
+		{{ form_errors(edit_form.description) }}
+		
+		Deadline:
+		{{ form_widget(edit_form.deadline) }}
+		{{ form_errors(edit_form.deadline) }}
+		
+		<script>
+			$( document ).ready(function() {
+				$('#sf_todobundle_task_deadline').datetimepicker({ format:'d/m/Y H:i' });
+			});
+		</script>
+		
+		
+		Users:
+		{{ form_widget(edit_form.users) }}
+		{{ form_errors(edit_form.users) }}
+		
+		{{ form_rest(edit_form) }}
+		
+    	<input type="submit" value="Enregistrer" class="btn btn-primary" />
+  	</form>
+	
+	
+  
 
         <ul class="record_actions">
     <li>

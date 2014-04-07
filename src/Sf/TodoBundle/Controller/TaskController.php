@@ -113,7 +113,33 @@ class TaskController extends Controller
     // On crée le formulaire grâce à l'ArticleType
     $user = $this->container->get('security.context')->getToken()->getUser();
     $foyers = $user->getFoyers();
-    $form = $this->createForm(new TaskType($foyers[$user->getCurrentFoyer()]), $entity);
+    $form = $this->createForm(new TaskType($foyers[$user->getCurrentFoyer()]), $entity)
+				->add('name', 'text', array(
+					'attr' => array(
+						'class' => 'form-control'
+					)
+				))
+				->add('description', 'text', array(
+					'attr' => array(
+						'class' => 'form-control'
+					),
+					'required' => false
+				))
+				->add('deadline', 'datetime', array(
+					'attr' => array(
+						'class' => 'form-control'
+					),
+					'widget' => 'single_text',
+					'format' => 'dd/MM/yyyy HH:mm',
+				))
+				->add('users', 'entity', array(
+					'class' => 'SfUserBundle:User',
+					'attr' => array(
+						'class' => 'form-control',
+						'multiple' => 'multiple'
+					),
+					'multiple' => true
+				));
 
     // On récupère la requête
     $request = $this->getRequest();
@@ -223,7 +249,33 @@ class TaskController extends Controller
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity)
+				->add('name', 'text', array(
+					'attr' => array(
+						'class' => 'form-control'
+					)
+				))
+				->add('description', 'text', array(
+					'attr' => array(
+						'class' => 'form-control'
+					),
+					'required' => false
+				))
+				->add('deadline', 'datetime', array(
+					'attr' => array(
+						'class' => 'form-control'
+					),
+					'widget' => 'single_text',
+					'format' => 'dd/MM/yyyy HH:mm',
+				))
+				->add('users', 'entity', array(
+					'class' => 'SfUserBundle:User',
+					'attr' => array(
+						'class' => 'form-control',
+						'multiple' => 'multiple'
+					),
+					'multiple' => true
+				));
 
         return $this->render('SfTodoBundle:Task:edit.html.twig', array(
             'entity'      => $entity,
@@ -268,16 +320,45 @@ class TaskController extends Controller
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+         $editForm = $this->createEditForm($entity)
+				->add('name', 'text', array(
+					'attr' => array(
+						'class' => 'form-control'
+					)
+				))
+				->add('description', 'text', array(
+					'attr' => array(
+						'class' => 'form-control'
+					),
+					'required' => false
+				))
+				->add('deadline', 'datetime', array(
+					'attr' => array(
+						'class' => 'form-control'
+					),
+					'widget' => 'single_text',
+					'format' => 'dd/MM/yyyy HH:mm',
+				))
+				->add('users', 'entity', array(
+					'class' => 'SfUserBundle:User',
+					'attr' => array(
+						'class' => 'form-control',
+						'multiple' => 'multiple'
+					),
+					'multiple' => true
+				));
+				
+				
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $entity->setModificationDate(new \DateTime());
-            $em->flush();
+            $em->persist($entity);
+			$em->flush();
 
             return $this->redirect($this->generateUrl('task_show', array('id' => $id)));
         }
-
+		
         return $this->render('SfTodoBundle:Task:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),

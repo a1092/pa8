@@ -6,10 +6,13 @@
 
   <title>Kylin // Dashboard</title>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
   
 	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
-	<link rel="stylesheet" type="text/css" href="http://www.erichynds.com/examples/jquery-ui-multiselect-widget/jquery.multiselect.css" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.multiselect.css') }}" />
 
+	<link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}" type="text/css" />
 	<link rel="stylesheet" href="{{ asset('css/chat.css') }}" type="text/css" />
 
 	
@@ -19,9 +22,6 @@
 
   <!-- Custom styles for this template -->
   <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
-
-  <!-- Just for debugging purposes. Don't actually copy this line! -->
-  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -109,11 +109,11 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+
 
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.multiselect.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.datetimepicker.js') }}"></script>
 
 <script>
 		chatcounter = 0;
@@ -129,6 +129,14 @@
 		function closeChat(id) {
 			$("#"+id+"-open").css('display', 'none');
 			$("#"+id+"-close").css('display', 'block');
+		}
+		
+		function closeNChat(id) {
+		
+			$("#chatter"+id+"-open").remove();
+			$("#chatter"+id+"-close").remove();
+			
+			return false;
 		}
 		
 		function newChat(id, open) {
@@ -167,7 +175,7 @@
 			}
 			
 			$("#chat-dock").append(' \
-			<div class="chatter-close" id="chatter'+chatcounter+'-close" onclick="openChat(\'chatter'+chatcounter+'\');"></div> \
+			<div class="chatter-close" id="chatter'+chatcounter+'-close" onclick="openChat(\'chatter'+chatcounter+'\');">...</div> \
 			<div class="chatter-open" id="chatter'+chatcounter+'-open" > \
 				<form id="chatter'+chatcounter+'-form" name="chatter'+chatcounter+'-form" onsubmit="sendMessage('+chatcounter+'); return false;"> \
 				'+inputchatid+' \
@@ -175,6 +183,7 @@
 				<select multiple> \
 				'+chatters+' \
 				</select> \
+				&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="return closeNChat('+chatcounter+');">X</a> \
 				</div> \
 				<div class="chatter-discussion" name="chatter-discussion"></div> \
 				<div class="chatter-message"><input type="hidden" name="chatid" value="'+id+'" /><input type="text" name="message" value="Your message..." /></div> \

@@ -10,7 +10,36 @@
     {% endif %}
 
     <form action="{{ path('task_new', {'visible' : visible }) }}" method="post">
-    	{{ form_rest(form) }}
+    	
+		
+		
+		
+		Nom:
+		{{ form_widget(form.name) }}
+		{{ form_errors(form.name) }}
+		
+		
+		Description:
+		{{ form_widget(form.description) }}
+		{{ form_errors(form.description) }}
+		
+		Deadline:
+		{{ form_widget(form.deadline) }}
+		{{ form_errors(form.deadline) }}
+		
+		<script>
+			$( document ).ready(function() {
+				$('#sf_todobundle_task_deadline').datetimepicker({ format:'d/m/Y H:i' });
+			});
+		</script>
+		
+		
+		Users:
+		{{ form_widget(form.users) }}
+		{{ form_errors(form.users) }}
+		
+		{{ form_rest(form) }}
+		
     	<input type="submit" value="Créer" class="btn btn-primary" />
   	</form>
 
