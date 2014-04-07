@@ -90,7 +90,7 @@
     <div class="row">
       <div class="col-lg-12">
         <p class="text-center">
-          <img src="img/get-apple.png" alt-="Prochainement sur l'App Store" title="Prochainement sur l'App Store" />
+          <img src="{{ asset('img/get-apple.png') }}" alt-="Prochainement sur l'App Store" title="Prochainement sur l'App Store" />
           <a href="#"><img src="{{ asset('img/get-google.png') }}" alt-="Disponible sur le Play Store" title="Disponible sur le Google Play" /></a>
         </p>
       </div>
@@ -98,10 +98,22 @@
 
     <hr class="divider">
 
-    <div class="row featurette">
+    <div class="row">
+      <div class="col-md-4">
+        <img class="img-responsive" src="{{ asset('img/screen.png') }}" alt="Screen">
+      </div>
       <div class="col-md-8">
-        <h2 class="featurette-heading">Calendrier collectif. <span class="text-muted">Organisez-vous !</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2>Tableau de bord interractif. <span class="text-muted">En un coup d'oeil.</span></h2>
+        <p class="lead">Gardez le contrôle de votre foyer simplement grâce au tableau de bord de Kylin. Vous pouvez laisser simplement des messages sur ce tableau mais également consulter les statistiques importantes de votre foyer ! Savez-vous par exemple ce que vous devez réaliser comme tâche ménagère cette semaine chez vous ? Plus de disputes familiales avec Kylin !</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="row">
+      <div class="col-md-8">
+        <h2>Calendrier collectif. <span class="text-muted">Organisez-vous !</span></h2>
+        <p class="lead">Chaque membre de la famille a son propre planning. Difficile d'organiser un événement familial lorsqu'on ne connaît pas les occupations des autres. Avec le calendrier de Kylin, vous pourrez désormais afficher au même endroit l'ensemble des plannings de chacun afin de trouver le moment idéal pour se retrouver en famille. Toutes les tâches que vous ajoutez et attribuez au membre du foyer apparaissent également. Il est aussi possible de créer des calendriers privés si vous souhaitez vous organisez personnellement.</p>
       </div>
       <div class="col-md-4">
         <img class="img-responsive" src="{{ asset('img/screen.png') }}" alt="Screen">
@@ -115,8 +127,8 @@
         <img class="img-responsive" src="{{ asset('img/screen.png') }}" alt="Screen">
       </div>
       <div class="col-md-8">
-        <h2 class="featurette-heading">Messagerie. <span class="text-muted">Communiquez.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2>Messagerie innovante. <span class="text-muted">Communiquez.</span></h2>
+        <p class="lead">La communication est important dans une famille. Notre messagerie vous permettra de toujours rester en contact avec les membres de votre foyer même quand ils ne sont pas là. La messagerie de Kylin est plus qu'un simple tchat ! En plus de pouvoir envoyer du contenu multimédia (photo, vidéo), il vous permet d'interroger votre foyer sur des questions intéressantes, par exemple <i>"qui mange à la maison ce soir ?"</i>. Les membres du foyer recevront alors sur leur smartphone une notification qui les inviteront à répondre !</p>
       </div>
     </div>
 
@@ -124,8 +136,8 @@
 
     <div class="row featurette">
       <div class="col-md-8">
-        <h2 class="featurette-heading">Liste des contacts. <span class="text-muted">Partagez.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2>Et bien d'autres ... <span class="text-muted">Découvrez.</span></h2>
+        <p class="lead">N'attendez plus et <a href="#">inscrivez-vous</a> pour découvrir tout ce que Kylin vous permet de faire ! La mémoire familiale est très importante, gardez tout au même endroit comme les contacts, vos recettes de cuisine et bien d'autres choses. Kylin est mis à jour régulièrement avec de nouvelles fonctionnalités conçues pour vous. Essayez, et vous ne pourrez plus vous passer de nous !</p>
       </div>
       <div class="col-md-4">
         <img class="img-responsive" src="{{ asset('img/screen.png') }}" alt="Screen">
@@ -177,7 +189,7 @@
       <div class="row">
         <div class="col-lg-6 col-lg-offset-3">
           <p class="text-center">&copy; 2014 Captain Family &middot; <a href="#">Mentions légales</a> &middot; <a href="#">CGU</a> &middot; <a href="#">Nous contacter</a></p>
-          <p class="text-center"><a href="http://www.efrei.fr"><img src="img/efrei.png" alt="Efrei" /></a></p>
+          <p class="text-center"><a href="http://www.efrei.fr"><img src="{{ asset('img/efrei.png') }}" alt="Efrei" /></a></p>
         </div>
       </div><!-- /.row -->
     </div><!-- /.container -->
