@@ -59,13 +59,13 @@
   </div>
 
   <nav class="sidebar-mobile" role="navigation">
-    <a href="#" class="active"><span class="glyphicon glyphicon-home" title="Accueil"></span></a>
-    <a href="#"><span class="glyphicon glyphicon-comment" title="Accueil"></span></a>
-    <a href="#"><span class="glyphicon glyphicon-calendar" title="Calendrier"></span></a>
-    <a href="#"><span class="glyphicon glyphicon-ok" title="To Do"></span></a>
-    <a href="#"><span class="glyphicon glyphicon-shopping-cart" title="Liste de courses"></span></a>
-    <a href="#"><span class="glyphicon glyphicon-transfer" title="Prêts"></span></a>
-    <a href="#"><span class="glyphicon glyphicon-phone-alt" title="Contacts"></span></a>
+    <a href="{{ path('sf_bienvenue') }}" class="active"><span class="glyphicon glyphicon-home" title="Accueil"></span></a>
+    <a href="{{ path('chat') }}"><span class="glyphicon glyphicon-comment" title="Accueil"></span></a>
+    <a href="{{ path('task_calendar') }}"><span class="glyphicon glyphicon-calendar" title="Calendrier"></span></a>
+    <a href="{{ path('task') }}"><span class="glyphicon glyphicon-ok" title="To Do"></span></a>
+    <a href="{{ path('shoppinglist') }}"><span class="glyphicon glyphicon-shopping-cart" title="Liste de courses"></span></a>
+    <a href="{{ path('loan') }}"><span class="glyphicon glyphicon-transfer" title="Prêts"></span></a>
+    <a href="{{ path('contact') }}"><span class="glyphicon glyphicon-phone-alt" title="Contacts"></span></a>
   </nav>
 
   <div class="container-fluid">
