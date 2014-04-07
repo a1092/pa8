@@ -18,9 +18,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Machin a prêté (lender)</th>
+                <th>Prêteur</th>
                 <th>Quoi</th>
-                <th>A qui (borrower)</th>
+                <th>A qui</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -31,14 +31,10 @@
                 <td>{{ entity.item }}</td>
                 <td>{{ entity.borrower }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('loan_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('loan_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+					<div class="button-group">
+						<button class="btn btn-small" onclick="document.location='{{ path('loan_show', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-eye-open"></i></button>
+						<button class="btn btn-small" onclick="document.location='{{ path('loan_edit', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-edit"></i></button>
+					</div>
                 </td>
             </tr>
         {% endfor %}

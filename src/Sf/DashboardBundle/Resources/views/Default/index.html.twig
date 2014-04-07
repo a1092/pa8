@@ -102,7 +102,7 @@ Quoi de neuf ?
 		lasttime_receive = 0;
 		
 		function loadPost() {
-			
+			//alert(lasttime_receive);
 			jQuery.ajax({
 			  type: 'POST', 
 			  url: '{{ path('sf_dashboard_load') }}', 
@@ -155,7 +155,7 @@ Quoi de neuf ?
 			});
 			
 			lasttime_receive = Math.round(new Date().getTime() / 1000);
-			setTimeout(loadPost,4000)
+			setTimeout(loadPost,5000)
 		
 		}
 		
