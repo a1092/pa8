@@ -45,7 +45,7 @@ class DefaultController extends Controller
       }
       else
       {
-        return $this->render('SfUserBundle::index.html.twig');
+		return $this->redirect($this->generateUrl('sf_dashboard_home', array()));
       }
     }
 }

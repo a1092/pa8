@@ -43,8 +43,9 @@ class TaskRepository extends EntityRepository
   }
 
 
-  public function getPersonnalList($foyer, $user)
+  public function getPersonnalList($foyer, $user, $status='')
   {
+
     $qb = $this->_em->createQueryBuilder();
 
     $qb->select('a')
@@ -55,8 +56,16 @@ class TaskRepository extends EntityRepository
     ->andWhere('a.visible = true')
     ->andWhere('a.createdBy = :createdBy or u = :user')
     ->setParameter('createdBy', $user->getId())
-    ->setParameter('user', $user)
-    ->orderBy('a.deadline', 'ASC')
+    ->setParameter('user', $user);
+	
+	
+	if(!empty($status)) {
+		$qb->andWhere('a.status = :status')
+		 ->setParameter('status', $status);
+		 
+	}
+	
+    $qb->orderBy('a.deadline', 'ASC')
     ;
 
     return $qb->getQuery()

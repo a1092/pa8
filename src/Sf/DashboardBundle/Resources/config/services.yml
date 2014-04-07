@@ -1,0 +1,7 @@
+parameters:
+#    sf_dashboard.example.class: Sf\DashboardBundle\Example
+
+services:
+#    sf_dashboard.example:
+#        class: %sf_dashboard.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

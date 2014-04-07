@@ -14,6 +14,9 @@ Tâches
 {% endblock %}
 
 {% block bodyaction %}
+	<button class="btn btn-danger" onclick="document.location='{{ path('task_status', { 'status': 'En cours' }) }}'">En cours</button>
+	<button class="btn btn-success" onclick="document.location='{{ path('task_status', { 'status': 'Terminé' }) }}'">Terminée</button>
+	<button class="btn btn-default" onclick="document.location='{{ path('task_status', { 'status': 'All' }) }}'">Tous</button>
 	<button class="btn btn-default" onclick="document.location='{{ path('task_new', { 'visible': '1' }) }}'">Nouvelle tâche</button>
 {% endblock %}
 
@@ -27,6 +30,7 @@ Tâches
                 <th>Deadline</th>
                 <th>Persons concerned</th>
                 <th>Description</th>
+                <th>Statut</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -40,17 +44,20 @@ Tâches
                 <br />
                 {% endfor %}</td>
                 <td>{{ entity.description|nl2br }}</td>
+                <td>{{ entity.status }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('task_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('task_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+              
+					<div class="btn-group">
+						<button class="btn btn-default" onclick="document.location='{{ path('task_show', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-eye-open"></i></button>
+						<button class="btn btn-default" onclick="document.location='{{ path('task_edit', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-edit"></i></button>
+						{% if entity.status != 'Terminé' %}<button class="btn btn-success" onclick="document.location='{{ path('task_validate', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-ok"></i></button> {% endif %}
+					</div>
                 </td>
             </tr>
+		{% else %}
+			<tr>
+                <td colspan="6" class="text-center">Aucune tâche</td>
+			</tr>
         {% endfor %}
         </tbody>
     </table>

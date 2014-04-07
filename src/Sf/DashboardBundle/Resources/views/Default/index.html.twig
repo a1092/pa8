@@ -1,0 +1,147 @@
+{% extends '::layout.html.twig' %}
+
+{% block bodytitle %}
+Welcome in board !
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block javascript %}
+{% endblock %}
+
+{% block bodyaction %}
+	
+	
+{% endblock %}
+
+
+
+{% block body %}
+	
+	<div style="width: 800px; border: 1px solid black; margin-left: auto; margin-right: auto;">
+		<form onsubmit="return false;" id="publish-form">
+		<h3>Communiquer !</h3>
+		<button  onclick="$('#sondage-form').css('display', 'none'); $('#publish-type').val('text'); " class="btn btn-default">Texte</button> - <button onclick="$('#sondage-form').css('display', 'block'); $('#publish-type').val('survey');" class="btn btn-default">Sondage</button> <br/>
+			
+			<input type="hidden" id="publish-type" name="publish-type" value="text" />
+			<input type="hidden" id="survey-count" name="survey-count" value="1" />
+			<textarea name="content" id="field-content"></textarea>
+			<button  onclick="publish()" class="btn btn-default">Publier</button>
+			
+			<div id="sondage-form" style="display: none;">
+				<div id="sondage-form-answer" >
+				</div>
+				<button class="btn btn-default" onclick="addAnswer();">Ajouter une réponse</button>
+			</div>
+			
+			
+			<script>
+			
+				function addAnswer() {
+					survey_counter = parseInt($("#survey-count").val());
+					$("#sondage-form-answer").prepend('<div id="surver-answer'+survey_counter+'"> <input type="text" name="survey-answer'+survey_counter+'" placeholder="Reponse '+survey_counter+'" /></div>');
+					$("#survey-count").val(survey_counter+1);
+				}
+			</script>
+		</form>
+	</div>
+	
+	
+	
+	<div style="width: 70%; margin-left: auto; margin-right: auto;" id="publish-content">
+		
+	</div>
+	
+	
+	<script>
+		
+		function publish() {
+			
+			if($("#field-content").val() == "")
+				return;
+				
+			jQuery.ajax({
+			  type: 'POST', // Le type de ma requete
+			  url: '{{ path('sf_dashboard_publish') }}', // L'url vers laquelle la requete sera envoyee
+			  data: $("#publish-form").serialize(), 
+			  
+			  success: function(data, textStatus, jqXHR) {
+					$("#field-content").val("");
+					$("#sondage-form-answer").html();
+					
+			  },
+			  error: function(jqXHR, textStatus, errorThrown) {
+				alert("Erreur lors de la publication de votre contenu.");
+			  }
+			});
+		
+		}
+		
+		lasttime_receive = 0;
+		
+		function loadPost() {
+			
+			jQuery.ajax({
+			  type: 'POST', 
+			  url: '{{ path('sf_dashboard_load') }}', 
+			  data : 'date='+lasttime_receive,
+			  success: function(data, textStatus, jqXHR) {
+					
+					$.each(data, function(i, post) {
+							
+							
+							s = '<div style="border: 1px solid #CCC; background-color: #EEE; padding: 10px; margin-top: 10px; margin-bottom: 10px;">';
+							s += '<div><div class="label label-primary"><i class="glyphicon glyphicon-time"></i> '+post.date+'</div> <div class="label label-primary"><i class="glyphicon glyphicon-user"></i> '+post.publisher+'</div>  <div class="label label-primary"><i class="glyphicon glyphicon-tag"></i> '+post.type+'</div> </div>';
+							s += '<h3>'+post.content+'</h3>';
+							
+							if(post.type == "survey") {
+						//	s += '[SURVEY = ';
+							
+							$.each(post.answers, function(i, answers) {
+								
+								s += '<div style="margin-left: 20px;">';
+								if(post.already_answers == 1) {
+									
+									s += answers.text+"&nbsp;&nbsp;&nbsp;";
+									
+									
+								} else
+									s += answers.text+'&nbsp;&nbsp;<button class="btn btn-xs btn-success" onclick="document.location=\'{{ path('sf_dashboard_answer') }}/'+answers.id+'\'">Repondre</button>&nbsp;&nbsp;&nbsp;';
+								
+								
+								$.each(answers.users, function(i, user) {
+									s += '<div class="label label-default" style="margin-right: 10px;"><i class="glyphicon glyphicon-user"></i> '+user.username+"</div>";
+								});
+								
+								s += "</div>";
+							});
+							
+							//s += ']';
+							//$("#publish-content").prepend(s);
+						} else {
+						
+							//$("#publish-content").prepend('<div>['+post.date+'] <b>'+post.publisher+'</b> :' +post.content+'</div>');
+						}
+						
+						s += '</div>';
+						$("#publish-content").prepend(s);
+					});
+			  },
+			  error: function(jqXHR, textStatus, errorThrown) {
+					
+			  }
+			});
+			
+			lasttime_receive = Math.round(new Date().getTime() / 1000);
+			setTimeout(loadPost,5000)
+		
+		}
+		
+		
+		loadPost();
+	
+	</script>
+	
+{% endblock %}

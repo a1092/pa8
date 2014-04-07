@@ -1,3 +1,7 @@
+sf_dashboard:
+    resource: "@SfDashboardBundle/Resources/config/routing.yml"
+    prefix:   /
+
 sf_chat:
     resource: "@SfChatBundle/Resources/config/routing.yml"
     prefix:   /chat

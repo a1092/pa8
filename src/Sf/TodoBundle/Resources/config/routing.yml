@@ -38,3 +38,12 @@ task_showCalendarPrevious:
 task_showCalendarNext:
     pattern:  /{month}/{year}/next
     defaults: { _controller: "SfTodoBundle:Task:CalendarNext" }
+
+task_status:
+    pattern: /{status}
+    defaults: { _controller:"SfTodoBundle:Task:findStatus" }
+
+task_validate:
+    pattern: /validate/{id}
+    defaults: { _controller:"SfTodoBundle:Task:validate" }
+

@@ -1,0 +1,64 @@
+{% extends visible == '1' 
+    ? 'SfTodoBundle::layout.html.twig' 
+    : 'SfTodoBundle::layoutCalendar.html.twig' %}
+
+{% block body -%}
+	{% if visible == 1 %}
+    <h1>Task creation</h1>
+    {% else %}
+    <h1>Event creation</h1>
+    {% endif %}
+
+    <form action="{{ path('task_new', {'visible' : visible }) }}" method="post">
+    	
+		
+		
+		
+		Nom:
+		{{ form_widget(form.name) }}
+		{{ form_errors(form.name) }}
+		
+		
+		Description:
+		{{ form_widget(form.description) }}
+		{{ form_errors(form.description) }}
+		
+		Statut:
+		{{ form_widget(form.status) }}
+		{{ form_errors(form.status) }}
+		
+		Deadline:
+		{{ form_widget(form.deadline) }}
+		{{ form_errors(form.deadline) }}
+		
+		<script>
+			$( document ).ready(function() {
+				$('#sf_todobundle_task_deadline').datetimepicker({ format:'d/m/Y H:i' });
+			});
+		</script>
+		
+		
+		Users:
+		{{ form_widget(form.users) }}
+		{{ form_errors(form.users) }}
+		
+		{{ form_rest(form) }}
+		
+    	<input type="submit" value="Créer" class="btn btn-primary" />
+  	</form>
+
+  {% if visible == 1 %}
+    <li>
+        <a href="{{ path('task') }}">
+            Back to the list
+        </a>
+    </li>
+    {% else %}
+	<li>
+        <a href="{{ path('task_calendar') }}">
+            Back to the calendar
+        </a>
+    </li>
+	{% endif %}
+
+{% endblock %}

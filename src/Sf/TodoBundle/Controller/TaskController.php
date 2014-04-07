@@ -29,12 +29,49 @@ class TaskController extends Controller
 
         $foyers = $user->getFoyers();
 
-        $entities = $em->getRepository('SfTodoBundle:Task')->getPersonnalList($foyers[$user->getCurrentFoyer()], $user);
+		
+        $entities = $em->getRepository('SfTodoBundle:Task')->getPersonnalList($foyers[$user->getCurrentFoyer()], $user, 'En cours');
 
         return $this->render('SfTodoBundle:Task:index.html.twig', array(
             'entities' => $entities,
         ));
     }
+	
+	
+	public function findStatusAction($status) {
+		$user = $this->container->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $foyers = $user->getFoyers();
+		
+		if($status == 'All')
+			$status = "";
+		
+		
+        $entities = $em->getRepository('SfTodoBundle:Task')->getPersonnalList($foyers[$user->getCurrentFoyer()], $user, $status);
+
+        return $this->render('SfTodoBundle:Task:index.html.twig', array(
+            'entities' => $entities,
+        ));
+	}
+	
+	public function validateAction($id) {
+		$em = $this->getDoctrine()->getManager();
+
+        
+        $entity = $em->getRepository('SfTodoBundle:Task')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Task entity.');
+        }
+		
+		$entity->setStatus('Terminé');
+		$em->persist($entity);
+		$em->flush();
+			
+		return $this->redirect($this->generateUrl('task', array()));
+
+	}
 
     public function calendarAction()
     {
@@ -139,6 +176,15 @@ class TaskController extends Controller
 						'multiple' => 'multiple'
 					),
 					'multiple' => true
+				))
+				->add('status', 'choice', array(
+					'choices'   => array(
+						'En cours' => 'En cours',
+						'Terminé' => 'Terminé',
+					),
+					'attr' => array(
+						'class' => 'form-control',
+					),
 				));
 
     // On récupère la requête
@@ -275,6 +321,15 @@ class TaskController extends Controller
 						'multiple' => 'multiple'
 					),
 					'multiple' => true
+				))
+				->add('status', 'choice', array(
+					'choices'   => array(
+						'En cours' => 'En cours',
+						'Terminé' => 'Terminé',
+					),
+					'attr' => array(
+						'class' => 'form-control',
+					),
 				));
 
         return $this->render('SfTodoBundle:Task:edit.html.twig', array(
@@ -346,6 +401,15 @@ class TaskController extends Controller
 						'multiple' => 'multiple'
 					),
 					'multiple' => true
+				))
+				->add('status', 'choice', array(
+					'choices'   => array(
+						'En cours' => 'En cours',
+						'Terminé' => 'Terminé',
+					),
+					'attr' => array(
+						'class' => 'form-control',
+					),
 				));
 				
 				

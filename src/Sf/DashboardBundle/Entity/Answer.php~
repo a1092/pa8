@@ -1,0 +1,47 @@
+<?php
+
+namespace Sf\DashboardBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Answer
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Sf\DashboardBundle\Entity\AnswerRepository")
+ */
+class Answer
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+	
+	/**
+     *  @ORM\ManyToOne(targetEntity="Sf\DashboardBundle\Entity\Post", cascade={"persist"})
+     */
+    private $post;
+	
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="answer", type="text", nullable=true)
+     */
+    private $answer;
+	
+	
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

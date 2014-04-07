@@ -1,0 +1,20 @@
+sf_dashboard_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: SfDashboardBundle:Default:index }
+
+sf_dashboard_home:
+    pattern:  /home
+    defaults: { _controller: SfDashboardBundle:Default:index }
+
+sf_dashboard_publish:
+    pattern:  /publish
+    defaults: { _controller: SfDashboardBundle:Default:publish }
+
+sf_dashboard_load:
+    pattern:  /load
+    defaults: { _controller: SfDashboardBundle:Default:load }
+
+
+sf_dashboard_answer:
+    pattern:  /answer/{id}
+    defaults: { _controller: SfDashboardBundle:Default:answer, id: null }
