@@ -48,12 +48,12 @@
         <a class="navbar-brand" href="/" title="Kylin" rel="homepage">Kylin</a>
       </div>
       <div class="navbar-collapse collapse navbar-responsive-collapse">
-        <p class="navbar-text">Chez {% if app.user.getFoyers[app.user.getCurrentFoyer()].name != NULL %} {{ app.user.getFoyers[app.user.getCurrentFoyer()].name }} {% else %} toi {% endif %}</p>
+        <p class="navbar-text">Chez <span class="label label-home">{% if app.user.getFoyers[app.user.getCurrentFoyer()].name != NULL %} {{ app.user.getFoyers[app.user.getCurrentFoyer()].name }} {% else %} toi {% endif %}</span></p>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{{ path('options') }}"><span class="glyphicon glyphicon-wrench" title="Options"></span></a></li>
-          <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off" title="Déconnexion"></span></a></li>
+          <li><a href="{{ path('options') }}"><span class="glyphicon glyphicon-wrench btn-menu" data-toggle="tooltip" data-placement="bottom" title="Réglages"></span></a></li>
+          <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off btn-menu" data-toggle="tooltip" data-placement="bottom" title="Déconnexion"></span></a></li>
         </ul>
-        <p class="navbar-text navbar-right"> Bonjour {{ app.user.username }}</p>
+        <p class="navbar-text navbar-right"><img src="{{ asset('img/team/ludo.jpg') }}" alt="Ludovic" class="img-circle navbar-avatar" /> Bonjour <i><a href="#" class="navbar-link">{{ app.user.username }}</a></i> !</p>
       </div>
     </div>
   </div>
@@ -117,6 +117,7 @@
 $(document).ready(function() {
 
     $('.btn-menu').tooltip();
+    $('.menu-reglages').popover(options);
 
 });
 </script>

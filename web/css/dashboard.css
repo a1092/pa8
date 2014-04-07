@@ -44,7 +44,7 @@ body {
   -webkit-transform: scale(1.1);
 }
 
-.navbar-text { color: #FFFFFF; }
+.navbar-text, .navbar-inverse .navbar-text { color: #FFFFFF; }
 
 .navbar-inverse .navbar-brand { color: white; }
 
@@ -53,6 +53,15 @@ body {
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover { background-color: transparent; color: #fbdc68; }
 
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus { background-color: transparent; color: #fbdc68; }
+
+.navbar .glyphicon { font-size: 16px; color: #FFFFFF; background-color: #fbdc68; padding: 5px; border-radius: 2px; }
+
+.navbar-avatar { width: 30px; }
+
+.navbar .label-home { background-color: #fbdc68; color: #ef4545; font-size: 14px; }
+
+.navbar .navbar-link { color: #fbdc68; }
+.navbar .navbar-link:hover { color: white; }
 
 /*
  * Sidebar
