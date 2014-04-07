@@ -40,7 +40,7 @@ body {
 }
 
 .navbar-brand:hover {
-  -webkit-transform: scale(0.9);
+  -webkit-transform: scale(1.1);
 }
 
 .navbar-text { color: #FFFFFF; }
@@ -95,7 +95,6 @@ body {
     color: #fbdc68;
     background: transparent;
     -webkit-transform: scale(1.2);
-    -webkit-transform:rotate(360deg);
   }
 
   .nav-sidebar > li > a.active {
