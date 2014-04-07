@@ -1,7 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block bodytitle %}
-Welcome in board !
+Quoi de neuf ?
 {% endblock %}
 
 {% block head %}
@@ -20,28 +20,44 @@ Welcome in board !
 
 {% block body %}
 	
-	<div style="width: 800px; border: 1px solid black; margin-left: auto; margin-right: auto;">
+	<div style="width: 800px; border: 1px solid black; margin-left: auto; margin-right: auto; background-color: #ef4545; padding: 10px;">
 		<form onsubmit="return false;" id="publish-form">
-		<h3>Communiquer !</h3>
-		<button  onclick="$('#sondage-form').css('display', 'none'); $('#publish-type').val('text'); " class="btn btn-default">Texte</button> - <button onclick="$('#sondage-form').css('display', 'block'); $('#publish-type').val('survey');" class="btn btn-default">Sondage</button> <br/>
+		
+		<input type="hidden" id="publish-type" name="publish-type" value="text" />
+		<input type="hidden" id="survey-count" name="survey-count" value="1" />
 			
-			<input type="hidden" id="publish-type" name="publish-type" value="text" />
-			<input type="hidden" id="survey-count" name="survey-count" value="1" />
-			<textarea name="content" id="field-content"></textarea>
-			<button  onclick="publish()" class="btn btn-default">Publier</button>
-			
-			<div id="sondage-form" style="display: none;">
-				<div id="sondage-form-answer" >
+		<div style="margin-bottom: 20px;">
+			<div style="float: left;">
+				<div class="btn-group">
+					<button  onclick="$('#sondage-form').css('display', 'none'); $('#publish-type').val('text'); " class="btn btn-primary">Texte</button>
+					<button onclick="$('#sondage-form').css('display', 'block'); $('#publish-type').val('survey');" class="btn btn-primary">Sondage</button>
 				</div>
+			</div>
+			<div style="float: right;">
+				<button  onclick="publish()" class="btn btn-success">Publier</button>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+			
+			
+		<textarea name="content" id="field-content" style="width: 100%; height: 100px;"></textarea>
+			
+			
+		<div id="sondage-form" style="display: none; margin-top: 20px; margin-left: 40px;">
+			<div id="sondage-form-answer" style="float: left;">
+			</div>
+			<div style="float: right;">
 				<button class="btn btn-default" onclick="addAnswer();">Ajouter une réponse</button>
 			</div>
+			<div style="clear:both;"></div>
+		</div>
 			
 			
 			<script>
 			
 				function addAnswer() {
 					survey_counter = parseInt($("#survey-count").val());
-					$("#sondage-form-answer").prepend('<div id="surver-answer'+survey_counter+'"> <input type="text" name="survey-answer'+survey_counter+'" placeholder="Reponse '+survey_counter+'" /></div>');
+					$("#sondage-form-answer").prepend('<div id="surver-answer'+survey_counter+'" style="margin-bottom: 10px;"> <input type="text" name="survey-answer'+survey_counter+'" placeholder="Reponse '+survey_counter+'" style="width: 400px;" /></div>');
 					$("#survey-count").val(survey_counter+1);
 				}
 			</script>
@@ -69,8 +85,12 @@ Welcome in board !
 			  
 			  success: function(data, textStatus, jqXHR) {
 					$("#field-content").val("");
-					$("#sondage-form-answer").html();
+					$("#sondage-form-answer").html("");
+					$('#sondage-form').css('display', 'none'); 
+					$('#publish-type').val('text'); 
+					$('#survey-count').val('1'); 
 					
+					//loadPost();
 			  },
 			  error: function(jqXHR, textStatus, errorThrown) {
 				alert("Erreur lors de la publication de votre contenu.");
@@ -135,7 +155,7 @@ Welcome in board !
 			});
 			
 			lasttime_receive = Math.round(new Date().getTime() / 1000);
-			setTimeout(loadPost,5000)
+			setTimeout(loadPost,4000)
 		
 		}
 		

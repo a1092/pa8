@@ -1,11 +1,11 @@
-{% extends 'SfShoppingBundle::layout.html.twig' %}
+{% extends '::layout.html.twig' %}
 
 {% block bodytitle -%}
     Nouvelle liste de courses
 {% endblock %}
 
 {% block bodyaction -%}
-	<a href="{{ path('shopping') }}" class="btn btn-default">Revenir aux listes</a>
+	<a href="{{ path('shoppinglist') }}" class="btn btn-default">Revenir aux listes</a>
 {% endblock %}
 
 {% block body -%}

@@ -53,8 +53,10 @@ Calendrier
 
             {% for entity in entities %}
                 {% if entity.deadline|date('d') == (i-firstday) %}
-                    <div class="margin-top: 10px; label {% if entity.deadline > date() %} label-primary {% else %} label-danger {% endif %}">
+					<div style="margin-top: 10px; ">
+                    <div class="label {% if entity.deadline > date() %} label-primary {% else %} label-danger {% endif %}">
                     [{{ entity.deadline|date('H:i') }}] <a style="color: white; " href="{{ path('task_showEvent', { 'id': entity.id }) }}">{{ entity.name }}</a>
+					</div>
 					</div>
                 {% endif %}
             {% endfor %}
