@@ -1,27 +1,50 @@
 {% extends 'SfShoppingBundle::layout.html.twig' %}
 
+{% block bodytitle -%}
+    Nouvelle liste de courses
+{% endblock %}
+
+{% block bodyaction -%}
+	<a href="{{ path('shopping') }}" class="btn btn-default">Revenir aux listes</a>
+{% endblock %}
+
 {% block body -%}
-<h3>Nouvelle liste de courses</h3>
-<form action="{{ path('shoppinglist_new') }}" method="post" >
+	<form action="{{ path('shoppinglist_new') }}" method="post" role="form">
 
-{{ form_errors(form) }}
+		{{ form_errors(form) }}
 
-<div>
-  {{ form_label(form.name, "Nom") }}
-  {{ form_errors(form.name) }}
-  {{ form_widget(form.name) }}
-</div>
+		<div class="form-group">
+			<label for="name">Nom</label>
+			{{ form_widget(form.name) }}
+			<span class="help-block">{{ form_errors(form.name) }}</span>
+		</div><!-- /.form-group -->    	
+		<div class="form-group">
+			<label for="deadline">Deadline</label>
+			{{ form_widget(form.deadline) }}
+			<span class="help-block">{{ form_errors(form.deadline) }}</span>
+		</div><!-- /.form-group -->
 
-<div>
-  {{ form_label(form.deadline, "Deadline") }}
-  {{ form_errors(form.deadline) }}
-  {{ form_widget(form.deadline) }}
-</div>
+		<script>
+			$( document ).ready(function() {
+				$('#sf_shoppingbundle_shoppinglist_deadline').datetimepicker({ format:'d/m/Y H:i' });
+			});
+		</script>
 
-{{ form_rest(form) }}
+		<div class="form-group">
+			<label for="users">Propriétaire</label>
+			{{ form_widget(form.users) }}
+			<span class="help-block">{{ form_errors(form.users) }}</span>
+		</div><!-- /.form-group -->
 
-<input type="submit" value="Créer" class="btn btn-primary" />
+		<div class="form-group">
+			<label class="checkbox-inline">
+			  {{ form_widget(form.private) }} Privée ?
+			</label>
+			<span class="help-block">{{ form_errors(form.private) }}</span>
+		</div><!-- /.form-group -->
 
-</form>
+		{{ form_rest(form) }}
 
+		<p class="text-center"><button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Créer la liste de courses</button></a>
+	</form>
 {% endblock %}

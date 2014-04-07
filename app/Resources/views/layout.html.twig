@@ -8,7 +8,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-  
+
 	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.multiselect.css') }}" />
 
@@ -59,26 +59,26 @@
   </div>
 
   <nav class="sidebar-mobile" role="navigation">
-    <a href="{{ path('sf_bienvenue') }}" class="active"><span class="glyphicon glyphicon-home" title="Accueil"></span></a>
-    <a href="{{ path('chat') }}"><span class="glyphicon glyphicon-comment" title="Accueil"></span></a>
-    <a href="{{ path('task_calendar') }}"><span class="glyphicon glyphicon-calendar" title="Calendrier"></span></a>
-    <a href="{{ path('task') }}"><span class="glyphicon glyphicon-ok" title="To Do"></span></a>
-    <a href="{{ path('shoppinglist') }}"><span class="glyphicon glyphicon-shopping-cart" title="Liste de courses"></span></a>
-    <a href="{{ path('loan') }}"><span class="glyphicon glyphicon-transfer" title="Prêts"></span></a>
-    <a href="{{ path('contact') }}"><span class="glyphicon glyphicon-phone-alt" title="Contacts"></span></a>
+    <a href="{{ path('sf_bienvenue') }}" class="active"><span class="glyphicon glyphicon-home btn-menu" data-toggle="tooltip" data-placement="top" title="Accueil"></span></a>
+    <a href="{{ path('chat') }}"><span class="glyphicon glyphicon-comment btn-menu" data-toggle="tooltip" data-placement="top" title="Messagerie"></span></a>
+    <a href="{{ path('task_calendar') }}"><span class="glyphicon glyphicon-calendar btn-menu" data-toggle="tooltip" data-placement="top" title="Calendrier"></span></a>
+    <a href="{{ path('task') }}"><span class="glyphicon glyphicon-ok btn-menu" data-toggle="tooltip" data-placement="top" title="To Do"></span></a>
+    <a href="{{ path('shoppinglist') }}"><span class="glyphicon glyphicon-shopping-cart btn-menu" data-toggle="tooltip" data-placement="top" title="Liste de courses"></span></a>
+    <a href="{{ path('loan') }}"><span class="glyphicon glyphicon-transfer btn-menu" data-toggle="tooltip" data-placement="top" title="Prêts"></span></a>
+    <a href="{{ path('contact') }}"><span class="glyphicon glyphicon-phone-alt btn-menu" data-toggle="tooltip" data-placement="top" title="Contacts"></span></a>
   </nav>
 
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-2 col-md-1 sidebar">
         <ul class="nav nav-sidebar">
-          <li><a href="{{ path('sf_bienvenue') }}" class="active"><span class="glyphicon glyphicon-home" title="Accueil"></span></a></li>
-          <li><a href="{{ path('chat') }}"><span class="glyphicon glyphicon-comment" title="Accueil"></span></a></li>
-          <li><a href="{{ path('task_calendar') }}"><span class="glyphicon glyphicon-calendar" title="Calendrier"></span></a></li>
-          <li><a href="{{ path('task') }}"><span class="glyphicon glyphicon-ok" title="To Do"></span></a></li>
-          <li><a href="{{ path('shoppinglist') }}"><span class="glyphicon glyphicon-shopping-cart" title="Liste de courses"></span></a></li>
-          <li><a href="{{ path('loan') }}"><span class="glyphicon glyphicon-transfer" title="Prêts"></span></a></li>
-          <li><a href="{{ path('contact') }}"><span class="glyphicon glyphicon-phone-alt" title="Contacts"></span></a></li>
+          <li><a href="{{ path('sf_bienvenue') }}" class="active"><span class="glyphicon glyphicon-home btn-menu" data-toggle="tooltip" data-placement="right" title="Accueil"></span></a></li>
+          <li><a href="{{ path('chat') }}"><span class="glyphicon glyphicon-comment btn-menu" data-toggle="tooltip" data-placement="right" title="Messagerie"></span></a></li>
+          <li><a href="{{ path('task_calendar') }}"><span class="glyphicon glyphicon-calendar btn-menu" data-toggle="tooltip" data-placement="right" title="Calendrier"></span></a></li>
+          <li><a href="{{ path('task') }}"><span class="glyphicon glyphicon-ok btn-menu" data-toggle="tooltip" data-placement="right" title="To Do"></span></a></li>
+          <li><a href="{{ path('shoppinglist') }}"><span class="glyphicon glyphicon-shopping-cart btn-menu" data-toggle="tooltip" data-placement="right" title="Liste de courses"></span></a></li>
+          <li><a href="{{ path('loan') }}"><span class="glyphicon glyphicon-transfer btn-menu" data-toggle="tooltip" data-placement="right" title="Prêts"></span></a></li>
+          <li><a href="{{ path('contact') }}"><span class="glyphicon glyphicon-phone-alt btn-menu" data-toggle="tooltip" data-placement="right" title="Contacts"></span></a></li>
         </ul>
       </div>
 
@@ -89,8 +89,7 @@
 					{% block bodyaction %}
 					{% endblock %}
 				</div>
-			</h1>
-			
+			</h1>	
 		</div>
 		<div id="content" class="container">
 		  {% block body %}
@@ -110,10 +109,17 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.multiselect.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.datetimepicker.js') }}"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+    $('.btn-menu').tooltip();
+
+});
+</script>
 
 <script>
 		chatcounter = 0;

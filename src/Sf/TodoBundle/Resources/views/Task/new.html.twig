@@ -2,30 +2,42 @@
     ? 'SfTodoBundle::layout.html.twig' 
     : 'SfTodoBundle::layoutCalendar.html.twig' %}
 
-{% block body -%}
+{% block bodytitle -%}
 	{% if visible == 1 %}
-    <h1>Task creation</h1>
+    Nouvelle tâche
     {% else %}
-    <h1>Event creation</h1>
+    Nouvel événement
     {% endif %}
+{% endblock %}
 
-    <form action="{{ path('task_new', {'visible' : visible }) }}" method="post">
-    	
-		
-		
-		
-		Nom:
-		{{ form_widget(form.name) }}
-		{{ form_errors(form.name) }}
-		
-		
-		Description:
-		{{ form_widget(form.description) }}
-		{{ form_errors(form.description) }}
-		
-		Deadline:
-		{{ form_widget(form.deadline) }}
-		{{ form_errors(form.deadline) }}
+{% block bodyaction -%}
+	{% if visible == 1 %}
+		<a href="{{ path('task') }}" class="btn btn-default">Revenir à la liste</a>
+	{% else %}
+		<a href="{{ path('task_calendar') }}" class="btn btn-default">Revenir au calendrier</a>
+	{% endif %}	
+{% endblock %}
+
+{% block body -%}
+    <form action="{{ path('task_new', {'visible' : visible }) }}" method="post" role="form">
+
+    {{ form_errors(form) }}
+    
+    	<div class="form-group">
+    		<label for="name">Nom</label>
+    		{{ form_widget(form.name) }}
+    		<span class="help-block">{{ form_errors(form.name) }}</span>
+    	</div><!-- /.form-group -->    	
+    	<div class="form-group">
+    		<label for="description">Description</label>
+    		{{ form_widget(form.description) }}
+    		<span class="help-block">{{ form_errors(form.description) }}</span>
+    	</div><!-- /.form-group -->
+    	<div class="form-group">
+    		<label for="deadline">Deadline</label>
+    		{{ form_widget(form.deadline) }}
+    		<span class="help-block">{{ form_errors(form.deadline) }}</span>
+    	</div><!-- /.form-group -->
 		
 		<script>
 			$( document ).ready(function() {
@@ -33,28 +45,14 @@
 			});
 		</script>
 		
-		
-		Users:
-		{{ form_widget(form.users) }}
-		{{ form_errors(form.users) }}
+    	<div class="form-group">
+    		<label for="users">Attribuer à</label>
+    		{{ form_widget(form.users) }}
+    		<span class="help-block">{{ form_errors(form.users) }}</span>
+    	</div><!-- /.form-group -->
 		
 		{{ form_rest(form) }}
 		
-    	<input type="submit" value="Créer" class="btn btn-primary" />
+    	<p class="text-center"><button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter</button></a>
   	</form>
-
-  {% if visible == 1 %}
-    <li>
-        <a href="{{ path('task') }}">
-            Back to the list
-        </a>
-    </li>
-    {% else %}
-	<li>
-        <a href="{{ path('task_calendar') }}">
-            Back to the calendar
-        </a>
-    </li>
-	{% endif %}
-
 {% endblock %}

@@ -1,63 +1,61 @@
 {% extends 'SfContactBundle::layout.html.twig' %}
 
+{% block bodytitle -%}
+    Nouveau contact
+{% endblock %}
+
+{% block bodyaction -%}
+    <a href="{{ path('contact') }}" class="btn btn-default">Revenir à la liste</a>
+{% endblock %}
+
 {% block body -%}
+  <form action="{{ path('contact_new') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_errors(form) }}
 
-<h3>Nouveau contact</h3>
-<form action="{{ path('contact_new') }}" method="post" {{ form_enctype(form) }}>
+    <div class="form-group">
+        <label for="name">Nom</label>
+        {{ form_widget(form.name) }}
+        <span class="help-block">{{ form_errors(form.name) }}</span>
+    </div><!-- /.form-group -->   
+    <div class="form-group">
+        <label for="category">Catégorie</label>
+        {{ form_widget(form.category) }}
+        <span class="help-block">{{ form_errors(form.category) }}</span>
+    </div><!-- /.form-group -->   
+    <div class="form-group">
+        <label for="email">E-mail</label>
+        {{ form_widget(form.email) }}
+        <span class="help-block">{{ form_errors(form.email) }}</span>
+    </div><!-- /.form-group --> 
+    <div class="form-group">
+        <label for="adress">Adresse</label>
+        {{ form_widget(form.address) }}
+        <span class="help-block">{{ form_errors(form.address) }}</span>
+    </div><!-- /.form-group --> 
+    <div class="form-group">
+        <label for="homePhoneNumber">Téléphone (maison)</label>
+        {{ form_widget(form.homePhoneNumber) }}
+        <span class="help-block">{{ form_errors(form.homePhoneNumber) }}</span>
+    </div><!-- /.form-group --> 
+    <div class="form-group">
+        <label for="mobilePhoneNumber">Téléphone (mobile)</label>
+        {{ form_widget(form.mobilePhoneNumber) }}
+        <span class="help-block">{{ form_errors(form.mobilePhoneNumber) }}</span>
+    </div><!-- /.form-group --> 
+    <div class="form-group">
+        <label for="otherPhoneNumber">Téléphone (autre)</label>
+        {{ form_widget(form.otherPhoneNumber) }}
+        <span class="help-block">{{ form_errors(form.otherPhoneNumber) }}</span>
+    </div><!-- /.form-group --> 
+    <div class="form-group">
+        <label for="remark">Remarque</label>
+        {{ form_widget(form.remark) }}
+        <span class="help-block">{{ form_errors(form.remark) }}</span>
+    </div><!-- /.form-group --> 
 
-{{ form_errors(form) }}
+    {{ form_rest(form) }}
 
-<div>
-  {{ form_label(form.name, "Nom") }}
-  {{ form_errors(form.name) }}
-  {{ form_widget(form.name) }}
-</div>
+    <p class="text-center"><button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter le contact</button></a>
 
-<div>
-  {{ form_label(form.category, "Catégorie") }}
-  {{ form_errors(form.category) }}
-  {{ form_widget(form.category) }}
-</div>
-
-<div>
-  {{ form_label(form.email, "E-mail") }}
-  {{ form_errors(form.email) }}
-  {{ form_widget(form.email) }}
-</div>
-
-<div>
-  {{ form_label(form.address, "Adresse") }}
-  {{ form_errors(form.address) }}
-  {{ form_widget(form.address) }}
-</div>
-
-<div>
-  {{ form_label(form.homePhoneNumber, "Téléphone maison") }}
-  {{ form_errors(form.homePhoneNumber) }}
-  {{ form_widget(form.homePhoneNumber) }}
-</div>
-
-<div>
-  {{ form_label(form.mobilePhoneNumber, "Téléphone mobile") }}
-  {{ form_errors(form.mobilePhoneNumber) }}
-  {{ form_widget(form.mobilePhoneNumber) }}
-</div>
-
-<div>
-  {{ form_label(form.otherPhoneNumber, "Téléphone autre") }}
-  {{ form_errors(form.otherPhoneNumber) }}
-  {{ form_widget(form.otherPhoneNumber) }}
-</div>
-
-<div>
-  {{ form_label(form.remark, "Remarque") }}
-  {{ form_errors(form.remark) }}
-  {{ form_widget(form.remark) }}
-</div>
-{{ form_rest(form) }}
-
-<input type="submit" value="Créer" class="btn btn-primary" />
-
-</form>
-
+  </form>
 {% endblock %}

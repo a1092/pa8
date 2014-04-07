@@ -1,17 +1,37 @@
 {% extends 'SfLoanBundle::layout.html.twig' %}
 
+{% block bodytitle -%}
+    Nouveau prêt
+{% endblock %}
+
+{% block bodyaction -%}
+    <a href="{{ path('loan') }}" class="btn btn-default">Revenir à la liste</a>
+{% endblock %}
+
 {% block body -%}
-    <h1>Loan creation</h1>
+    <form action="{{ path('loan_new') }}" method="post" role="form">
 
-    <form action="{{ path('loan_new') }}" method="post">
-    	{{ form_rest(form) }}
-    	<input type="submit" value="Créer" class="btn btn-primary" />
-  	</form>
+        {{ form_errors(form) }}
 
-    <li>
-        <a href="{{ path('loan') }}">
-            Back to the list
-        </a>
-    </li>
+        <div class="form-group">
+            <label for="lender">Prêté par</label>
+            {{ form_widget(form.lender) }}
+            <span class="help-block">{{ form_errors(form.lender) }}</span>
+        </div><!-- /.form-group -->     
+        <div class="form-group">
+            <label for="borrower">Prêté à</label>
+            {{ form_widget(form.borrower) }}
+            <span class="help-block">{{ form_errors(form.borrower) }}</span>
+        </div><!-- /.form-group -->
 
+        <div class="form-group">
+            <label for="item">Objet</label>
+            {{ form_widget(form.item) }}
+            <span class="help-block">{{ form_errors(form.item) }}</span>
+        </div><!-- /.form-group -->
+
+        {{ form_rest(form) }}
+
+        <p class="text-center"><button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter le prêt</button></a>
+    </form>
 {% endblock %}

@@ -4,6 +4,7 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
+  z-index: 900;
   padding-top: 84px;
   padding-bottom: 60px;
 }
@@ -57,6 +58,8 @@ body {
  * Sidebar
  */
 
+.tooltip { z-index: 9999; }
+
 /* Hide for mobile */
 .sidebar {
   display: none;
@@ -94,7 +97,6 @@ body {
   .nav-sidebar > li > a:hover {
     color: #fbdc68;
     background: transparent;
-    -webkit-transform: scale(1.2);
   }
 
   .nav-sidebar > li > a.active {
@@ -138,6 +140,7 @@ body {
 
 .main {
   padding: 20px;
+  z-index: 200;
 }
 @media (min-width: 768px) {
   .main {
