@@ -40,7 +40,7 @@
           <div class="panel-body">
             <h2>Créer un nouveau foyer</h2>
             <p class="bg-danger">{{ form_errors(form) }}</p>
-            <h3><small>Mon compte</small></h3>
+            <h3>Mon compte</h3>
 			<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} class="form-horizontal" method="POST" class="fos_user_registration_register"role="form">
               <div class="form-group">
                 <label for="username" class="col-sm-3 control-label">Pseudo</label>
@@ -105,7 +105,7 @@
                   <span class="help-block">{{ form_errors(form.color) }}</span>
                 </div>
               </div><!-- /.form-group -->
-              <h3><small>Mon foyer</small></h3>
+              <h3>Mon foyer</h3>
               <div class="form-group">
                 <label for="name-foyer" class="col-sm-3 control-label">Nom</label>
                 <div class="col-sm-9">

@@ -132,7 +132,6 @@ footer a:hover { color: #fbdc68; }
 	background-color: #ef4545;
 	padding: 50px 0;
 	text-align: center;
-	color: #FFFFFF;
 }
 
 .connexion-form {
@@ -141,6 +140,11 @@ footer a:hover { color: #fbdc68; }
 
 .connexion h2 {
 	color: #1e1e1e;
+}
+
+.connexion h3 {
+	background-color: #ef4545;
+	color: white;
 }
 
 .btn-connexion {

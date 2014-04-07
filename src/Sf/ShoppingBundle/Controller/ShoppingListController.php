@@ -72,7 +72,8 @@ class ShoppingListController extends Controller
         $entity = new ShoppingList;
         // On crée le formulaire grâce à l'ArticleType
         $user = $this->container->get('security.context')->getToken()->getUser();
-        $foyers = $user->getFoyers();
+       
+		$foyers = $user->getFoyers();
         $form = $this->createForm(new ShoppingListType($foyers[$user->getCurrentFoyer()]), $entity);
 
         // On récupère la requête
