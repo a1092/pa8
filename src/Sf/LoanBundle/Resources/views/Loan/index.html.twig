@@ -31,7 +31,7 @@
                 <td>{{ entity.item }}</td>
                 <td>{{ entity.borrower }}</td>
                 <td>
-					<div class="button-group">
+					<div class="btn-group">
 						<button class="btn btn-small" onclick="document.location='{{ path('loan_show', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-eye-open"></i></button>
 						<button class="btn btn-small" onclick="document.location='{{ path('loan_edit', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-edit"></i></button>
 					</div>
