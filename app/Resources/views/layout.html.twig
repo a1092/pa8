@@ -29,7 +29,14 @@
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
   <style id="holderjs-style" type="text/css"></style>
-  
+  <style>
+	.popover {
+		z-index: 999999;
+	}
+	.tooltip {
+		z-index: 999999;
+	}
+  </style>
   {% block head %}
 	{% endblock %}
 					
@@ -50,7 +57,16 @@
       <div class="navbar-collapse collapse navbar-responsive-collapse">
         <p class="navbar-text">Chez <span class="label label-home">{% if app.user.getFoyers[app.user.getCurrentFoyer()].name != NULL %} {{ app.user.getFoyers[app.user.getCurrentFoyer()].name }} {% else %} toi {% endif %}</span></p>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{{ path('options') }}"><span class="glyphicon glyphicon-wrench btn-menu" data-toggle="tooltip" data-placement="bottom" title="Réglages"></span></a></li>
+		  <li><a href="#" id="foyer-team" data-container="body" data-toggle="popover" data-placement="bottom"><i class="glyphicon glyphicon-globe"></i></a></li>
+			<script>
+				$(function (){
+				 $("#foyer-team").popover({
+					container: 'body',
+					content: '{% for user in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %} {{ user.firstname }} {{ user.lastname}} ({{user.username}}) \n{% endfor %}'
+				});
+			  });
+			</script>
+		  <li><a href="{{ path('options') }}"><span class="glyphicon glyphicon-wrench btn-menu" data-toggle="tooltip" data-placement="bottom" title="Réglages"></span></a></li>
           <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off btn-menu" data-toggle="tooltip" data-placement="bottom" title="Déconnexion"></span></a></li>
         </ul>
         <p class="navbar-text navbar-right"><img src="{{ asset('img/avatar-default.png') }}" alt="Ludovic" class="img-circle navbar-avatar" /> Bonjour <i><a href="#" class="navbar-link">{{ app.user.username }}</a></i> !</p>

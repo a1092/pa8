@@ -50,7 +50,7 @@
             <td>{{ entity.homePhoneNumber }}</td>
             <td>{{ entity.mobilePhoneNumber }}</td>
             <td>
-				<div class="button-group">
+				<div class="btn-group">
 					<button class="btn btn-small" onclick="document.location='{{ path('contact_show', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-eye-open"></i></button>
 					<button class="btn btn-small" onclick="document.location='{{ path('contact_edit', { 'id': entity.id }) }}'"><i class="glyphicon glyphicon-edit"></i></button>
 				</div>
