@@ -62,7 +62,8 @@
 				$(function (){
 				 $("#foyer-team").popover({
 					container: 'body',
-					content: '{% for user in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %} {{ user.firstname }} {{ user.lastname}} ({{user.username}}) \n{% endfor %}'
+					html: true,
+					content: '{% for user in app.user.getFoyers[app.user.getCurrentFoyer()].getUsers() %} <i class="glyphicon glyphicon-user"></i> {{ user.firstname }} {{ user.lastname}} ({{user.username}}) <br/> {% endfor %}'
 				});
 			  });
 			</script>
